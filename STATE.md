@@ -21,6 +21,13 @@ measurement protocol is written.
 
 **Nothing has been optimised yet, and nothing has been measured yet.**
 
+## Working rules
+
+- **Agents do not commit.** Barak reviews and commits. An agent may draft a commit
+  message and put it in its report, but never runs `git commit` or `git push`.
+- One hypothesis per branch; other ideas go to `BACKLOG.md`.
+- Correctness gate before any timing number.
+
 ## The immediate next step
 
 Measure v0, by hand, following `docs/MEASUREMENT.md`:
