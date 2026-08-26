@@ -1,0 +1,31 @@
+# build outputs - large, reproducible, machine-specific
+build/
+db/
+incremental_db/
+qsyn_output_files/
+output_files/
+prog_files/
+*.sof
+*.svf
+*.DAT
+*.rpt
+*.qpf
+*.qsf
+*.tgz
+*.elf
+*.s19
+*_elf_read.txt
+instr_loadmem.txt
+data_loadmem.txt
+
+# simulator litter
+xcelium.d/
+INCA_libs/
+waves.shm/
+*.vcd
+xrun.log
+.simvision/
+
+# os
+.DS_Store
+Thumbs.db
