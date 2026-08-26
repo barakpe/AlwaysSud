@@ -1,0 +1,13 @@
+# Force LF everywhere, in the repo AND in both working trees.
+#
+# This repo lives on a Windows laptop and a Linux cloud machine at the same time.
+# Shell scripts with CRLF fail in bash; the board .txt files are parsed by
+# load_hex_file and we already had to hand-normalise them once. Settle it here
+# rather than rediscovering it per file.
+* text=auto eol=lf
+
+# Binaries, never touched
+*.sof binary
+*.svf binary
+*.png binary
+*.pdf binary
