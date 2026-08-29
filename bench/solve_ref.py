@@ -121,13 +121,34 @@ def cmd_gen():
         print("%-10s %s  md5=%s" % (n, s[:27] + "...", hashlib.md5(s.encode()).hexdigest()[:12]))
 
 
+# The app's banner changed between reference versions:
+#   older: "=== Solved ==="
+#   newer: "=== Application reported Solved ==="   (ex3.1 checker update, Aug 2026)
+# Match either, and anchor on the last one in the file so a board echoed earlier
+# in the log can never be mistaken for the answer.
+SOLVED_BANNER = re.compile(r"===\s*(?:Application reported\s+)?Solved\s*===")
+
+
 def extract(text):
-    """Pull the 81 solved digits out of app stdout (everything after '=== Solved ===')."""
-    if "=== Solved ===" not in text:
+    """Pull the 81 solved digits out of app stdout."""
+    hits = list(SOLVED_BANNER.finditer(text))
+    if not hits:
         return None
-    tail = text.split("=== Solved ===", 1)[1]
+    tail = text[hits[-1].end():]
+    # Stop at the next banner/blank-line block so a later report cannot leak in.
+    tail = tail.split("Solved board")[0]
     digits = re.findall(r"\d", tail)
-    return "".join(digits[:81]) if len(digits) >= 81 else None
+    # Cells print with %d, so a corrupt nibble >= 10 emits TWO characters and shifts
+    # everything after it. Demand exactly 81 rather than silently truncating.
+    if len(digits) != 81:
+        return None
+    return "".join(digits)
+
+
+def app_checker_verdict(text):
+    """The app now runs its own checker. Report what it said, if anything."""
+    m = re.search(r"Solved board (PASSED|FAILED) final checker", text)
+    return m.group(1) if m else None
 
 
 def cmd_check(name, path):
@@ -138,7 +159,12 @@ def cmd_check(name, path):
     if got != want:
         print("FAIL %-10s grid differs from golden" % name)
         print("  want %s" % want); print("  got  %s" % got); return 1
-    print("PASS %-10s md5=%s" % (name, hashlib.md5(got.encode()).hexdigest()[:12]))
+    verdict = app_checker_verdict(open(path, errors="replace").read())
+    extra = "" if verdict is None else "  app-checker=%s" % verdict
+    print("PASS %-10s md5=%s%s" % (name, hashlib.md5(got.encode()).hexdigest()[:12], extra))
+    if verdict == "FAILED":
+        print("  NOTE: our golden agrees but the app's own checker said FAILED - investigate")
+        return 1
     return 0
 
 
