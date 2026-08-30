@@ -53,6 +53,35 @@ bug immediately, which is exactly why it does not share code with the hardware.
 
 ---
 
-## v0 - pending
+## v0 - 2026-08-31 - measured, passing, and a correction to my own analysis
 
-Baseline measurement not yet taken. See `STATE.md`.
+**Result:** all three simulatable boards PASS, golden gate and the app's own checker.
+363 / 483 / 56,883 cycles. Standalone 9,286 LEs, 1,867 registers, 0 memory bits,
+87.02 MHz. Full system 20,560 LEs, 55.29 MHz, 79% memory bits, 1.9 ns of slack against
+the 50 MHz requirement. Bitstream built.
+
+**hard1 is 128,760,553 cycles**, not the ~50M the assignment estimates - so v0 is 1.48 s
+and every ratio previously recorded was understated by 2.6x.
+
+**Verdict:** this is the baseline. Tag it.
+
+**Surprise, and it is mine.** The propagation floor I used to justify rebuilding the whole
+ladder had a bug in exactly the place the roadmap's own risk list warns about. The model
+placed all naked singles in a round at once without checking whether two cells in the same
+unit were being forced to the *same digit* - a contradiction. It built illegal grids, never
+validated the final board, and returned one. hard1 naked-only was reported as 91 rounds /
+14 guesses; corrected it is **279 / 68**, which is what the cloud agent got independently.
+
+What should have caught it was not arithmetic but logic: naked-only cannot need fewer
+guesses than the strictly stronger naked+hidden. The number was internally inconsistent and
+I did not check it against itself.
+
+The conclusion survives - three of four boards still need zero search, and with pairs and
+box-line even hard1 does - but it survives on the agent's numbers, not mine. Lesson
+recorded: a model that produces a plan needs the same correctness gate as the hardware.
+
+**Also corrected:** `claude_mrv`'s 5.52 MHz is not the popcounts. It is a minimum
+reduction written as a serial accumulator - 303 of 334 cells on the critical path - where a
+tree would be depth 7. The fix is a rewrite, not pipelining, and costs zero cycles. The
+`v3-pipe` rung was deleted; so was `v5-clock`, since `-mhz` cannot move the standalone
+F_max the score is computed from.

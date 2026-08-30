@@ -2,131 +2,134 @@
 
 **Read this first.** Updated at the end of every working session.
 
-**Last updated:** 2026-08-29
+**Last updated:** 2026-08-31
 
 ## Right now
 
 | | |
 |---|---|
-| Current tag on `main` | *(none - v0 measured but on pre-fix RTL, needs redo)* |
+| `main` | `5c71b72`, pushed. v0 measured and **PASSING**, not yet tagged |
 | Branch in flight | *(none)* |
-| Next action | **Re-measure v0 on the fixed RTL**, then start `feat/v1-mrv` |
-| Best `hard1` result | *(none yet - hardware only)* |
+| **Next action** | **Get `hard1` on the FPGA.** The `.sof` is built and waiting on the cloud Desktop |
+| Best `hard1` result | *(none - hardware only, and nobody has it)* |
 
 ## Working rules
 
-- **Agents do not commit.** Barak reviews and commits. An agent may draft a commit
-  message and put it in its report, but never runs `git commit` or `git push`.
+- **Agents do not commit.** Barak reviews and commits.
 - One hypothesis per branch; other ideas go to `BACKLOG.md`.
 - Correctness gate before any timing number.
 
 ## THE SCORE
 
-From `docs/Project_and_Hackathon_Assignment.pdf`:
-
 ```
-solve_time_us = cycle_count / max_freq_mhz
+solve_time_us = cycle_count / max_freq_mhz        (standalone qsyn_xlr F_max)
 ```
 
-`max_freq_mhz` comes from **standalone `qsyn_xlr`**, explicitly not from `comp_fpga`,
-"to neutralize the platform infrastructure speed bottleneck."
+Standalone, explicitly, "to neutralize the platform infrastructure speed bottleneck".
+Two consequences, the second only established on 08-31:
 
-> **F_max is a first-class target, worth exactly as much as cycle count.** There is no
-> platform ceiling in the score. Halving cycles and doubling frequency are worth the same.
+- F_max is worth exactly as much as cycle count.
+- **`comp_fpga -mhz` is worth precisely zero for the score.** It moves the system clock,
+  which the formula does not use. The old `v5-clock` rung has been deleted, not demoted.
 
-## Where v0 actually landed
+## v0 - measured, verified, PASSING
 
-Cloud session 2026-08-26, at commit `28c7d69` - **before** the store fix. Full report:
-`logs/v0/REPORT.md`.
+Cloud, 2026-08-31, on the fixed RTL. Full report: `logs/v0_verified/REPORT.md`.
 
-| | measured |
+| | |
 |---|---|
-| cycles, easy1 / 20blanks / 51blanks | **363 / 483 / 56,883** (identical across two runs) |
-| LEs | **9,393** synthesis, **8,967** fitter (18% of device) |
-| registers | 1,867 |
-| **memory bits** | **0** |
-| **F_max standalone** | **89.46 MHz** |
-| errors | 0 |
-| correctness | **FAIL on all three** - the store bug, now fixed |
+| correctness | **PASS on all three boards** - our golden gate *and* the app's own checker |
+| cycles (easy1 / 20blanks / 51blanks) | **363 / 483 / 56,883** |
+| standalone | **9,286 LEs · 1,867 regs · 0 mem bits · 87.02 MHz** |
+| full system | 20,560 LEs · **55.29 MHz** · 79% memory bits · meets 50 MHz with 1.9 ns slack |
+| bitstream | **built** - `.sof` + `.svf` on the cloud Desktop, never downloaded |
 
-**The regime change is confirmed.** 51blanks went from 12,247,683 cycles under
-`sudx_basic` to **56,883** - a 215x reduction, inside the 150-300x that was predicted.
-On the scoring formula: 86,038 us -> **636 us**, about 135x better.
+**hard1 is 128,760,553 cycles, not the ~50M the assignment estimates.** From a validated
+FSM model. So v0 on hard1 is **1.48 s**, and every improvement ratio previously written
+here was understated by 2.6x.
 
-The cycle numbers are believed still valid after the fix (the store bug corrupts what is
-written, not how many bursts run) but **must be reconfirmed** before they become the v0
-row in `RESULTS.md`.
+> **Measurement caveat.** The timer split added a fixed **+155 cycle** artifact to all
+> three boards; subtracting it reproduces 363 / 483 / 56,883 exactly. Which of the two
+> windows absorbs the 155 is not yet known - there is a one-line experiment in the report.
+> Until that is settled, compare split numbers only against other split numbers.
 
-## THE PLAN CHANGED - MRV, not the incremental ladder
+## The propagation floor - corrected
 
-The earlier ladder was `v1 fastfind -> v2 masks -> v3 singles -> v4 mrv`: improve the
-scan solver step by step and arrive at MRV eventually. **The numbers say go straight
-there.** On `hard1`, using the assignment's own figures and our measured F_max:
+I had this wrong and the correction matters.
 
-| | cycles | F_max | **solve time** | vs v0 |
+| board | blanks | naked only | naked+hidden | + pairs & box-line |
 |---|---|---|---|---|
-| v0 `sudx_scan` (ours) | ~50,000,000 | 89.46 MHz | ~559,000 us | - |
-| scan + masks + singles (old ladder, est.) | ~10,000,000 | ~100 MHz | ~100,000 us | ~6x |
-| **`claude_mrv` as-is** | ~1,000 | ~5 MHz | **~200 us** | **~2,800x** |
-| **MRV pipelined** | ~3,000 | ~50 MHz | **~60 us** | **~9,300x** |
+| easy1 | 3 | 3 rounds, 0 guesses | 2, 0 | - |
+| 20blanks | 20 | 3, 0 | 2, 0 | - |
+| 51blanks | 51 | 11, 0 | 6, 0 | - |
+| **hard1** | 64 | **279, 68** | **65, 15** | **13 rounds, ZERO guesses** |
 
-The whole old ladder is worth ~6x. Integrating MRV is worth ~2,800x. It was optimising
-the wrong solver.
+**My earlier hard1 naked-only figure (91 rounds, 14 guesses) was wrong.** The model placed
+every naked single in a round simultaneously without checking whether two cells in the
+same unit were being forced to the *same digit* - which is a contradiction. It therefore
+built illegal grids and, because it never validated the final board, returned one. Adding
+the conflict check gives 279/68, matching the cloud agent independently.
 
-### The revised ladder
+The tell was logical, not numerical: naked-only cannot need *fewer* guesses than the
+strictly stronger naked+hidden. That is exactly the trap named in the roadmap's own risk
+list - and then not handled in the model that produced the roadmap's numbers.
+
+**But the floor is far lower than even the corrected numbers suggest.** With naked pairs
+and box-line reduction, **hard1 needs 13 rounds and no search at all.** Every board
+becomes pure propagation. At ~2 cycles per round that is ~26 cycles against v0's
+128,760,553.
+
+## The ladder - revised 08-31
 
 | branch | what | why |
 |---|---|---|
-| **v0-fix** | re-measure on the fixed RTL | the baseline every claim is measured against |
-| **v1-mrv** | integrate `claude_mrv` as our solver | ~2,800x. The assignment explicitly suggests this path |
-| **v2-pipeline** | break MRV's combinational selection path across cycles | **the differentiator.** Everyone integrates MRV; few will fix its 5 MHz |
-| **v3-masks** | incremental candidate masks | buys cycles *and* F_max - see below |
-| **v4-clock** | `comp_fpga -mhz <n>` | no RTL change; the flag exists |
+| **v0** | tag what is measured and passing | the reference point |
+| **v1-mrv** | integrate `claude_mrv` **and replace its serial min-chain with a min-tree** | see below - the frequency fix is nearly free |
+| **v2-prop** | propagation: naked **and hidden** singles on the mask infrastructure | hidden is 4.3x on its own and belongs here, not in a later rung |
+| **v3-pairs** | naked pairs + box-line reduction | takes hard1 to zero guesses |
+| ~~v3-pipe~~ | **deleted** | the frequency problem is not a pipelining problem |
+| ~~v5-clock~~ | **deleted** | `-mhz` cannot move the standalone F_max the score uses |
 
-## What the v0 report unlocked
+### Why `claude_mrv` is slow, and why that is good news
 
-Four findings that were open risks and are now settled:
+Measured standalone: **5.52 MHz** - the assignment's figure is right. But the cause is not
+what I assumed. It is **not** the 81 popcounts (8 cells on the critical path). It is the
+`best_cnt` minimum reduction, **written as a serial accumulator chain instead of a tree**:
+**303 of the 334 cells** on the critical path.
 
-1. **Memory bits = 0 everywhere.** Neither `grid` nor `stack` became block RAM; both are
-   in flip-flops. This was the risk that could have sunk MRV - RAM has two ports and MRV
-   must read all 81 cells every cycle. **Green light.**
-2. **The critical path is one `is_valid`** - column pointer, box-start lookup, 81-way
-   variable-index grid read, compare, reduce, into the grid write enable. 14.76 ns,
-   **~55% of it routing**. Crucially: testing all nine digits in parallel *replicates*
-   this path, it does not *lengthen* it. Parallelism costs area and routing, not depth.
-3. **Masks buy F_max as well as cycles.** The dominant hop is the variable-index grid
-   read (3.2 ns of mux + routing). A bitmask representation removes it. On a metric that
-   divides by F_max, that is a double win.
-4. **The wrapper costs 5,819 ALUTs against the solver's 2,357** - 69% of the
-   combinational logic is LOAD/STORE burst plumbing, not the search. If area ever binds,
-   take it from there first.
+A minimum over 81 values is a *tree* - depth log2(81) = 7 - and someone wrote it as a
+loop, giving depth 81. So the fix is a rewrite of one reduction, worth roughly
+**5.5 -> 28 MHz at zero cycle cost**. That is not pipelining, and pipelining would have
+been strictly worse: it buys frequency by *adding* cycles, on a metric that divides one by
+the other.
 
-Plus: **13 spare host registers** (only 3 of 16 used), so counters are cheap and need no
-bit-packing; and **`comp_fpga -mhz <n>`** exists, so the clock rung needs no RTL change.
+### Backtrack undo - resolved, with a condition
 
-## Measurement problems to fix first
+An **81-bit placed-mask per branch level** is sufficient to undo a round. At 81 levels that
+is ~4 Kbit(*, comfortable in flops - not the ~59,000 bits I feared.
 
-- **The timer measures the wrong thing.** `report_task_performance` wraps
-  `xlr_setup()` **and** `xlr_solver()`, so it includes the board LOAD and both polling
-  handshakes. Fixed overhead is ~340 cycles - on `easy1` that is **94% of the number**.
-  Split it before anyone reads an easy-board delta as a solver improvement.
-- **Record both LE numbers** (synthesis 9,393, fitter 8,967) and say which the 20,000
-  limit applies to.
-- **Stop quoting `*.sta.summary` slack.** `$QSYN/basic.sdc` is absent from the shared
-  install, so every slack figure is meaningless. Only the Fmax panel is real.
-- **`bench/measure_*.sh` have never run and cannot** - every k5 command is an alias or a
-  shell function, invisible inside a plain script. The cloud skill solves this; the
-  scripts should be deleted or rewritten around it.
-- **`.gitignore` swallows the archived Quartus reports** (`*.rpt` at any depth). Either
-  negate for `logs/**` or stop claiming they are kept as evidence.
+**The condition:** that only holds while candidate masks are *recomputed* from the grid
+each round rather than stored and incrementally updated. A future "store the masks in
+registers" optimisation would destroy this property and bring the 59,000-bit problem back.
+Anything that touches mask storage must revisit this.
 
-## Hackathon constraint - and MRV happens to help
+## Risks
 
-9 September; a variant is revealed a few hours to two days before.
+1. **The biggest one, and it is not technical.** Roughly a third of the grade is
+   "demonstrated on FPGA" - baseline, project, and the hackathon variant - and **this
+   design has never been on the board.** Week 2's hardware runs were `sudx_basic`, a
+   different accelerator. The bitstream exists and is waiting. Program it this week.
+2. **The correctness gate is variant-blind.** `bench/solve_ref.py` hardcodes standard
+   rows/columns/boxes. On 9 September a *variant* arrives, and the gate will happily pass a
+   solver that ignores the new constraint. Rebuild it on an explicit **units table** so a
+   variant is a data change - and that same table is the right shape for the RTL.
+3. F_max is a budget: 87.02 MHz standalone today, and the system needs ~56.
+4. System memory bits are at **79%**. That is the real device ceiling, not logic.
+5. `51blanks` is the correctness gate that matters; easy1 and 20blanks never backtrack.
 
-> Keep the constraint check modular. Anything encoding "conflicts if same row, column or
-> box" belongs in one place, so a variant (diagonal, killer, hyper) touches only that.
+## Hackathon - 9 September
 
-Note this now points the same way as performance: **a mask-based MRV design is both the
-fastest and the most adaptable**, because a variant is mostly a change to how candidate
-masks are computed. The old scan-based ladder had no such property.
+A variant is revealed a few hours to two days before. In a mask design a variant is a
+change to *which cells constrain which*, i.e. one more `used` register in an OR. Combined
+with risk 2 above: **build the units table now**, in both the checker and the RTL, and the
+variant becomes data rather than a rewrite.
