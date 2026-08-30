@@ -1,0 +1,16 @@
+## HANDOFF v0_verified 2026-08-30
+
+bitstream   : $MY_K5_PROJ/hw/gen_fpga/prog_files/k5_xbox_alwaysud.sof
+              (desktop shortcut: k5_xbox_links/fpga_prog_files/)
+enums md5   : 991ee6d38809bb0b6997e50ae81709f8
+commit      : 5c71b72f89674f36ad53eb9d614b4dbd82cc92da   [working tree: 4 modified files]
+
+download    : the .sof, plus sw/apps/alwaysud/ and sw/apps/sud_shared/
+              -- from the SAME build, in the SAME sitting
+
+expected    : easy1 283 / 20blanks 403 / 51blanks 56,803 / solve cycles in simulation
+              (setup+load: easy1 235 / 20blanks 235 / 51blanks 235 / )
+              hardware must match these EXACTLY - they are cycle counts, not timings
+
+cost        : LEs 9286 (fitter 8864)  registers 1867  F_max standalone 87.02 MHz
+              system F_max (not built) MHz  memory bits (not built)
