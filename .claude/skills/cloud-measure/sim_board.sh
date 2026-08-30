@@ -9,6 +9,7 @@
 #
 # NEVER run hard1 here - ~30 h of RTL simulation. Hardware only.
 BOARD="$1"; OUT="$2"                       # capture BEFORE sourcing (see k5_env.sh)
+[ -n "$OUT" ] && OUT="$(readlink -m -- "$OUT")"   # sourcing cd's to $ws; make it absolute first
 HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/k5_env.sh"
 
