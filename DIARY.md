@@ -53,6 +53,45 @@ bug immediately, which is exactly why it does not share code with the hardware.
 
 ---
 
+## v0 on hardware - 2026-08-31 - the first real number, and a model that held
+
+**Result:** all four boards run on the DE10-Lite and PASS both gates - our golden
+comparison and the app's own final checker. easy1 283 / 20blanks 403 / 51blanks 56,803 /
+**hard1 128,760,739** solve cycles, with a flat 235 setup+load on every one.
+
+**The score: 128,760,739 / 87.02 MHz = 1,479,668 us = 1.4797 s.**
+
+The three simulatable boards matched simulation *to the digit*. That is the fourth time
+this course that sim and fabric have agreed exactly, and it is worth saying out loud why
+it is not luck: the same RTL was compiled by both, and nothing in this design depends on
+timing, only on cycles.
+
+**Surprise:** the hard1 FSM model was right. It predicted 128,760,553 and the board did
+128,760,739 - **+186 cycles in 128.7 million, 0.00014% low**. I had been treating that
+model as a rough planning aid because hard1 needs ~30 h of RTL simulation and nobody was
+ever going to run it. It is better than that. Every future rung's hard1 estimate comes
+from the same model, so the whole ladder is now planned on something that has been checked
+against reality once rather than on nothing.
+
+Worth being precise about what was validated: the model reproduces the *search*, and hard1
+is 99.99% search. It has not been validated on a board where propagation dominates, which
+is exactly what v2 and v3 are meant to create. Expect it to drift there, and re-check.
+
+**Second thing the run settled:** setup+load is 235 cycles on hard1 too - identical to
+easy1, which has three blanks. The 32+32+17 burst cost is genuinely independent of the
+puzzle, so all future improvement has to come out of the solve window. That also means the
+235 is a floor: at v3's predicted ~26 solve cycles, *load would be 90% of the runtime*.
+
+**Process note.** The cloud-to-laptop handoff ran end to end for the first time - release
+downloaded, commit gate, both md5s, stage, program, run - and the commit gate is the part
+that earned its place. The release was built from `74e1b12`; the working tree was already
+a commit ahead at `7253138`. A file-list check would have had to know that the newer commit
+touched only `.claude/skills` and `logs/`. `git diff <sha> -- sw/apps hw/xlrs` just said
+clean, and it would equally have caught a change to `alwaysud.h`, which no file list we
+had ever written mentioned.
+
+---
+
 ## v0 - 2026-08-31 - measured, passing, and a correction to my own analysis
 
 **Result:** all three simulatable boards PASS, golden gate and the app's own checker.

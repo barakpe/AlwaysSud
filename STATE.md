@@ -2,16 +2,16 @@
 
 **Read this first.** Updated at the end of every working session.
 
-**Last updated:** 2026-08-31
+**Last updated:** 2026-08-31 (evening - hardware)
 
 ## Right now
 
 | | |
 |---|---|
-| `main` | `5c71b72`, pushed. v0 measured and **PASSING**, not yet tagged |
+| `main` | `7253138`, pushed. v0 measured on **hardware** and PASSING |
 | Branch in flight | *(none)* |
-| **Next action** | **Get `hard1` on the FPGA.** The `.sof` is built and waiting on the cloud Desktop |
-| Best `hard1` result | *(none - hardware only, and nobody has it)* |
+| **Next action** | tag `v0`, then open `feat/v1-mrv` |
+| Best `hard1` result | **128,760,739 cycles = 1.4797 s** @ 87.02 MHz standalone |
 
 ## Working rules
 
@@ -42,11 +42,17 @@ Cloud, 2026-08-31, on the fixed RTL. Full report: `logs/v0_verified/REPORT.md`.
 | cycles (easy1 / 20blanks / 51blanks) | **363 / 483 / 56,883** |
 | standalone | **9,286 LEs · 1,867 regs · 0 mem bits · 87.02 MHz** |
 | full system | 20,560 LEs · **55.29 MHz** · 79% memory bits · meets 50 MHz with 1.9 ns slack |
-| bitstream | **built** - `.sof` + `.svf` on the cloud Desktop, never downloaded |
+| bitstream | **built, programmed, and run** - release `v0`, verified by commit + md5 |
+| **hardware** | **all four boards PASS on the board**, 2026-08-31 |
 
-**hard1 is 128,760,553 cycles, not the ~50M the assignment estimates.** From a validated
-FSM model. So v0 on hard1 is **1.48 s**, and every improvement ratio previously written
+**hard1 is 128,760,739 cycles, measured on the board** - not the ~50M the assignment
+estimates. So v0 on hard1 is **1.4797 s**, and every improvement ratio previously written
 here was understated by 2.6x.
+
+The FSM model predicted 128,760,553. It was **186 cycles low out of 128.7 million -
+0.00014%**. That matters beyond this one number: hard1 needs ~30 h of RTL simulation, so
+every future rung's hard1 estimate comes from that model, and the model has now been
+checked against reality once.
 
 > **Measurement caveat.** The timer split added a fixed **+155 cycle** artifact to all
 > three boards; subtracting it reproduces 363 / 483 / 56,883 exactly. Which of the two
@@ -115,10 +121,10 @@ Anything that touches mask storage must revisit this.
 
 ## Risks
 
-1. **The biggest one, and it is not technical.** Roughly a third of the grade is
-   "demonstrated on FPGA" - baseline, project, and the hackathon variant - and **this
-   design has never been on the board.** Week 2's hardware runs were `sudx_basic`, a
-   different accelerator. The bitstream exists and is waiting. Program it this week.
+1. ~~**This design has never been on the board.**~~ **Closed 2026-08-31.** All four
+   boards run and pass on the DE10-Lite. The whole cloud-to-laptop path - release,
+   commit gate, md5, stage, program, run - has been exercised end to end and is in
+   `docs/HANDOFF.md`. What remains is to keep it working, not to prove it can.
 2. **The correctness gate is variant-blind.** `bench/solve_ref.py` hardcodes standard
    rows/columns/boxes. On 9 September a *variant* arrives, and the gate will happily pass a
    solver that ignores the new constraint. Rebuild it on an explicit **units table** so a

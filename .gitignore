@@ -34,15 +34,10 @@ Thumbs.db
 __pycache__/
 *.pyc
 
-# logs/ versions only hand-written artifacts: the REPORTs, the handoff block that
-# docs/HANDOFF.md requires in the branch, and the models the analysis rests on.
-# Anything a tool printed is reproducible by re-running the skill - not versioned.
-logs/**/qsyn_output_files/
-logs/**/output_files/
-logs/**/*.rpt
-logs/**/*.qsf
-logs/**/*.qpf
-logs/**/*.pin
-logs/**/*.smsg
-logs/**/*.txt
-!logs/**/HANDOFF.txt
+# logs/ is the evidence trail for RESULTS.md: keep every text artifact,
+# never a binary. Enumerating what to keep is how things get lost.
+!logs/**
+logs/**/*.sof
+logs/**/*.svf
+logs/**/*.tgz
+logs/**/*.qar

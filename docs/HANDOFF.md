@@ -14,12 +14,13 @@ forever, never delta-compresses, and every future clone pays for every iteration
 conventions say never commit a `.sof`. A release asset lives outside the clone, can be
 deleted, and costs nothing to anyone who does not want it.
 
-**The real reason is not size.** A release attaches the `.sof` **and its
-`alwaysud_enums.svh` together, atomically**. That contract file is included by both the
-SystemVerilog package and the C driver; a stale one against a fresh bitstream *compiles
-clean and misbehaves at runtime*, and it has already cost us an evening. When both files
-come from one release, you cannot fetch one without the other. The failure stops being a
-discipline problem and becomes impossible by construction.
+**The real reason is not size.** A release pins the bitstream to the **commit** it was
+built from, and that commit is what the laptop checks its sources against. A software tree
+that has drifted from the bitstream *compiles clean and misbehaves at runtime*, and it has
+already cost us an evening.
+
+Note the release records a commit rather than shipping "the contract file", because there
+is no single contract file — see the verification section below.
 
 ---
 
@@ -78,12 +79,35 @@ gh release download "$TAG" --repo barakpe/AlwaysSud -D "$DL"
 gh release view "$TAG" --repo barakpe/AlwaysSud --json body -q .body > "$DL/NOTES.txt"
 ```
 
-**Verify before programming anything:**
+**Verify before programming anything.** The gate is the *commit*, not a file list:
 
-1. `md5sum "$DL/alwaysud_enums.svh"` matches `enums_md5:` in the notes.
-2. `md5sum "$DL/k5_xbox_alwaysud.sof"` matches `sof_md5:`.
-3. The release `commit:` is an ancestor of what you have checked out
-   (`git merge-base --is-ancestor <sha> HEAD`).
+```bash
+SHA=$(grep '^commit:' "$DL/NOTES.txt" | awk '{print $2}')
+if git diff --quiet "$SHA" -- sw/apps hw/xlrs ; then
+  echo "sources match the bitstream"
+else
+  echo "SOURCE DRIFT - do not program"
+  git diff --stat "$SHA" -- sw/apps hw/xlrs
+fi
+
+md5sum "$DL/k5_xbox_alwaysud.sof"      # must match sof_md5: in the notes
+```
+
+**Why the commit and not a checksum of the contract file.** The obvious check is
+"md5 the `.svh`", and it is not sufficient. The register *bit layout* exists in two
+hand-maintained copies - the C union in `sw/apps/alwaysud/alwaysud.h`, and a packed
+struct declared inline in `hw/xlrs/alwaysud/alwaysud.sv`. The `.svh` holds only the
+register indices and command codes. So adding a field to `done_reg` - the backlog's
+placement/backtrack counters, for instance - changes the `.h` and the `.sv` and leaves
+the `.svh` **byte-identical**. An `enums_md5` check would pass while the contract was
+broken, which is the precise failure this handoff exists to prevent.
+
+Comparing the working tree against the release's commit covers every contract-bearing
+file, including ones nobody remembered to list. Enumerating files is how the `.h` was
+missed in the first place; do not enumerate.
+
+The `.svh` is still shipped as a release asset, but as a diagnostic - if the commit check
+fails, diffing it tells you *how* things drifted.
 
 **If any check fails, stop.** Do not program the board and do not report a number.
 

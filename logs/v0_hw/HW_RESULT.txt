@@ -1,0 +1,29 @@
+## HW RESULT v0 2026-08-31
+
+release     : v0  (github.com/barakpe/AlwaysSud/releases/tag/v0)
+commit      : 74e1b1279b9cb2d6429030c2434b31e780abc84c
+sof_md5     : ac57a19c42e404ff14d87f45d65928bf   verified against the release notes
+enums_md5   : 991ee6d38809bb0b6997e50ae81709f8   verified against the release notes
+gate        : git diff --quiet <release commit> -- sw/apps hw/xlrs  ->  clean
+board       : DE10-Lite, USB-Blaster [USB-1], 10M50DA, JTAG ID 0x031050DD
+
+cycles      : easy1 283 / 20blanks 403 / 51blanks 56,803 / hard1 128,760,739
+setup+load  : 235 on every board, all four
+vs sim      : MATCH, exactly, on all three simulatable boards
+correctness : all four PASS - our golden gate AND the app's own final checker
+
+solve time  : 128,760,739 / 87.02 MHz = 1,479,668 us = 1.4797 s      <- THE SCORE
+
+insight     : 1. First time this accelerator has ever run on hardware. Every prior
+                board run in this course was sudx_basic, a different design.
+             2. hard1 was predicted at 128,760,553 cycles by the FSM model in
+                logs/v0_verified/v0hard.c. Measured 128,760,739. The model was
+                +186 cycles low out of 128.7 million - 0.00014%. A 30-hour RTL
+                simulation was correctly replaced by a C model, and that is now
+                evidence rather than hope.
+             3. setup+load is 235 cycles on all four boards including hard1,
+                which confirms it is a fixed 32+32+17 burst cost independent of
+                how many cells are blank - as designed.
+             4. Wall time for the hard1 run was 19 s, of which the solve is 2.33 s
+                at the 55.29 MHz system clock. The rest is UART and app startup.
+                The score uses the standalone 87.02 MHz, not this.
