@@ -63,7 +63,7 @@ system bottleneck, which is a real finding worth reporting, not a failure.
 
 ## Sequence
 
-**Cloud** (`bench/measure_sim.sh <tag>`)
+**Cloud** (`.claude/skills/cloud-measure/measure_cloud.sh <tag> [--with-fpga]`)
 
 1. `bench/stage.sh` - copy `hw/` and `sw/` into `$MY_K5_PROJ`
 2. `qsyn_xlr alwaysud -all` - parse LEs, registers, F_max. Any error stops here.
@@ -71,15 +71,18 @@ system bottleneck, which is a real finding worth reporting, not a failure.
    `launch_k5_app` in the foreground, capture stdout
 4. Correctness gate on each
 5. `comp_fpga alwaysud` - bitstream + system F_max + memory bits
-6. Write the handoff block - see `HANDOFF.md`
+6. Write the handoff block and publish the GitHub release - see `HANDOFF.md`
 
-**Laptop** (`bench/measure_hw.sh <tag>`)
+**Laptop** (`.claude/skills/board-validate/validate_board.sh <tag>`)
 
-1. Verify `md5(alwaysud_enums.svh)` matches the handoff block. **Refuse to run if not.**
+1. Fetch the release for the tag; verify the tree against its **commit**, plus both
+   md5s. **Refuse to program if any of them fails** - see `board-validate/SKILL.md`
+   for why the commit and not just the contract file.
 2. `prog_fpga alwaysud`
 3. All four boards including `hard1`, capture stdout
-4. Correctness gate on each
-5. Append to `RESULTS.md`, save logs under `logs/<tag>/`
+4. Correctness gate on each, twice: `bench/golden/` and the app's own checker
+5. Compare cycles against the release's expected values - an inexact match fails
+6. Logs under `logs/<tag>_hw/`; the `RESULTS.md` row is written by hand
 
 ## Merge criteria
 

@@ -19,7 +19,8 @@ Mechanical half of `docs/MEASUREMENT.md`. Everything here was verified by hand o
 
 Outputs land in `logs/<tag>/`: `qsyn.txt`, an archived `qsyn_output_files/`,
 `sim_<board>.txt` (app stdout - this is the measurement), `gate.txt`, `cycles.txt`,
-and `HANDOFF.txt`. Only `HANDOFF.txt` is versioned; the rest is gitignored tool output.
+and `HANDOFF.txt`. Every **text** artifact under `logs/` is versioned - it is the
+evidence behind `RESULTS.md`. Only binaries (`.sof`, `.svf`, `.tgz`, `.qar`) are ignored.
 
 `HANDOFF.txt` is the release notes verbatim. Every value in it is scraped from the logs
 that run produced - nothing is templated in by hand, which is how an earlier version came
@@ -139,10 +140,11 @@ it is idempotent for a given tag, and the tag is an explicit argument, never inf
     reports into `logs/<tag>/` immediately after synthesis, before anything can
     re-stage. Do not reorder those steps.
 
-12. **The archived reports are gitignored.** `.gitignore` excludes
-    `qsyn_output_files/`, `*.rpt`, `*.qsf`, `*.qpf` at any depth, so the copy in
-    `logs/<tag>/` survives the next staging but is never committed. Only the console
-    logs (`qsyn.txt`, `sim_*.txt`, `HANDOFF.txt`, `cycles.txt`) are versioned.
+12. **The archived reports ARE committed.** Changed 2026-08-31: `.gitignore` now keeps
+    every text file under `logs/` and drops only binaries. The old rule enumerated what
+    to exclude by extension and quietly dropped the console logs that `README.md` and
+    `docs/MEASUREMENT.md` both promise are kept as evidence. Keep the copy step in
+    `measure_cloud.sh` - the reports still live inside the directory staging deletes.
 
 13. **`.f` files: only `//` comments are skipped.** `dotf_to_qsf()` drops lines whose
     first token starts with `//`. A `#` comment is passed to Quartus as a filename

@@ -67,9 +67,12 @@ launch_k5_app alwaysud -asl sud_shared -gpv hard1
 hw/xlrs/alwaysud/       the accelerator  - mirrors $MY_K5_PROJ/hw/xlrs
 sw/apps/alwaysud/       the driver       - mirrors $MY_K5_PROJ/sw/apps
 sw/apps/sud_shared/  shared lib + the four puzzle files
-bench/               measurement harness and golden solutions
-reference/           vendored ex2.1 and ex3.1, never built, for diffing
-logs/<tag>/          raw run output, kept as evidence
+bench/               golden solutions, the correctness gate, staging, diagnosis
+.claude/skills/      cloud-measure (synthesise+simulate+publish) and
+                     board-validate (fetch+verify+program+run) - one per machine
+reference/           vendored course code - read reference/PROVENANCE.md first
+logs/<tag>/          cloud run output      } every text file versioned,
+logs/<tag>_hw/       laptop run output     } binaries never
 ```
 
 One accelerator, one name, everywhere: the folder, the `.f`, the module, the app, and
