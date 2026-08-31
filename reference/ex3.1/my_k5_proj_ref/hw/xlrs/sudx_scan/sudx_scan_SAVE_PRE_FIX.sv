@@ -128,9 +128,9 @@ module sudx_scan (
       
         if (mem_intf_read.mem_valid) begin
           integer i;
-          for (i=0;i<32;i++) begin
-             if ((loaded_start_idx+i) < MUM_BOARD_ELEM)
-               board_flat_ps[loaded_start_idx+i] = mem_intf_read.mem_data[i][3:0] ;
+          for (i=0;i<32;i++) begin  
+             if ((loaded_start_idx+i) < MUM_BOARD_ELEM) 
+               board_flat_ps[loaded_start_idx+i] = mem_intf_read.mem_data[i][3:0] ;               
           end
           
           board_ps = board_flat_ps;
@@ -169,22 +169,9 @@ module sudx_scan (
         end // if (mem_intf_write.mem_ack) 
 
         if (mem_intf_write.mem_req) begin
-
-          for (int i=0;i<32;i++) begin
-          
-             // Bug Fix by Bar Ivry 27/8/2026
-             // WRONG:
-             // if ((stored_start_idx+i) < MUM_BOARD_ELEM) 
-             //   mem_intf_write.mem_data[i][3:0] = solver_puzzle_out_flat[stored_start_idx+i] ;               
-
-
-
-
-
-
-             // FIXED:
-             if ((next_store_start_idx+i) < MUM_BOARD_ELEM)
-               mem_intf_write.mem_data[i][3:0] = solver_puzzle_out_flat[next_store_start_idx+i] ;
+          for (int i=0;i<32;i++) begin  
+             if ((stored_start_idx+i) < MUM_BOARD_ELEM) 
+               mem_intf_write.mem_data[i][3:0] = solver_puzzle_out_flat[stored_start_idx+i] ;               
           end
         end
 

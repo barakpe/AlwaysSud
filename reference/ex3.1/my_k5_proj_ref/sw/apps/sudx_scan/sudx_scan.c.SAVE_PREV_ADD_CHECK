@@ -99,14 +99,10 @@ int main(void) {
 
     if (solved) {
         
-      printf("\n=== Application reported Solved ===\n");
+      printf("\n=== Solved ===\n\n");
       print_board(board);
-
-      char is_solved_board_ok = check_solved_board(board) ;
-
-      printf("\nSolved board %s final checker\n", is_solved_board_ok ? "PASSED" : "FAILED");
-   
-    } else printf("\nNo solution found by application.\n");
+       
+    } else printf("\nNo solution found.\n");
     
       alloc_free((void*)board, "board"); 
    
