@@ -10,10 +10,18 @@ misunderstanding baked into the RTL cannot cancel itself out against the golden.
   check a run      :  python solve_ref.py --check easy1 <file-with-app-stdout>
   print a solution :  python solve_ref.py --solve hard1
 
+Any command takes --variant <name> (default classic). The geometry lives in
+bench/units.py and nowhere else, so the hackathon variant is a change to that file.
+Non-classic goldens are written as <board>.<variant>.grid so they can never be
+confused with the classic ones.
+
 Board files are the course format: 81 two-digit hex bytes, whitespace-separated,
 0 = empty. Goldens are written as one line of 81 digits.
 """
 import sys, os, re, hashlib
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import units as UNITS               # the only place that knows the geometry
 
 HERE    = os.path.dirname(os.path.abspath(__file__))
 BOARDS  = os.path.join(HERE, "..", "sw", "apps", "sud_shared")
@@ -29,19 +37,14 @@ def read_board(name):
     return vals
 
 
-def solve(cells):
-    """Constraint propagation + MRV. Returns the solved list, or None."""
-    peers = [[] for _ in range(81)]
-    for i in range(81):
-        r, c = divmod(i, 9)
-        br, bc = (r // 3) * 3, (c // 3) * 3
-        s = set()
-        for k in range(9):
-            s.add(r * 9 + k)
-            s.add(k * 9 + c)
-            s.add((br + k // 3) * 9 + bc + k % 3)
-        s.discard(i)
-        peers[i] = sorted(s)
+def solve(cells, variant="classic"):
+    """Constraint propagation + MRV. Returns the solved list, or None.
+
+    Every rule comes from the units table, so a variant is a change to bench/units.py
+    and nothing here. Nothing below may reintroduce row/column/box arithmetic."""
+    us      = UNITS.units(variant)
+    peers   = UNITS.peers(us)
+    unit_of = UNITS.units_of(us)
 
     # candidate sets as 9-bit masks, bit d-1 set means d is possible
     ALL = 0x1FF
@@ -69,12 +72,7 @@ def solve(cells):
                 if not eliminate(cand, p, v):
                     return False
         # hidden singles: does d still fit anywhere in each unit of i?
-        r, c = divmod(i, 9)
-        br, bc = (r // 3) * 3, (c // 3) * 3
-        units = [[r * 9 + k for k in range(9)],
-                 [k * 9 + c for k in range(9)],
-                 [(br + k // 3) * 9 + bc + k % 3 for k in range(9)]]
-        for u in units:
+        for u in unit_of[i]:
             spots = [j for j in u if cand[j] & bit]
             if not spots:
                 return False
@@ -103,21 +101,44 @@ def solve(cells):
         return None
 
     out = search(cand)
-    return [c.bit_length() for c in out] if out else None
+    if not out:
+        return None
+    sol = [c.bit_length() for c in out]
+
+    # Never return an unvalidated grid. A propagation model in this project once placed
+    # two naked singles for the same digit in the same unit, built an illegal board, and
+    # returned it - because nothing checked. It then drove a whole roadmap. The oracle
+    # must hold itself to the standard it holds the hardware to.
+    bad = UNITS.illegal_units(sol, us, UNITS.labels(variant))
+    if bad:
+        raise SystemExit("oracle produced an ILLEGAL grid - duplicates in %s"
+                         % ", ".join(bad[:4]))
+    for i, v in enumerate(cells):
+        if v and sol[i] != v:
+            raise SystemExit("oracle changed a given: cell %d was %d, became %d"
+                             % (i, v, sol[i]))
+    return sol
 
 
 def grid_str(vals):
     return "".join(str(v) for v in vals)
 
 
-def cmd_gen():
+def golden_path(name, variant):
+    tail = ".grid" if variant == "classic" else ".%s.grid" % variant
+    return os.path.join(GOLDEN, name + tail)
+
+
+def cmd_gen(variant="classic"):
     os.makedirs(GOLDEN, exist_ok=True)
     for n in NAMES:
-        sol = solve(read_board(n))
+        sol = solve(read_board(n), variant)
         if not sol:
-            raise SystemExit("%s: NO SOLUTION -- board file is wrong" % n)
+            # Under a stricter variant a course board may simply have no solution.
+            # That is information, not a crash: say so and carry on.
+            print("%-10s NO SOLUTION under variant '%s'" % (n, variant)); continue
         s = grid_str(sol)
-        open(os.path.join(GOLDEN, n + ".grid"), "w", newline="\n").write(s + "\n")
+        open(golden_path(n, variant), "w", newline="\n").write(s + "\n")
         print("%-10s %s  md5=%s" % (n, s[:27] + "...", hashlib.md5(s.encode()).hexdigest()[:12]))
 
 
@@ -151,11 +172,23 @@ def app_checker_verdict(text):
     return m.group(1) if m else None
 
 
-def cmd_check(name, path):
-    want = open(os.path.join(GOLDEN, name + ".grid")).read().strip()
+def cmd_check(name, path, variant="classic"):
+    gp = golden_path(name, variant)
+    if not os.path.exists(gp):
+        print("FAIL %-10s no golden for variant '%s' - run --gen --variant %s"
+              % (name, variant, variant)); return 1
+    want = open(gp).read().strip()
     got = extract(open(path, errors="replace").read())
     if got is None:
         print("FAIL %-10s no solved grid found in %s" % (name, path)); return 1
+
+    # Legality under the ACTIVE variant, checked before the golden comparison so the
+    # message says *which rule* was broken rather than just "differs".
+    bad = UNITS.illegal_units(got, UNITS.units(variant), UNITS.labels(variant))
+    if bad:
+        print("FAIL %-10s illegal under variant '%s' - duplicates in %s"
+              % (name, variant, ", ".join(bad[:4]))); return 1
+
     if got != want:
         print("FAIL %-10s grid differs from golden" % name)
         print("  want %s" % want); print("  got  %s" % got); return 1
@@ -170,12 +203,15 @@ def cmd_check(name, path):
 
 if __name__ == "__main__":
     a = sys.argv[1:]
+    variant = "classic"
+    if "--variant" in a:
+        k = a.index("--variant"); variant = a[k + 1]; del a[k:k + 2]
     if not a or a[0] == "--gen":
-        cmd_gen()
+        cmd_gen(variant)
     elif a[0] == "--check":
-        sys.exit(cmd_check(a[1], a[2]))
+        sys.exit(cmd_check(a[1], a[2], variant))
     elif a[0] == "--solve":
-        sol = solve(read_board(a[1]))
+        sol = solve(read_board(a[1]), variant)
         print(grid_str(sol) if sol else "NO SOLUTION")
     else:
         print(__doc__)

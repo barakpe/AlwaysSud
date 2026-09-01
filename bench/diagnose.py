@@ -17,6 +17,9 @@ Usage:
 """
 import sys, os, re
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import units as UNITS               # the geometry lives in ONE place - see units.py
+
 HERE   = os.path.dirname(os.path.abspath(__file__))
 GOLDEN = os.path.join(HERE, "golden")
 BURST  = 32                       # bytes per memory transaction in this design
@@ -25,17 +28,7 @@ NCELL  = 81
 # boards that never backtrack - if one of these fails, the search is not involved
 NO_BACKTRACK = {"20blanks"}
 
-
-def units():
-    u = []
-    for r in range(9):
-        u.append(("row %d" % r, [r * 9 + c for c in range(9)]))
-    for c in range(9):
-        u.append(("col %d" % c, [r * 9 + c for r in range(9)]))
-    for b in range(9):
-        br, bc = (b // 3) * 3, (b % 3) * 3
-        u.append(("box %d" % b, [(br + k // 3) * 9 + bc + k % 3 for k in range(9)]))
-    return u
+VARIANT = os.environ.get("ALWAYSUD_VARIANT", "classic")
 
 
 def load_golden(name):
@@ -95,12 +88,8 @@ def diagnose(name, got, want):
                       % (shift // BURST))
             break
 
-    # 4. is the grid even legal?
-    dups = []
-    for label, cells in units():
-        seen = [got[i] for i in cells if got[i] != "0"]
-        if len(seen) != len(set(seen)):
-            dups.append(label)
+    # 4. is the grid even legal? Under the ACTIVE variant, not just classic.
+    dups = UNITS.illegal_units(got, UNITS.units(VARIANT), UNITS.labels(VARIANT))
     if dups:
         print("legality       : ILLEGAL - duplicates in %d unit(s), e.g. %s"
               % (len(dups), ", ".join(dups[:4])))
