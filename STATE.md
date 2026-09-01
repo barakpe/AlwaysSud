@@ -54,10 +54,24 @@ The FSM model predicted 128,760,553. It was **186 cycles low out of 128.7 millio
 every future rung's hard1 estimate comes from that model, and the model has now been
 checked against reality once.
 
-> **Measurement caveat.** The timer split added a fixed **+155 cycle** artifact to all
-> three boards; subtracting it reproduces 363 / 483 / 56,883 exactly. Which of the two
-> windows absorbs the 155 is not yet known - there is a one-line experiment in the report.
-> Until that is settled, compare split numbers only against other split numbers.
+> **Measurement windows - settled on the board, 2026-08-31.** The timer split costs a
+> flat **+155 cycles**, on all four boards. Measured properly this time: one bitstream,
+> one flag, `ALWAYSUD_SPLIT_TIMERS=0` reproduces 363 / 483 / 56,883 / 128,760,819 exactly.
+>
+> Earlier today I withdrew this claim after reading `k5_utils_lib.h` and concluding the
+> split had to be free. The reading was right about the print - the counter *is* reset
+> after `bm_printf`, so the print is excluded - and the conclusion was wrong, because the
+> print is not the only thing an extra call costs. A direct back-to-back probe puts the
+> seam at **35 cycles**; the other ~120 is code generation.
+>
+> **The bigger finding.** Adding that one probe call also moved `setup+load` 235 -> 275
+> and `solve` 283 -> 331, with no added work before either and the RTL untouched. The
+> RISC-V polls a done register in software, so register allocation and loop layout change
+> *when the poll notices*. Small-board cycle counts are therefore not a pure hardware
+> property: **treat an easy1 change under ~50 cycles as noise unless the binary is
+> identical.** hard1 is immune - 155 in 128.7M, and the score is 1.4797 s either way.
+>
+> Full data: `logs/timer_probe/RESULT.txt`.
 
 ## The propagation floor - corrected
 
@@ -125,10 +139,16 @@ Anything that touches mask storage must revisit this.
    boards run and pass on the DE10-Lite. The whole cloud-to-laptop path - release,
    commit gate, md5, stage, program, run - has been exercised end to end and is in
    `docs/HANDOFF.md`. What remains is to keep it working, not to prove it can.
-2. **The correctness gate is variant-blind.** `bench/solve_ref.py` hardcodes standard
-   rows/columns/boxes. On 9 September a *variant* arrives, and the gate will happily pass a
-   solver that ignores the new constraint. Rebuild it on an explicit **units table** so a
-   variant is a data change - and that same table is the right shape for the RTL.
+2. **The correctness gate is variant-blind - HALF CLOSED 2026-08-31.** The *software*
+   half is done: `bench/units.py` is now the single source of the geometry, and
+   `solve_ref.py` and `diagnose.py` both derive every rule from it. Proof it works: the
+   real v0 hard1 grid is LEGAL under classic and **ILLEGAL under diagonal and windoku**.
+   Before, the gate could not have told the difference.
+   **Still open: the RTL.** `alwaysud_solver.sv` still has the geometry baked in, so on
+   hackathon day the checker adapts by editing one file and the hardware does not. That
+   is now the whole of this risk, and it is the thing to fix next.
+   Also learned: none of the four course boards has a solution under `diagonal`, so a
+   variant means new board files too, not just new rules.
 3. F_max is a budget: 87.02 MHz standalone today, and the system needs ~56.
 4. System memory bits are at **79%**. That is the real device ceiling, not logic.
 5. `51blanks` is the correctness gate that matters; easy1 and 20blanks never backtrack.
@@ -136,6 +156,6 @@ Anything that touches mask storage must revisit this.
 ## Hackathon - 9 September
 
 A variant is revealed a few hours to two days before. In a mask design a variant is a
-change to *which cells constrain which*, i.e. one more `used` register in an OR. Combined
-with risk 2 above: **build the units table now**, in both the checker and the RTL, and the
-variant becomes data rather than a rewrite.
+change to *which cells constrain which*, i.e. one more `used` register in an OR.
+`bench/units.py` now does this for the checker - `classic`, `diagonal` and `windoku` are
+three lines each. **The RTL is the remaining half**, and it is the one that is graded.

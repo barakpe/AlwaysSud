@@ -32,6 +32,14 @@ week 2, to the digit, on four runs.
 
 ## The correctness gate
 
+The geometry lives in `bench/units.py` and nowhere else. `solve_ref.py` and `diagnose.py`
+derive peers, hidden singles and legality from that table, so a hackathon variant is a
+change to one file - `python bench/solve_ref.py --check <board> <log> --variant diagonal`.
+Verified 2026-08-31: the v0 hard1 grid is legal under `classic` and illegal under
+`diagonal` and `windoku`, which is the check the old hardcoded gate could not make.
+
+Note the RTL does **not** yet share this table.
+
 Runs **before** any timing number is recorded. A faster wrong answer is not a result.
 
 ```bash
@@ -42,6 +50,35 @@ The oracle in `bench/solve_ref.py` uses constraint propagation + MRV - deliberat
 *different* algorithm from the hardware, so a misunderstanding baked into the RTL
 cannot cancel itself out against the golden. Its `51blanks` solution has been
 confirmed identical to what the FPGA produced in week 2.
+
+## Which window, and the switches that choose it
+
+`report_task_performance()` reports the delta since the previous call, so where the calls
+sit defines what a number means. `sw/apps/alwaysud/alwaysud.c` has two compile switches:
+
+| switch | default | effect |
+|---|---|---|
+| `ALWAYSUD_SPLIT_TIMERS` | 1 | separate `Board setup+load` and `Sudoku solve` windows |
+| | 0 | one window spanning setup+solve - **identical in shape to the course's `sudx_scan`** |
+| `ALWAYSUD_PROBE_TIMER_COST` | 0 | adds a back-to-back report call; its delta is the cost of one call |
+
+**Never compare a split number to an unsplit one.** Our easy1 "Sudoku solve" is 283 with
+the split and would be larger without it, and the smaller number is not an improvement -
+it is a different question. Quote the window whenever you quote a cycle count.
+
+**Use `=0` for a scoring run**, so the number is directly comparable to the baseline and
+to other students. The split is for development, where separating a fixed cost from the
+search is what makes a change legible.
+
+**The split costs a flat +155 cycles**, measured on the board across all four puzzles
+(`logs/timer_probe/RESULT.txt`). Only 35 of that is the call seam - the rest is code
+generation, because the RISC-V waits for the accelerator in a *software* poll loop and
+recompiling changes when that loop notices.
+
+Which means: **small-board cycle counts are not a pure hardware property.** Adding one
+probe call moved `setup+load` from 235 to 275 with the RTL untouched. Treat an easy1
+movement under ~50 cycles as noise unless the binary is byte-identical. hard1, at
+128.7M, is immune to all of this.
 
 ## What gets recorded, every time
 

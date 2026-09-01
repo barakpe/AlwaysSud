@@ -1,0 +1,54 @@
+## TIMER SPLIT EXPERIMENT  2026-08-31
+
+One bitstream (v0, sof ac57a19c...), one flag, four boards. The controlled experiment
+that the earlier claim was never given.
+
+                     SPLIT=0        SPLIT=1                    delta
+  board            (one window)   setup + solve
+  easy1                    363     235 +         283 =    518   +155
+  20blanks                 483     235 +         403 =    638   +155
+  51blanks              56,883     235 +      56,803 = 57,038   +155
+  hard1            128,760,819     235 + 128,760,739 = ...,974   +155
+
+  all four PASSED the app checker in both configurations.
+
+VERDICT: the timer split costs a flat +155 cycles. The claim recorded in STATE.md
+and DIARY.md was RIGHT; the analysis that withdrew it earlier today was WRONG.
+SPLIT=0 reproduces 363 / 483 / 56,883 exactly - the historical pre-split numbers.
+
+WHY THE ANALYSIS WAS WRONG, and what it half-got-right:
+
+  k5_utils_lib.h:96-109 does reset the cycle counter AFTER bm_printf, so the print
+  itself really is excluded from both windows. That reading was correct. The error
+  was concluding "therefore the split is free" - the print is not the only thing an
+  extra call adds.
+
+  Direct measurement, PROBE=1 (two report calls back to back, no work between):
+
+    probe: cost of one report call            35 cycles
+
+  So the seam costs 35, not 155. The other ~120 is code generation. Evidence in the
+  same run: adding that one probe call also moved
+
+    Board setup+load   235 -> 275
+    Sudoku solve       283 -> 331
+
+  Neither of those has any added work before it. The RISC-V polls a done register in
+  a software loop; changing the code changes register allocation and loop layout, so
+  the poll notices "done" at a different point. The measured cycles include that
+  quantisation.
+
+CONSEQUENCE, and it is bigger than the 155:
+
+  Small-board cycle counts are NOT a pure hardware property. They move by tens of
+  cycles when the C is recompiled, with the RTL untouched. "setup+load is a fixed
+  235" is true only for a fixed binary.
+
+  hard1 is unaffected in any way that matters - 155 in 128.7M is 0.0001%, and the
+  score is 1.4797 s under either window. But easy1 at 363 carries a 155-cycle
+  measurement term and a ~40-cycle recompilation term. Do not read an easy1
+  improvement of less than ~50 cycles as real unless the binary is identical.
+
+THE SCORE, both forms:
+  SPLIT=1 solve window       128,760,739 / 87.02 MHz = 1.4797 s
+  SPLIT=0 course-comparable  128,760,819 / 87.02 MHz = 1.4797 s

@@ -67,6 +67,8 @@ launch_k5_app alwaysud -asl sud_shared -gpv hard1
 hw/xlrs/alwaysud/       the accelerator  - mirrors $MY_K5_PROJ/hw/xlrs
 sw/apps/alwaysud/       the driver       - mirrors $MY_K5_PROJ/sw/apps
 sw/apps/sud_shared/  shared lib + the four puzzle files
+bench/units.py       THE units table - the only place that knows the geometry.
+                     A hackathon variant is a change to this file.
 bench/               golden solutions, the correctness gate, staging, diagnosis
 .claude/skills/      cloud-measure (synthesise+simulate+publish) and
                      board-validate (fetch+verify+program+run) - one per machine

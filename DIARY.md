@@ -53,6 +53,97 @@ bug immediately, which is exactly why it does not share code with the hardware.
 
 ---
 
+## A units table, and a gate that can finally fail - 2026-08-31
+
+**Result:** `bench/units.py` is now the only place in the project that knows which cells
+constrain which. `solve_ref.py` and `diagnose.py` both derive peers, hidden singles and
+legality from it. Goldens byte-identical before and after, and all four hardware runs
+still PASS - so the refactor changed structure, not behaviour.
+
+**The test that matters** is not that classic still passes. It is that something now
+fails. Judging the real v0 hard1 grid:
+
+| variant | units | verdict |
+|---|---|---|
+| classic | 27 | LEGAL |
+| diagonal | 29 | **ILLEGAL** - duplicates on both main diagonals |
+| windoku | 31 | **ILLEGAL** - duplicates in three hyper boxes |
+
+An hour ago the gate would have passed all three, because it only knew rows, columns and
+boxes. A gate that cannot fail is not a gate, and this one could not fail on the exact
+scenario it exists for - the 9 September variant.
+
+**Surprise:** none of the four course boards has a solution under `diagonal`. Their givens
+already contradict the extra constraint. So a variant does not just mean new rules, it
+means **new board files**, and any plan that assumed we would re-run easy1/hard1 under new
+rules was wrong. Worth knowing now rather than on the day.
+
+**Second thing found:** the geometry was written out four separate times - three inside
+`solve_ref.py` (peers, hidden singles, and implicitly the search) and a fourth in
+`diagnose.py`. Four copies of a definition that a variant changes is four chances to
+update three of them. That is the same shape as the register layout living in both
+`alwaysud.h` and `alwaysud.sv`, and the same shape as the handoff enumerating files
+instead of comparing a commit. It keeps being the same bug.
+
+**Also:** the oracle now validates its own output - illegal grid, or a changed given, and
+it raises rather than returning. That is a direct consequence of the naked-singles model
+that produced an illegal board, returned it, and drove a roadmap. The oracle should be
+held to the standard it holds the hardware to.
+
+**What is still open, and it is the half that is graded:** the RTL has the geometry baked
+into `alwaysud_solver.sv`. On hackathon day the checker adapts by editing one file; the
+hardware does not. That is now the whole of risk 2.
+
+---
+
+## The 155 cycles ARE the timer split - and I refuted a true claim - 2026-08-31
+
+**Result:** measured on the board. One bitstream, one flag, four puzzles.
+
+| board | `SPLIT=0` one window | `SPLIT=1` setup + solve | delta |
+|---|---|---|---|
+| easy1 | 363 | 235 + 283 = 518 | +155 |
+| 20blanks | 483 | 235 + 403 = 638 | +155 |
+| 51blanks | 56,883 | 235 + 56,803 = 57,038 | +155 |
+| hard1 | **128,760,819** | 235 + 128,760,739 | +155 |
+
+`SPLIT=0` reproduces the historical 363 / 483 / 56,883 exactly. **The claim we had
+recorded was right all along.**
+
+**What I did wrong, and it is worth being precise about.** Earlier today I set out to
+*test* that claim, read `k5_utils_lib.h:96-109` on the way, and found the cycle counter is
+reset *after* `bm_printf`. I concluded the split had to be free, went looking for another
+culprit, eliminated three, found none, and wrote the claim up as unattributed - editing
+STATE.md, DIARY.md and MEASUREMENT.md to say so.
+
+The reading was correct. The print really is excluded. **The inference was wrong**, because
+the print is not the only thing an extra call costs. The direct probe - two report calls
+back to back with no work between - says the seam is **35 cycles**. The other ~120 is code
+generation.
+
+I replaced a true claim that had weak evidence with a false claim that had *better-looking*
+evidence, because source code feels more authoritative than arithmetic. It was still one
+step short of the experiment, and the experiment took four minutes once the board was up.
+
+**The finding that outlives the 155.** In the probe run, `setup+load` moved 235 -> 275 and
+`solve` 283 -> 331. Nothing was added before either window and the RTL was untouched. The
+RISC-V waits for the accelerator by polling a done register *in software*, so changing the
+code changes register allocation and loop layout, and the poll notices completion at a
+different point. The measured cycles include that quantisation.
+
+So: **small-board cycle counts are not a pure hardware property.** A 40-cycle easy1
+"improvement" can be produced by recompiling. From now on, an easy1 movement under ~50
+cycles is noise unless the binary is identical - and that is a rule about the measurement,
+not about the design. hard1 is immune: 155 in 128,760,819 is 0.0001%, and the score is
+1.4797 s under either window.
+
+**Third time.** The naked-singles model, the reference directory, and now this. Every one
+was a case of trusting a derived artifact - a model, a vendored copy, a source reading -
+over the thing itself. The pattern is not carelessness; each felt like the rigorous move at
+the time. Measure the thing.
+
+---
+
 ## v0 on hardware - 2026-08-31 - the first real number, and a model that held
 
 **Result:** all four boards run on the DE10-Lite and PASS both gates - our golden
