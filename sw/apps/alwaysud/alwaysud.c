@@ -11,6 +11,35 @@
 #include "alwaysud_enums.svh"
 #endif
 
+//-------------------------------------------------------------------------
+// Measurement switches
+//
+// ALWAYSUD_SPLIT_TIMERS
+//   1 = report "Board setup+load" and "Sudoku solve" separately (development).
+//   0 = one window spanning setup+solve, exactly like the course's sudx_scan,
+//       so the number is directly comparable to the baseline and to other students.
+//
+//   Turn it OFF for a scoring run. Not because the split is expensive - see below -
+//   but because a number that is not comparable to the baseline invites the question
+//   "why is your easy1 smaller?", and the answer should not be "different window".
+//
+//   The endgame makes this sharper. v3 predicts hard1 at ~26 solve cycles against a
+//   fixed 235-cycle load, so near the end of the ladder the load - not the search -
+//   is most of the score, and the window definition stops being a detail.
+//
+// ALWAYSUD_PROBE_TIMER_COST
+//   Adds a second report_task_performance() immediately after the first, with no work
+//   between them, so its delta is the cost of one report call. Diagnostic only.
+//-------------------------------------------------------------------------
+
+#ifndef ALWAYSUD_SPLIT_TIMERS
+#define ALWAYSUD_SPLIT_TIMERS 1
+#endif
+
+#ifndef ALWAYSUD_PROBE_TIMER_COST
+#define ALWAYSUD_PROBE_TIMER_COST 0
+#endif
+
 
 //-------------------------------------------------------------------------
 
@@ -64,15 +93,24 @@ int solve(uint8_t* board) {
 
       xlr_setup(board) ;
 
+#if ALWAYSUD_SPLIT_TIMERS
       // Split the measurement. report_task_performance() reports the delta since the
       // PREVIOUS call, so this one ends the setup window and starts the solve window -
       // and the "Sudoku solve" report in main() then covers the search alone.
       //
-      // Why it matters: setup is a fixed ~340 cycles (board LOAD over three memory
+      // Why it matters: setup is a fixed 235 cycles (board LOAD over three memory
       // bursts, plus two register handshakes and their polling loops). On easy1 that
-      // was 94% of the single number we used to print, so an easy-board "improvement"
-      // was mostly handshake noise.
+      // is 45% of the total, so an easy-board "improvement" would be mostly handshake
+      // noise. It is also puzzle-independent - hard1 pays exactly the same 235.
       report_task_performance("Board setup+load");
+
+#if ALWAYSUD_PROBE_TIMER_COST
+      // Back-to-back call: this second report's delta IS the cost of one report call,
+      // because no work happens between them. Settles how much of a window is
+      // instrument rather than design. See docs/MEASUREMENT.md.
+      report_task_performance("probe: cost of one report call");
+#endif
+#endif
 
       char solver_success = xlr_solver() ;
       return solver_success ; 
@@ -104,8 +142,12 @@ int main(void) {
 
     char solved = solve((uint8_t*)board) ;
     
-    report_task_performance("Sudoku solve"); // search only - see the split in solve()
-    report_total_performance();              // setup + solve, i.e. the old single number
+    // With the split ON this is the search alone; with it OFF this single call spans
+    // setup+solve and is directly comparable to the course's sudx_scan number.
+    report_task_performance("Sudoku solve");
+#if ALWAYSUD_SPLIT_TIMERS
+    report_total_performance();              // setup + solve, i.e. the unsplit number
+#endif
 
 
     if (solved) {
