@@ -8,19 +8,8 @@ what you read when someone asks "what changed and did it help".
 
 ---
 
-## The metric, settled with the instructor 2026-09-02
-
-```
-rate = cycles / F_max            F_max from standalone qsyn_xlr
-```
-
-**The full-system clock does not matter.** `comp_fpga` failing to close timing at 50 MHz
-is acceptable and is not graded. Only two numbers move the grade:
-
-- **cycles** — fewer
-- **standalone F_max** — higher
-
-So every phase reports those two and their product. Everything else is context.
+The metric is defined once, in `docs/MEASUREMENT.md`. Every phase reports cycles,
+standalone F_max, and their quotient; everything else is context.
 
 ---
 
@@ -98,6 +87,10 @@ allowed, but EFFECT must say so in words and name what it enables.
 
 **Small-board numbers move on recompilation alone.** Under ~50 cycles on easy1 is noise
 unless the binary is byte-identical — the RISC-V polls in software. hard1 is immune.
+
+**If the algorithm changed, rewrite `docs/SOLVER.md` in the same commit.** It always
+describes the *current* solver; git holds the older ones. A phase that changes the search
+and leaves SOLVER.md describing the previous one is how the quiz answer goes stale.
 
 **Synthesis line is not optional.** `check_synth.sh` produces it. `0 unreviewed warnings`
 means every warning was either fixed or written down; see `.claude/skills/cloud-measure/`.

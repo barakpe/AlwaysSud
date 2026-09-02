@@ -1,50 +1,57 @@
 # Backlog
 
-Ideas found while working on something else. **They do not get implemented on the
-current branch** - one hypothesis per branch, or a "3.2x" turns out to be four changes
-and we never learn which one paid.
+Ideas found while working on something else. They do not get implemented on the current
+branch — one hypothesis per branch, or a "3.2x" turns out to be four changes and we never
+learn which one paid.
 
-Promote an item by opening `feat/<name>` for it.
+Promote an item by opening `feat/<name>`. The planned sequence is in `STATE.md`.
 
 ---
 
-1. **Build `sudx_mrv` / `alwaysud_mrv`.** Integrate `reference/ex3.1/sudx_standalone_ref/
-   claude_mrv/sud_solver_mrv_claude.sv` into our wrapper, replacing `alwaysud_solver`.
-   The wrapper already does LOAD / SOLVE / STORE and the solver interface is nearly the
-   same shape (`clk, rst_n, start, puzzle_in, done, success, puzzle_solved` - the MRV
-   one adds `busy`). **This is the single highest-value item on the list**: ~5,000x on
-   the scoring formula.
+1. **Units table in the RTL.** `bench/units.py` did this for the checker; the RTL still has
+   rows/columns/boxes baked into `is_valid`. Isolate "does digit d conflict at (r,c)" into
+   one place so a variant touches only that. **Top of the list** — it is the hackathon
+   risk, and propagation is defined over units so v2 needs it anyway.
 
-2. **Pipeline the MRV critical path.** `claude_mrv` synthesises to ~5 MHz because
-   choosing the minimum-candidate cell is one enormous combinational path: 81 popcounts
-   feeding a min-reduction tree. Splitting that across 2-3 cycles could plausibly get
-   10x the frequency for a small cycle cost - and on `solve_time = cycles / f_max` that
-   is close to a straight 10x. **The differentiator: everyone will integrate MRV, few
-   will fix its timing.**
+2. **Placement + backtrack counters** in the spare bits of `done_reg`. Separates *searched
+   less* from *searched faster*; without them a v2 result cannot be interpreted. Cheap now,
+   impossible to reconstruct later. Changes the `.svh`, so it needs a bitstream rebuild.
 
-3. **Placement + backtrack counters.** Return them in the spare bits of `done_reg`.
-   Separates *searched less* from *searched faster*; without it an MRV result cannot be
-   interpreted. Cheap now, impossible to reconstruct later. Changes the `.svh`, so it
-   needs a bitstream rebuild.
+3. **Attack the LOAD path.** Setup is a fixed 235 cycles regardless of puzzle. Once the
+   solve window is small it dominates the rate — at v3's predicted ~26 cycles it would be
+   90% of the score. Nothing to do until v2/v3 land, but it is where the project ends.
 
-4. **Modular constraint check, for the hackathon variant.** Isolate "does digit d
-   conflict at (r,c)" into one place so a variant only touches that. See the hackathon
-   note in `STATE.md`. Worth doing *before* the design ossifies.
+4. **Fix the two real synthesis warnings** on the first branch that forks the RTL. Both are
+   inherited and both are one edit from being bugs:
+   - `10230` ×3, `alwaysud.sv:83` — 32-bit host register truncated to 16-bit
+     `XMEM_ADDR_WIDTH`. Safe only because the board sits at xmem offset 0.
+   - `10027` ×1, `alwaysud_solver.sv:65` — `grid[br+dr][bc+dc]` index expression too narrow
+     for a 9-element array. Safe only because br,bc ∈ {0,3,6} and dr,dc ∈ 0..2.
 
-5. **Add two harder puzzles.** `hard1` is hard for *raster-order* DFS specifically. MRV
-   deserves an opponent chosen to test it rather than to flatter it. Same file format.
-   Add after v0 is recorded so history stays comparable.
+5. **Two harder puzzles.** `hard1` is hard for *raster-order* DFS specifically. Once the
+   algorithm changes it stops being a fair opponent. Same file format; add after a tag so
+   history stays comparable.
 
-6. **Check packed vs unpacked.** ex3.1 declares `grid` and `stack` as unpacked arrays,
-   which Quartus may infer as block RAM. RAM has two ports - fine for a stack touched one
-   entry at a time, fatal for anything read 81-at-once. MRV reads all 81 cells every
-   cycle, so this matters a great deal for item 1. Confirm from the v0 resource report.
+6. **Register the solver boundary.** `alwaysud.sv` carries the reference's own TODO,
+   *"consider sampling solver inputs"*. Worth measuring if F_max ever becomes the binding
+   constraint — but note pipelining as a *strategy* is deleted; this is one register, not a
+   pipeline.
 
-7. **Sample the solver inputs.** `alwaysud.sv` carries the reference's own TODO:
-   *"consider sampling solver inputs"* / *"Consider sampling solver outputs"*. Likely
-   relevant to item 2 - registering the solver boundary is often the cheapest first
-   pipeline cut.
+7. **Print-suppressed mode.** Board wall-clock is dominated by UART. Only interesting if we
+   ever want real end-to-end time; the score does not use it.
 
-8. **Suppress printing for a clean timing run.** The board's wall-clock is dominated by
-   UART. Once cycle counts get small, a print-suppressed mode would let us measure real
-   end-to-end time.
+8. **Delete `reference/ex2.1/`** if it is still unreferenced when the variant lands. Week
+   2's `sudx_basic` is a different accelerator and nothing points at it. See
+   `reference/PROVENANCE.md`.
+
+---
+
+## Closed
+
+- ~~Integrate `claude_mrv`~~ — deferred to insurance. Its value is better guesses; v3
+  predicts zero guesses. See `STATE.md`.
+- ~~Pipeline the MRV critical path~~ — deleted. The 5.52 MHz is one badly-written
+  reduction, not a pipelining problem, and pipelining loses on a cycles/F_max metric.
+- ~~Check packed vs unpacked arrays~~ — answered by v0: **0 memory bits**, everything is in
+  flip-flops. Nothing was inferred as block RAM. Re-check if candidate masks are ever
+  stored rather than recomputed.

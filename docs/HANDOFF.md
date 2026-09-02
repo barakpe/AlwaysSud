@@ -71,90 +71,30 @@ gh release edit   "$TAG" --repo barakpe/AlwaysSud --notes "...updated notes..."
 
 ## Laptop: fetch and verify
 
-```bash
-TAG=v1-mrv
-DL=/c/Users/barak/Downloads/incoming        # NOT ~/Downloads - $HOME is C:\SPB_Data
-rm -rf "$DL" && mkdir -p "$DL"
-gh release download "$TAG" --repo barakpe/AlwaysSud -D "$DL"
-gh release view "$TAG" --repo barakpe/AlwaysSud --json body -q .body > "$DL/NOTES.txt"
-```
+Automated — `.claude/skills/board-validate/validate_board.sh <tag>`. It fetches the
+release, runs the gates below, programs the board, runs all four puzzles and reports.
+The skill's `SKILL.md` carries the laptop gotchas and what it warns about.
 
-**Verify before programming anything.** The gate is the *commit*, not a file list:
+**The gates, in order, all before the board is touched:**
 
-```bash
-SHA=$(grep '^commit:' "$DL/NOTES.txt" | awk '{print $2}')
-if git diff --quiet "$SHA" -- sw/apps hw/xlrs ; then
-  echo "sources match the bitstream"
-else
-  echo "SOURCE DRIFT - do not program"
-  git diff --stat "$SHA" -- sw/apps hw/xlrs
-fi
+| gate | fails when |
+|---|---|
+| release exists, both assets present | no release, or no `.svh` in it |
+| working tree vs the release's **commit** | any drift in `sw/apps` or `hw/xlrs` |
+| `sof_md5` / `enums_md5` vs the notes | any mismatch |
+| release `.svh` vs the repo `.svh` | any difference |
+| JTAG present | `No JTAG hardware available` |
 
-md5sum "$DL/k5_xbox_alwaysud.sof"      # must match sof_md5: in the notes
-```
+**Why the commit and not a checksum of the contract file.** The register *bit layout*
+lives in two hand-maintained copies — the C union in `sw/apps/alwaysud/alwaysud.h` and a
+packed struct inside `hw/xlrs/alwaysud/alwaysud.sv`. The `.svh` holds only register
+indices and command codes, so adding a `done_reg` field changes both and leaves the
+`.svh` byte-identical: an `enums_md5` check would pass with the contract broken.
+Comparing against the commit covers every file, including ones nobody listed.
 
-**Why the commit and not a checksum of the contract file.** The obvious check is
-"md5 the `.svh`", and it is not sufficient. The register *bit layout* exists in two
-hand-maintained copies - the C union in `sw/apps/alwaysud/alwaysud.h`, and a packed
-struct declared inline in `hw/xlrs/alwaysud/alwaysud.sv`. The `.svh` holds only the
-register indices and command codes. So adding a field to `done_reg` - the backlog's
-placement/backtrack counters, for instance - changes the `.h` and the `.sv` and leaves
-the `.svh` **byte-identical**. An `enums_md5` check would pass while the contract was
-broken, which is the precise failure this handoff exists to prevent.
+The `.svh` stays a release asset as a diagnostic — when the commit check fails, diffing
+it shows *how* things drifted.
 
-Comparing the working tree against the release's commit covers every contract-bearing
-file, including ones nobody remembered to list. Enumerating files is how the `.h` was
-missed in the first place; do not enumerate.
-
-The `.svh` is still shipped as a release asset, but as a diagnostic - if the commit check
-fails, diffing it tells you *how* things drifted.
-
-**If any check fails, stop.** Do not program the board and do not report a number.
-
-Then stage and run:
-
-```bash
-cp "$DL/k5_xbox_alwaysud.sof" $FPGA_PROG_FILES/
-cp "$DL/alwaysud_enums.svh"   $K5_SW_APPS/alwaysud/
-# the app sources themselves travel by git, so:
-cd $ws_repo && git pull && bench/stage.sh
-
-set_k5_terminal
-prog_fpga alwaysud                                   # 7-seg reads "Hi ddP"
-launch_k5_app alwaysud -asl sud_shared -gpv easy1
-launch_k5_app alwaysud -asl sud_shared -gpv 20blanks
-launch_k5_app alwaysud -asl sud_shared -gpv 51blanks
-launch_k5_app alwaysud -asl sud_shared -gpv hard1    # the score
-```
-
----
-
-## Laptop reports back
-
-```
-## HW RESULT <tag> <date>
-
-cycles      : easy1 <n> / 20blanks <n> / 51blanks <n> / hard1 <n>
-vs sim      : match / MISMATCH on <board>
-correctness : all four md5 PASS / FAIL on <board>
-solve time  : hard1 cycles / <standalone F_max> = <n> us      <- the score
-insight     : anything the numbers alone do not say
-```
-
-**A simulation/hardware cycle mismatch is a red flag, not rounding.** They matched to the
-digit on all four week-2 runs. If they diverge, something differs between what was
-simulated and what was fitted — investigate before recording anything.
-
----
-
-## Laptop gotchas, learned the hard way
-
-- `$HOME` in git-bash is `C:\SPB_Data`, **not** `C:\Users\barak`. `~/Downloads` is wrong.
-- JTAG goes stale between sessions. `jtagconfig` saying `No JTAG hardware available` while
-  Device Manager shows the USB-Blaster as OK means **replug the cable**. If that fails,
-  `Restart-Service JTAGServer -Force` from an **Administrator** PowerShell.
-- `sud_basic` (no `x`) is a different, software-only app that is not installed here.
-  The app is `alwaysud`.
-- Board `.txt` files are parsed by `load_hex_file` — keep them LF, not CRLF.
-- The UART header orientation can permanently damage the board: facing the on-board logos,
-  outer right-hand pin row, green wire right, black wire left.
+**Cycles must match the release's expected values exactly.** They have on every run so
+far. A mismatch means simulation and fabric ran different designs; investigate before
+recording anything.

@@ -63,31 +63,32 @@ there is no interrupt.
 | `STORE` | writes the solved board back out |
 | `DONE` | reports, waits for the host to read, returns to `IDLE` |
 
-## Inside the solver
+## The solver boundary
 
-The board lives in a register array, one nibble per cell. A stack of at most 81
-entries records the choices made so far, so they can be undone.
+The wrapper hands the solver a board and waits:
 
-| State | Does | Cycles |
-|---|---|---|
-| `INIT` | copies the input board in, resets the pointers | 1 |
-| `FIND_EMPTY` | walks forward looking for an empty cell, **one cell per cycle** | 1-81 |
-| `TRY_VAL` | tests whether a digit fits, **one digit per cycle**; if it fits, place it and push | 1-9 |
-| `BACKTRACK` | pops the last choice and resumes from the next digit | 1 |
-| `DONE_SUCCESS` / `DONE_FAIL` | raises `done` | 1 |
+```systemverilog
+alwaysud_solver solver (.clk, .rst_n, .puzzle_in, .start, .done, .success, .solved_puzzle);
+```
 
-Legality is checked by `is_valid(r,c,v)`: a combinational function that scans the
-cell's row, its column, and its 3x3 box for the digit `v`. It is one cycle.
+`start` is a one-cycle pulse; the solver holds `done` until reset. The solver knows
+nothing about registers or memory, and the wrapper knows nothing about Sudoku.
 
-## Where the time goes, and why that is the whole project
+**That boundary is why the algorithm can be replaced without touching anything else** —
+and it is where every optimisation happens.
 
-`is_valid` is one cycle. But the solver only asks it about **one digit at a time**,
-and finds empty cells **one per cycle**. That is a direct translation of the C code -
-which had to be sequential, because a processor has one ALU.
+**The current algorithm is in [`SOLVER.md`](SOLVER.md)**, which is rewritten whenever the
+solver changes. Everything in *this* document is the course platform and stays fixed.
 
-Hardware does not have that constraint. All nine digits for a cell could be tested in
-the same instant. "The first empty cell" is a priority encoder, not an 81-cycle walk.
-The gap between what the fabric could do at once and what this design does one step at
-a time is the entire optimisation budget.
+## Where the time goes
+
+`is_valid` is one cycle. But the solver only asks it about **one digit at a time**, and
+finds empty cells **one per cycle**. That is a direct translation of the C code — which
+had to be sequential, because a processor has one ALU.
+
+Hardware does not have that constraint. All nine digits for a cell could be tested at
+once, and "the first empty cell" is a priority encoder, not an 81-cycle walk. The gap
+between what the fabric could do at once and what this design does one step at a time is
+the entire optimisation budget.
 
 What we do about that is `STATE.md` and `BACKLOG.md`.

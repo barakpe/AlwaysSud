@@ -64,18 +64,19 @@ launch_k5_app alwaysud -asl sud_shared -gpv hard1
 ## Layout
 
 ```
-hw/xlrs/alwaysud/       the accelerator  - mirrors $MY_K5_PROJ/hw/xlrs
-sw/apps/alwaysud/       the driver       - mirrors $MY_K5_PROJ/sw/apps
+hw/xlrs/alwaysud/    the accelerator      mirrors $MY_K5_PROJ/hw/xlrs
+sw/apps/alwaysud/    the driver           mirrors $MY_K5_PROJ/sw/apps
 sw/apps/sud_shared/  shared lib + the four puzzle files
-bench/units.py       THE units table - the only place that knows the geometry.
-                     A hackathon variant is a change to this file.
-bench/               golden solutions, the correctness gate, staging, diagnosis
-.claude/skills/      cloud-measure (synthesise+simulate+publish) and
-                     board-validate (fetch+verify+program+run) - one per machine
+bench/units.py       the units table - the only place that knows the geometry,
+                     so a hackathon variant is a change to this file
+bench/               golden solutions, correctness gate, staging, diagnosis
+.claude/skills/      cloud-measure (cloud) · board-validate (laptop)
 reference/           vendored course code - read reference/PROVENANCE.md first
-logs/<tag>/          one directory per phase: REPORT.md (one screen),
-                     sim/ cloud output, hw/ board output, models/, notes/
-                     every text file versioned, binaries never
+logs/<tag>/          one directory per phase:
+                       REPORT.md   one screen: rate, raw, what, effect, next
+                       sim/ hw/    console output from each machine
+                       models/     the hard1 and propagation models
+                       notes/      long write-ups from before the format existed
 ```
 
 One accelerator, one name, everywhere: the folder, the `.f`, the module, the app, and
@@ -85,11 +86,23 @@ milestones.
 
 ## The rules
 
+- **The grade is `cycles / standalone F_max`.** Judge every change on the quotient.
+  The full-system clock is not graded.
 - **Cycles, never wall-clock.** Wall time here measures UART, not the design.
-- **Correctness gate before any timing number.** Every grid md5-matches
-  `bench/golden/`, in simulation *and* on hardware.
+- **Correctness gate before any timing number**, in simulation *and* on hardware.
 - **One hypothesis per branch.** Other ideas go to [`BACKLOG.md`](BACKLOG.md).
-- **Agents do not commit.** Barak reviews and commits. An agent may draft a commit
-  message and leave it in its report.
+- **Agents do not commit.** Barak reviews and commits.
 
-Full protocol: [`docs/MEASUREMENT.md`](docs/MEASUREMENT.md).
+## The documents
+
+| | |
+|---|---|
+| [`STATE.md`](STATE.md) | where we stand, the ladder, the risks — **read first** |
+| [`RESULTS.md`](RESULTS.md) | one row per tag |
+| [`DIARY.md`](DIARY.md) | why we tried it and what surprised us |
+| [`BACKLOG.md`](BACKLOG.md) | ideas not on the current branch |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | the platform: wrapper, registers, memory — fixed |
+| [`docs/SOLVER.md`](docs/SOLVER.md) | the current algorithm — **rewritten each phase** |
+| [`docs/MEASUREMENT.md`](docs/MEASUREMENT.md) | the metric and the protocol |
+| [`docs/HANDOFF.md`](docs/HANDOFF.md) | moving a bitstream cloud → laptop |
+| [`docs/REPORT_TEMPLATE.md`](docs/REPORT_TEMPLATE.md) | the per-phase format |
