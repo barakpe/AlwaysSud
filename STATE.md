@@ -26,15 +26,22 @@ solve_time_us = cycle_count / max_freq_mhz        (standalone qsyn_xlr F_max)
 ```
 
 Standalone, explicitly, "to neutralize the platform infrastructure speed bottleneck".
-Two consequences, the second only established on 08-31:
 
-- F_max is worth exactly as much as cycle count.
-- **`comp_fpga -mhz` is worth precisely zero for the score.** It moves the system clock,
-  which the formula does not use. The old `v5-clock` rung has been deleted, not demoted.
+The full-system clock is *not* graded. `comp_fpga` failing to close
+timing at 50 MHz is acceptable. Only the rate counts.
+
+- Fewer cycles and higher standalone F_max are worth exactly the same.
+- Judge every change on the **quotient**, never on either alone. A cycle win paid for in
+  F_max can be a net loss.
+- **The old "F_max >= 56.45 MHz" floor is deleted.** It protected the system clock, which
+  nobody scores. Low F_max is still bad - because it divides into the rate.
+- `comp_fpga -mhz` remains worth zero, for the same reason as before.
+
+Report format: `docs/REPORT_TEMPLATE.md` - one screen: rate, raw, what we did, effect, next.
 
 ## v0 - measured, verified, PASSING
 
-Cloud, 2026-08-31, on the fixed RTL. Full report: `logs/v0_verified/REPORT.md`.
+Cloud, 2026-08-31, on the fixed RTL. Full report: `logs/v0/REPORT.md`.
 
 | | |
 |---|---|

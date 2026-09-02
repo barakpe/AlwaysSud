@@ -23,6 +23,18 @@ Two things follow, and both matter:
 
 ## The metric
 
+**Settled with the instructor, 2026-09-02.** The grade is the rate:
+
+```
+rate = cycles / F_max            F_max from standalone qsyn_xlr
+```
+
+**The full-system clock is not graded.** `comp_fpga` failing to close timing at 50 MHz is
+explicitly acceptable. Only two numbers move the grade - fewer cycles, higher standalone
+F_max - and a change is judged on their quotient, never on either alone.
+
+Report format: `docs/REPORT_TEMPLATE.md`, one screen per phase.
+
 **Solve cycles**, as printed by `report_task_performance("Sudoku solve")`.
 
 **Never wall-clock.** Measured on this setup: run-to-run jitter ~4 s against a
@@ -119,7 +131,7 @@ system bottleneck, which is a real finding worth reporting, not a failure.
 3. All four boards including `hard1`, capture stdout
 4. Correctness gate on each, twice: `bench/golden/` and the app's own checker
 5. Compare cycles against the release's expected values - an inexact match fails
-6. Logs under `logs/<tag>_hw/`; the `RESULTS.md` row is written by hand
+6. Logs under `logs/<tag>/hw/`; the `RESULTS.md` row is written by hand
 
 ## Merge criteria
 

@@ -27,8 +27,12 @@ higher - 0.00014% - so the model is usable for planning the ladder.
 |-----|-----|-----------|----------|------------------|--------------|-------|
 | **v0** | 9,286 | 1,867 | 0 | **87.02 MHz** | 55.29 MHz | 79% system mem bits; 1.9 ns slack at 50 MHz |
 
-**Limits:** LEs < 20,000 · F_max standalone >= 56.45 MHz (below that the accelerator
-becomes the system bottleneck) · system memory bits measured at 79% of ~1.6 Mbit with v0 in place.
+**Limits:** LEs < 20,000 · **no F_max floor** — the full-system clock is not graded
+(instructor, 2026-09-02), so a low F_max is penalised only through the rate itself
+· system memory bits measured at 79% of ~1.6 Mbit with v0 in place.
+
+**The grade is `cycles / standalone F_max`.** Both columns matter equally; judge a change
+on the quotient. Format for a phase write-up: `docs/REPORT_TEMPLATE.md`.
 
 ## Search efficiency
 
