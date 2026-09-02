@@ -17,7 +17,7 @@ Mechanical half of `docs/MEASUREMENT.md`. Everything here was verified by hand o
 .claude/skills/cloud-measure/measure_cloud.sh <tag> --with-fpga  # ... + bitstream
 ```
 
-Outputs land in `logs/<tag>/`: `qsyn.txt`, an archived `qsyn_output_files/`,
+Outputs land in `logs/<tag>/sim/`: `qsyn.txt`, an archived `qsyn_output_files/`,
 `sim_<board>.txt` (app stdout - this is the measurement), `gate.txt`, `cycles.txt`,
 and `HANDOFF.txt`. Every **text** artifact under `logs/` is versioned - it is the
 evidence behind `RESULTS.md`. Only binaries (`.sof`, `.svf`, `.tgz`, `.qar`) are ignored.
@@ -33,11 +33,35 @@ and `--with-fpga` adds **more than ten minutes**.
 
 | gate | threshold |
 |---|---|
-| synthesis error / inferred latch / combinational loop | any |
+| synthesis error / inferred latch / combinational loop / undriven net | any |
+| unreviewed synthesis warning | any |
 | logic elements | >= 20,000 |
-| F_max standalone | < 56.45 MHz |
 | grid mismatch vs `bench/golden/` | any board |
 | a simulator that will not die | any |
+
+**F_max has no floor any more.** Confirmed with the instructor 2026-09-02: the grade is
+`cycles / standalone F_max`, and the full-system clock is not graded - `comp_fpga` failing
+to close timing at 50 MHz is acceptable. The old "F_max >= 56.45 MHz or the accelerator
+becomes the system bottleneck" gate measured something nobody scores. A low F_max is still
+bad, but it is bad *because it divides into the rate*, which the rate line already shows.
+
+### Synthesis warnings: `check_synth.sh`
+
+```bash
+.claude/skills/cloud-measure/check_synth.sh logs/<tag>/sim/qsyn.txt
+```
+
+exit 0 clean · exit 1 must fix · exit 2 unreviewed warnings. Run it after every synthesis,
+before any measurement, and paste its `REPORT.md synthesis line` into the report.
+
+**Why a latch is the one to fear.** It does not stop the build. `always_comb` that misses a
+branch becomes a transparent latch: it simulates correctly, synthesises correctly, and then
+behaves differently in fabric. It is the most likely way to get a change that passes every
+gate we have and is still wrong on the board. Fix it by assigning a default at the top of
+the block or completing the `if`/`case` - **never** by adding a clock.
+
+Every other warning is either fixed or recorded in `reviewed_warnings.txt` with a reason.
+Nothing is silently ignored, and no pattern there may be broad enough to also hide a latch.
 
 A correctness mismatch stops the run **before** `comp_fpga`, and therefore before the
 release. A faster wrong answer is not a result, and a bitstream nobody should program
@@ -137,7 +161,7 @@ it is idempotent for a given tag, and the tag is an explicit argument, never inf
 
 11. **Staging deletes the synthesis reports.** `hw/xlrs/alwaysud/qsyn_output_files/`
     lives inside the directory that staging removes. `measure_cloud.sh` copies the
-    reports into `logs/<tag>/` immediately after synthesis, before anything can
+    reports into `logs/<tag>/sim/` immediately after synthesis, before anything can
     re-stage. Do not reorder those steps.
 
 12. **The archived reports ARE committed.** Changed 2026-08-31: `.gitignore` now keeps

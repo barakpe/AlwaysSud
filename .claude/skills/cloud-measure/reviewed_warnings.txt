@@ -1,0 +1,51 @@
+# Warnings we have looked at and decided to live with, or to live with FOR NOW.
+# One `grep -F` pattern per line, with the reason above it. Keep each pattern SPECIFIC:
+# a broad pattern here is how a latch gets hidden.
+#
+# Calibrated against the real v0 synthesis (logs/v0/INVESTIGATION.md, "Warning IDs").
+# v0 had ZERO latches and ZERO combinational loops.
+
+# ============================================================================
+# NOT OURS - the synthesis-only test wrapper qsyn_dummy_xlr_wrap_hri.sv, and the
+# tool's own ignore list. Most of v0's 41 synthesis warnings are these.
+# ============================================================================
+Warning (15610)
+Warning (13410)
+Warning (12161)
+Warning (12158)
+Warning (21074)
+Warning (13024)
+Warning (10036)
+Warning (169085)
+Warning (292013)
+Warning (15714)
+
+# ============================================================================
+# NOT OURS - $QSYN/basic.sdc does not exist, so the standalone run has NO clock
+# constraint. Quartus derives create_clock -period 1.0 (1 GHz) and every setup slack
+# in *.sta.summary is a meaningless large negative. The Fmax panel is still valid -
+# unconstrained Fmax, min across corners - and that is the number the grade divides by.
+# Ignore the slack, quote F_max.
+# ============================================================================
+Warning (332012)
+Critical Warning (332148)
+Warning (332060)
+Warning (332049)
+
+# ============================================================================
+# OURS. Real, understood, and deliberately NOT fixed in v0 - v0 is the instructor's
+# reference untouched, and that is the whole point of a baseline.
+#
+#   FIX BOTH ON THE FIRST BRANCH THAT FORKS THE RTL.
+#
+# 10230 x3  alwaysud.sv:83
+#   32-bit host register truncated to the 16-bit XMEM_ADDR_WIDTH. Harmless today only
+#   because the board sits at offset 0 of the xmem. Silent if that ever changes.
+#
+# 10027 x1  alwaysud_solver.sv:65
+#   grid[br+dr][bc+dc] - the index expression is not wide enough for a 9-element array.
+#   Works because br,bc are 0/3/6 and dr,dc are 0..2, so it never exceeds 8. It is one
+#   edit away from wrapping silently.
+# ============================================================================
+Warning (10230)
+Warning (10027)
