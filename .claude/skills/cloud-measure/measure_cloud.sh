@@ -10,7 +10,7 @@ source "$HERE/k5_env.sh"
 REPO="$(cd "$HERE/../../.." && pwd)"
 
 [ -n "$TAG" ] || { echo "usage: measure_cloud.sh <tag> [--with-fpga]"; exit 2; }
-OUT="$REPO/logs/$TAG"; mkdir -p "$OUT"
+OUT="$REPO/logs/$TAG/sim"; mkdir -p "$OUT"  # one directory per phase; laptop writes hw/
 XLR=alwaysud
 LE_LIMIT=20000
 FMAX_MIN=56.45

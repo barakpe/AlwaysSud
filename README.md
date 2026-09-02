@@ -73,8 +73,9 @@ bench/               golden solutions, the correctness gate, staging, diagnosis
 .claude/skills/      cloud-measure (synthesise+simulate+publish) and
                      board-validate (fetch+verify+program+run) - one per machine
 reference/           vendored course code - read reference/PROVENANCE.md first
-logs/<tag>/          cloud run output      } every text file versioned,
-logs/<tag>_hw/       laptop run output     } binaries never
+logs/<tag>/          one directory per phase: REPORT.md (one screen),
+                     sim/ cloud output, hw/ board output, models/, notes/
+                     every text file versioned, binaries never
 ```
 
 One accelerator, one name, everywhere: the folder, the `.f`, the module, the app, and

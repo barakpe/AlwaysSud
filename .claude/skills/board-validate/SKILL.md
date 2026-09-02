@@ -19,7 +19,7 @@ against the release. Barak reviews and commits.
 .claude/skills/board-validate/validate_board.sh <tag> --no-fetch     # reuse the download
 ```
 
-Outputs land in `logs/<tag>_hw/`: `hw_<board>.txt` (app stdout — the measurement),
+Outputs land in `logs/<tag>/hw/`: `hw_<board>.txt` (app stdout — the measurement),
 `gate_<board>.txt`, `prog.txt`, `cycles.txt`, `release_notes.txt`, `warnings.txt`, and
 `HW_RESULT.txt`. All text, all versioned.
 
@@ -64,7 +64,7 @@ number that is wrong, which is worse.
 |---|---|
 | **hardware cycles ≠ the release's expected cycles** | sim and fabric ran different designs. They matched to the digit on every run so far; a mismatch is a red flag, never rounding. Fails the run. |
 | **our golden gate and the app checker disagree** | one of the two is lying. Worse than either failing alone, because a single passing gate would have been believed. Fails the run. |
-| **"Solved" printed but the checker FAILED** | the week-3 store-bug signature. Run `python bench/diagnose.py <board> logs/<tag>_hw/hw_<board>.txt` — it says whether the damage is burst-aligned, a shifted copy, zeros, or an illegal grid. |
+| **"Solved" printed but the checker FAILED** | the week-3 store-bug signature. Run `python bench/diagnose.py <board> logs/<tag>/hw/hw_<board>.txt` — it says whether the damage is burst-aligned, a shifted copy, zeros, or an illegal grid. |
 | **`setup+load` varies across boards** | it is a fixed 32+32+17 burst cost and must not depend on the puzzle. If it moves, something now reads the data during load. |
 | **every cycle count identical to the previous tag** | either the tag genuinely changed nothing, or **the board is still running the old bitstream**. The second is the common one and it looks exactly like "no improvement". |
 | **CR in a `sudoku_input_*.txt`** | `load_hex_file` expects LF and fails quietly on CRLF. |

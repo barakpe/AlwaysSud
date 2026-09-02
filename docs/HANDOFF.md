@@ -65,7 +65,7 @@ gh release edit   "$TAG" --repo barakpe/AlwaysSud --notes "...updated notes..."
 - The expected cycle counts are **solve-window** numbers, not the pre-split totals, and
   not `report_total_performance()`. Say which window explicitly.
 - If `comp_fpga` was not run, write `system: NOT BUILT` — never leave a stale line saying
-  something was not built when it was. `logs/v0_verified/HANDOFF.txt` did exactly that.
+  something was not built when it was. `logs/v0/HANDOFF.txt` did exactly that.
 
 ---
 

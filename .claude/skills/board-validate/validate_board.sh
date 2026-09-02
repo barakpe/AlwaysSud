@@ -20,7 +20,7 @@ done
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../.." && pwd)"          # .claude/skills/board-validate -> repo root
 source "$HERE/k5x_env.sh" || exit 1
-OUT="$REPO/logs/${TAG}_hw"; mkdir -p "$OUT"
+OUT="$REPO/logs/$TAG/hw"; mkdir -p "$OUT"   # one directory per phase; cloud writes sim/
 DL="/c/Users/barak/Downloads/incoming/$TAG"   # NOT ~/Downloads - $HOME is C:\SPB_Data
 XLR=alwaysud
 WARN=0
@@ -171,7 +171,7 @@ fi
 # The classic silent failure: the board was never actually reprogrammed, so the OLD
 # design answers and the tag looks like it changed nothing. Identical cycles across two
 # different tags is the signature.
-PREV=$(ls -1d "$REPO"/logs/*_hw 2>/dev/null | grep -v "/${TAG}_hw\$" | tail -1)
+PREV=$(ls -1d "$REPO"/logs/*/hw 2>/dev/null | grep -v "/$TAG/hw\$" | tail -1)
 if [ -n "$PREV" ] && [ -f "$PREV/cycles.txt" ]; then
   if cmp -s <(awk '{print $1,$3}' "$PREV/cycles.txt") <(awk '{print $1,$3}' "$OUT/cycles.txt"); then
     warn "every cycle count is identical to $(basename "$PREV"). Either this tag changed nothing, or the board is still running the previous bitstream."
