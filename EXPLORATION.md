@@ -13,6 +13,11 @@ The one-line answer:
 > worth ~63,000x on `hard1` and ~55,000x on the worst case **even after paying a
 > measured 3.9x in F_max** (87.02 → 22.34 MHz). Frequency is now the only thing left
 > worth optimising, and it is the thing I have least evidence about.
+>
+> The number with no modelling anywhere in it: on `51blanks` — the board
+> `docs/MEASUREMENT.md` designates as *the* correctness gate — the full K5 run goes
+> from **56,803 to 235 measured solve cycles**, gate passed, app checker agreeing
+> (§6a).
 
 ### At a glance
 
