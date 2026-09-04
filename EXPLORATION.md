@@ -322,7 +322,9 @@ of which 181 / 188 / 181 is overhead — 77% to 97% of what is being measured. N
 else on this list changes by that factor once D1 lands.
 
 The ±10 spread is the poll loop's phase, exactly as `docs/MEASUREMENT.md` predicts.
-I have not measured where inside the 186 the time goes — see §4.
+I have **not** measured where inside the ~183 the time goes — how much is the three
+`STORE` bursts versus the RISC-V poll loop — and that is what decides whether D5 is
+worth 1.2x or 1.5x. See §4.
 
 ---
 
@@ -344,9 +346,11 @@ milestone.**
 ### ✗ Forward checking alone — real, but two orders short
 
 Adding "backtrack as soon as *any* empty cell has no candidate" on top of masks:
-`hard1` 19,454,731 → 3,430,905 (5.7x), worst held-out 553,930,745 → 96,102,817. Cheap
-logic, genuinely useful — but it is the small half of the inference story and is
-strictly dominated by taking one more step to naked singles (a further 128x).
+`hard1` 19,454,731 → 3,430,905 (5.7x); worst over all six sets 3,253,371,343 →
+190,718,964 (17x). Cheap logic — an OR over 81 "is this domain empty" bits — and
+genuinely useful. But it is the small half of the inference story: one more step, to
+naked singles, is worth a *further* 128x on `hard1` and 26x on the worst case, for
+logic that is barely more expensive.
 
 ### ✗ MRV as the **first** algorithmic step — 18x worse than singles, for more logic
 
