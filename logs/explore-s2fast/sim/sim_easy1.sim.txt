@@ -1,0 +1,459 @@
+xrun command: xrun -sv -f $K5_XBOX_ENV/tb/k5_xbox_tb_irun.f -UNBUFFERED -delay_trigger +define+XMEM_INTRFC +define+MAX10_FPGA +define+CRNT_XLR=alwaysud
+TOOL:	xrun(64)	23.09-s013: Started on Sep 04, 2026 at 22:58:52 UTC
+xrun(64): 23.09-s013: (c) Copyright 1995-2024 Cadence Design Systems, Inc.
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox.sv
+	module worklib.xbox:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xmem_spram.sv
+	module worklib.xmem_spram:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_mfarm.sv
+	module worklib.xbox_mfarm:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlr_wrap.sv
+	module worklib.xbox_xlr_wrap:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv
+	interface worklib.host_regs_intrf:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mannix_mem_farm.sv
+	module worklib.mannix_mem_farm:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mannix_mem_farm_lite.sv
+	module worklib.mannix_mem_farm_lite:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mannix_mem_ifc.sv
+	interface worklib.MANNIX_MEM_IFC:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_align.sv
+	module worklib.mem_align:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_arbiter.sv
+	module worklib.mem_arbiter:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_ctrl.sv
+	module worklib.mem_ctrl:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_fabric.sv
+	module worklib.mem_fabric:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_arbiter.sv
+	module worklib.mem_intf_arbiter:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv
+	interface worklib.mem_intf_read:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv
+	interface worklib.mem_intf_write:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_req_ctrl.sv
+	module worklib.mem_req_ctrl:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_sram.sv
+	module worklib.mem_sram:sv
+		errors: 0, warnings: 0
+file: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv
+	package worklib.alwaysud_def_pkg:sv
+		errors: 0, warnings: 0
+file: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/sud_geom_pkg.sv
+	package worklib.sud_geom_pkg:sv
+		errors: 0, warnings: 0
+file: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv
+	module worklib.alwaysud:sv
+		errors: 0, warnings: 0
+file: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv
+	module worklib.alwaysud_solver:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/fpga/xbox_altera_mems/altera_mf.v
+	module worklib.lcell:v
+		errors: 0, warnings: 0
+	module worklib.ALTERA_MF_MEMORY_INITIALIZATION:v
+		errors: 0, warnings: 0
+	module worklib.ALTERA_MF_HINT_EVALUATION:v
+		errors: 0, warnings: 0
+	module worklib.ALTERA_DEVICE_FAMILIES:v
+		errors: 0, warnings: 0
+	module worklib.dffp:v
+		errors: 0, warnings: 0
+	module worklib.pll_iobuf:v
+		errors: 0, warnings: 0
+	module worklib.stx_m_cntr:v
+		errors: 0, warnings: 0
+	module worklib.stx_n_cntr:v
+		errors: 0, warnings: 0
+	module worklib.stx_scale_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_pll_reg:v
+		errors: 0, warnings: 0
+	module worklib.MF_stratix_pll:v
+		errors: 0, warnings: 0
+	module worklib.arm_m_cntr:v
+		errors: 0, warnings: 0
+	module worklib.arm_n_cntr:v
+		errors: 0, warnings: 0
+	module worklib.arm_scale_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_stratixii_pll:v
+		errors: 0, warnings: 0
+	module worklib.ttn_m_cntr:v
+		errors: 0, warnings: 0
+	module worklib.ttn_n_cntr:v
+		errors: 0, warnings: 0
+	module worklib.ttn_scale_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_stratixiii_pll:v
+		errors: 0, warnings: 0
+	module worklib.cda_m_cntr:v
+		errors: 0, warnings: 0
+	module worklib.cda_n_cntr:v
+		errors: 0, warnings: 0
+	module worklib.cda_scale_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_cycloneiii_pll:v
+		errors: 0, warnings: 0
+	module worklib.MF_cycloneiiigl_m_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_cycloneiiigl_n_cntr:v
+		errors: 0, warnings: 0
+	module worklib.MF_cycloneiiigl_scale_cntr:v
+		errors: 0, warnings: 0
+	module worklib.cycloneiiigl_post_divider:v
+		errors: 0, warnings: 0
+	module worklib.MF_cycloneiiigl_pll:v
+		errors: 0, warnings: 0
+	module worklib.altpll:v
+		errors: 0, warnings: 0
+	module worklib.altlvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.stratix_lvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.stratixgx_dpa_lvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.stratixii_lvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.flexible_lvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.stratixiii_lvds_rx:v
+		errors: 0, warnings: 0
+	module worklib.stratixiii_lvds_rx_channel:v
+		errors: 0, warnings: 0
+	module worklib.stratixiii_lvds_rx_dpa:v
+		errors: 0, warnings: 0
+	module worklib.altlvds_tx:v
+		errors: 0, warnings: 0
+	module worklib.stratixv_local_clk_divider:v
+		errors: 0, warnings: 0
+	module worklib.stratix_tx_outclk:v
+		errors: 0, warnings: 0
+	module worklib.stratixii_tx_outclk:v
+		errors: 0, warnings: 0
+	module worklib.flexible_lvds_tx:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_dffpipe:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_fefifo:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_async:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_sync:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_low_latency:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo_mixed_widths:v
+		errors: 0, warnings: 0
+	module worklib.dcfifo:v
+		errors: 0, warnings: 0
+	module worklib.altera_syncram_derived:v
+		errors: 0, warnings: 0
+	module worklib.altera_syncram_derived_forwarding_logic:v
+		errors: 0, warnings: 0
+	module worklib.altaccumulate:v
+		errors: 0, warnings: 0
+	module worklib.altmult_accum:v
+		errors: 0, warnings: 0
+	module worklib.altmult_add:v
+		errors: 0, warnings: 0
+	module worklib.altfp_mult:v
+		errors: 0, warnings: 0
+	module worklib.altsqrt:v
+		errors: 0, warnings: 0
+	module worklib.altclklock:v
+		errors: 0, warnings: 0
+	module worklib.altddio_in:v
+		errors: 0, warnings: 0
+	module worklib.altddio_out:v
+		errors: 0, warnings: 0
+	module worklib.altddio_bidir:v
+		errors: 0, warnings: 0
+	module worklib.altdpram:v
+		errors: 0, warnings: 0
+	module worklib.altsyncram:v
+		errors: 0, warnings: 0
+	module worklib.altsyncram_body:v
+		errors: 0, warnings: 0
+	module worklib.alt3pram:v
+		errors: 0, warnings: 0
+	module worklib.parallel_add:v
+		errors: 0, warnings: 0
+	module worklib.scfifo:v
+		errors: 0, warnings: 0
+	module worklib.altshift_taps:v
+		errors: 0, warnings: 0
+	module worklib.a_graycounter:v
+		errors: 0, warnings: 0
+	module worklib.altsquare:v
+		errors: 0, warnings: 0
+	module worklib.altera_std_synchronizer:v
+		errors: 0, warnings: 0
+	module worklib.altera_std_synchronizer_bundle:v
+		errors: 0, warnings: 0
+	module worklib.alt_cal:v
+		errors: 0, warnings: 0
+	module worklib.alt_cal_mm:v
+		errors: 0, warnings: 0
+	module worklib.alt_cal_c3gxb:v
+		errors: 0, warnings: 0
+	module worklib.alt_cal_sv:v
+		errors: 0, warnings: 0
+	module worklib.alt_cal_av:v
+		errors: 0, warnings: 0
+	module worklib.alt_aeq_s4:v
+		errors: 0, warnings: 0
+	module worklib.alt_eyemon:v
+		errors: 0, warnings: 0
+	module worklib.alt_dfe:v
+		errors: 0, warnings: 0
+	module worklib.signal_gen:v
+		errors: 0, warnings: 0
+	module worklib.jtag_tap_controller:v
+		errors: 0, warnings: 0
+	module worklib.dummy_hub:v
+		errors: 0, warnings: 0
+	module worklib.sld_virtual_jtag:v
+		errors: 0, warnings: 0
+	module worklib.sld_signaltap:v
+		errors: 0, warnings: 0
+	module worklib.altstratixii_oct:v
+		errors: 0, warnings: 0
+	module worklib.altparallel_flash_loader:v
+		errors: 0, warnings: 0
+	module worklib.altserial_flash_loader:v
+		errors: 0, warnings: 0
+	module worklib.alt_fault_injection:v
+		errors: 0, warnings: 0
+	module worklib.sld_virtual_jtag_basic:v
+		errors: 0, warnings: 0
+	module worklib.altsource_probe:v
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/fpga/xbox_altera_mems/altera_sp_ram_1024x256_be.v
+	module worklib.altera_sp_ram_1024x256_be:v
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/core/k5_dx_comb.sv
+	module worklib.k5_dx_comb:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/core/k5_dx.sv
+	module worklib.k5_dx:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/core/k5_core.sv
+	module worklib.k5_core:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/mul/rtl/mul_base.sv
+	module worklib.mul_base:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/mul/rtl/mul_final.sv
+	module worklib.mul_final:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/mems/sim_pseudo_mems/sp_ram_be_simple.sv
+	module worklib.sp_ram:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/mems/sim_pseudo_mems/dp_ram_simple.sv
+	module worklib.dp_ram:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_spram.sv
+	module worklib.k5_spram:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_dpram.sv
+	module worklib.k5_dpram:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_tcm.sv
+	module worklib.k5_tcm:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_rmem.sv
+	module worklib.k5_rmem:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_confmem.sv
+	module worklib.k5_confmem:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_pcmem.sv
+	module worklib.k5_pcmem:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_sch.sv
+	module worklib.k5_sch:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_sys.sv
+	module worklib.k5_sys:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_sys_access.sv
+	module worklib.k5_sys_access:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_sys_regs_mem_access.sv
+	module worklib.k5_sys_regs_mem_access:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/sys/k5_com.sv
+	module worklib.k5_com:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/uart_access/k5_remote_access_intrfc.sv
+	interface worklib.k5_uart_remote_access_intrfc:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/uart_access/k5_uart_access.sv
+	module worklib.k5_uart_access:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/uart_access/k5_uart_rx.sv
+	module worklib.uart_rx:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/uart_access/k5_uart_tx.sv
+	module worklib.uart_tx:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/tb/k5_uart_tb.sv
+	module worklib.k5_uart_tb:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/tb/k5_tracer.sv
+	module worklib.k5_tracer:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/kuntz5/src/tb/k5_tb.sv
+	module worklib.k5_tb:sv
+		errors: 0, warnings: 0
+file: /project/tsmc65/shared/k5_share/k5_xbox/hw/k5_xbox_sys.sv
+	module worklib.k5_xbox_sys:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+	Top level design units:
+		xbox_def_pkg
+		mem_intf_pkg
+		alwaysud_def_pkg
+		sud_geom_pkg
+		k5_pkg
+		seg7_art_pkg
+		k5_smart_uart_pkg
+		sock
+		k5_tb_tasks_pkg
+		$unit_0x13f51c4f
+		k5_tb
+    $fatal("NUM_MEMS other than 2 not supported by mannix_mem_farm_lite.sv");
+                                                                          |
+xmelab: *W,STRINT (/project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mannix_mem_farm_lite.sv,157|74): String literal argument supplied to integer parameter.
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.uart_tx:sv <0x1fe48f0a>
+			streams:  11, words:  6333
+		worklib.k5_uart_tb:sv <0x22a0a311>
+			streams:  17, words: 27927
+		worklib.mannix_mem_farm_lite:sv <0x37823125>
+			streams:  45, words: 47694
+		worklib.alwaysud_solver:sv <0x076e1ed5>
+			streams:  42, words: 92595
+		worklib.alwaysud:sv <0x61aea986>
+			streams:  17, words: 33408
+		worklib.xmem_spram:sv <0x7c1757f3>
+			streams:   0, words:     0
+		worklib.xbox:sv <0x4724d7f4>
+			streams:  34, words: 13395
+		worklib.k5_com:sv <0x1008eebb>
+			streams:   6, words:  2416
+		worklib.k5_sys_regs_mem_access:sv <0x4c8a0668>
+			streams:  36, words: 17118
+		worklib.uart_tx:sv <0x40228a9f>
+			streams:  10, words:  6070
+		worklib.uart_rx:sv <0x0a16bcc8>
+			streams:  14, words:  7505
+		worklib.k5_uart_access:sv <0x4e3036bd>
+			streams:  52, words: 22083
+		worklib.k5_sys_access:sv <0x5595742a>
+			streams:   5, words:  1935
+		worklib.k5_sch:sv <0x134a03ec>
+			streams:   8, words:  3649
+		worklib.k5_pcmem:sv <0x38ba5a56>
+			streams:   9, words:  2610
+		worklib.dp_ram:sv <0x05544fc6>
+			streams:   4, words:  1160
+		worklib.k5_dpram:sv <0x76924de4>
+			streams:   0, words:     0
+		worklib.dp_ram:sv <0x16f531a0>
+			streams:   4, words:  1176
+		worklib.k5_dpram:sv <0x2d272964>
+			streams:   0, words:     0
+		worklib.k5_spram:sv <0x0e2364ae>
+			streams:   0, words:     0
+		worklib.k5_tcm:sv <0x19e006fd>
+			streams:  36, words: 17337
+		worklib.k5_spram:sv <0x1d6e1a96>
+			streams:   0, words:     0
+		worklib.k5_tcm:sv <0x096f4295>
+			streams:  36, words: 17337
+		worklib.mul_final:sv <0x57b0ff72>
+			streams:   2, words:   741
+		worklib.mul_base:sv <0x7c6e5fd1>
+			streams:   3, words:  1574
+		worklib.k5_dx:sv <0x0ea5f979>
+			streams:  28, words: 12768
+		worklib.k5_xbox_sys:sv <0x4430347a>
+			streams:  16, words:  3328
+		worklib.k5_tb:sv <0x22761876>
+			streams:  12, words:  6424
+		worklib.sp_ram:sv <0x20e225d3>
+			streams:   7, words:  2866
+		worklib.sp_ram:sv <0x7bd9f8e6>
+			streams:   7, words:  2837
+		worklib.xbox_mfarm:sv <0x4721031e>
+			streams:  53, words: 28349
+		worklib.xbox_xlr_wrap:sv <0x45d07182>
+			streams:  22, words: 16467
+		worklib.sp_ram:sv <0x7870435d>
+			streams:  35, words: 16244
+		worklib.k5_sys:sv <0x2d75c3dd>
+			streams: 121, words: 39591
+		worklib.k5_dx_comb:sv <0x69f3d3e9>
+			streams:  22, words: 37684
+		worklib.k5_core:sv <0x134b00bf>
+			streams:  88, words: 45292
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                52      31
+		Interfaces:              5       5
+		Verilog packages:        9       9
+		Registers:             976     850
+		Scalar wires:          376       -
+		Vectored wires:        506       -
+		Always blocks:         118      93
+		Initial blocks:          7       7
+		Cont. assignments:     438     376
+		Pseudo assignments:    188       -
+		Compilation units:       1       1
+		Process Clocks:         66       4
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.k5_tb:sv
+xmsim: *W,RNMBF: Failed to re-read the args file:  $K5_XBOX_ENV/tb/k5_xbox_tb_irun.f.  This could result in the loss of user defined plus options.
+Loading snapshot worklib.k5_tb:sv .................... Done
+xcelium> source /tools/cadence/XCELIUM/23.09.013/tools/xcelium/files/xmsimrc
+xcelium> run
+
+
+ uart_tb.sv: UART TB INFO: DFLT_BAUDRATE = 115200     , CLK_DIV_CNTR =867       
+User Name is perezba hashed to unique port number 10695
+Assigned port localhost:10695
+Waiting for server connection
+uart_tb.sv: PY: Hello from Python, got your message: Hello from System-Verilog!
+uart_tb.sv: Remote Python changed UART clk_div_cntr value to     4 (decimal)
+uart_tb.sv: Remote Python changed UART ns_per_bit_actual from 8680.000000 to 50.000000 
+
+
+ 62933245ns uart_tb.sv: Detected remote quit command. Quitting 
+
+
+Simulation complete via $finish(1) at time 62933245 NS + 1
+/project/tsmc65/shared/k5_share/kuntz5/src/tb/k5_uart_tb.sv:305                                     $finish ;
+xcelium> exit
+TOOL:	xrun(64)	23.09-s013: Exiting on Sep 04, 2026 at 22:59:25 UTC  (total: 00:00:33)

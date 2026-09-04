@@ -20,7 +20,7 @@ The one-line answer:
 |---|---|---|---|---|---|---|---|---|
 | — | **v0** baseline | 128,760,553 | 21,174,957,605 | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
 | **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
-| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | `PENDING` | `PENDING` | | RTL, synthesising |
+| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | `PENDING` | `PENDING` | | RTL, **K5 gate PASSED**, synthesising |
 | **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL, queued |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
 | **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
@@ -154,7 +154,9 @@ just "which cells are assigned" — nothing is eliminated that is not also assig
 **Depends on.** Nothing. Same module ports as v0, drops into `alwaysud.sv` unchanged.
 
 **Effort.** The RTL exists and is validated: `explore/rtl/alwaysud_solver.sv`
-(MODE=1, 356 lines) and `alwaysud_solver_fast.sv` (329 lines). The remaining work is the K5 end-to-end run and hardware.
+(MODE=1, 356 lines) and `alwaysud_solver_fast.sv` (329 lines). The K5 end-to-end run is
+done and passes the gate on all three simulatable boards (§6a). The remaining work is
+hardware.
 
 **Risk.** Area and frequency, not correctness. 25,774 LE is over the 20,000 in
 `docs/MEASUREMENT.md` (though well under the ~50k device), and `quartus_fit` takes
@@ -295,9 +297,11 @@ it; it is the first run I would spend after D1 lands.
 | 51blanks | 56,603 | 56,803 | 200 |
 | **hard1** | 128,760,553 | 128,760,739 | **186** |
 
-At v0 that overhead is 0.00014% of the score. At D1's 335 cycles it is **36% of the
-measured window**, and at D4's 102 it would be 65%. Nothing else on this list changes
-by that factor once D1 lands.
+At v0 that overhead is 0.00014% of the score. At D1's 335 cycles it is 36% of the
+measured window, and at D4's 102 it would be 65%. **Confirmed end-to-end in §6a**: with
+the new solver the measured windows are 187 / 211 / 235 on easy1 / 20blanks / 51blanks,
+of which 181 / 188 / 181 is overhead — 77% to 97% of what is being measured. Nothing
+else on this list changes by that factor once D1 lands.
 
 The ±10 spread is the poll loop's phase, exactly as `docs/MEASUREMENT.md` predicts.
 I have not measured where inside the 186 the time goes — see §4.
@@ -545,6 +549,48 @@ and then, with the diagonals correctly enforced, it is measured at a worst case 
 it another 164x.
 
 `PENDING-DIAG-SYNTH`
+
+---
+
+## 6a. THE END-TO-END RUN — measured, gate passed
+
+The `s2fast` tree (MODE 1) run through the full K5 simulation, behind the real wrapper
+and the real driver, `logs/explore-s2fast/sim/`:
+
+```
+PASS easy1      md5=c07abbf235a9  app-checker=PASSED
+PASS 20blanks   md5=afee4b1403b0  app-checker=PASSED
+PASS 51blanks   md5=afee4b1403b0  app-checker=PASSED
+```
+
+| board | v0 solve window | **s2fast solve window** | solver FSM | window overhead |
+|---|---|---|---|---|
+| easy1 | 283 | **187** | 6 | 181 |
+| 20blanks | 403 | **211** | 23 | 188 |
+| 51blanks | 56,803 | **235** | 54 | 181 |
+| `hard1` | 128,760,739 | **~478 (predicted)** | 295 | ~183 |
+
+`setup+load` is 235 on all three, identical to v0 — same wrapper, same burst cost.
+
+Two things this settles.
+
+**It works.** Not just in a standalone testbench: behind the real wrapper, through the
+real memory bursts, with the driver's own checker agreeing. `51blanks` is the board
+`docs/MEASUREMENT.md` designates as the gate because it is the only simulatable one
+that exercises the unwind path hard — 4,157 backtracks in v0.
+
+**The window overhead transfers, which is what makes the `hard1` number a prediction
+and not a guess.** Measured 181 / 188 / 181 here against 180 / 189 / 200 / 186 for v0's
+binary. It is the same wrapper and the same poll loop, and it did not move when the
+solver underneath it changed by five orders of magnitude. So `hard1` = 295 + ~183 =
+**~478 cycles in the measured window**, and the only unmeasured term left in the rate
+is F_max.
+
+And one number with no modelling in it at all: **`51blanks` goes from 56,803 to 235
+measured solve cycles, gate-passed — 242x, on the board the protocol calls the gate.**
+
+Note what that also says about D5. On every simulatable board the overhead is now
+**77–97% of the measured window**. The search is no longer the thing being measured.
 
 ---
 
