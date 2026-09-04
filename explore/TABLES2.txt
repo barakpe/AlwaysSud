@@ -1,0 +1,175 @@
+== the four repo boards (classic) ==
+arch        easy1   20blanks   51blanks          hard1
+v0            103        214      56603      128760553
+m1              8         23       8368       19454731
+s0              8         23        984        3430905
+s1              6         23         54          26725
+s2              6         23         54            335
+s2u             6         23         54            295
+m2              6         23         54            901
+s2m             6         23         54            193
+s2um            6         23         54            193
+p1              5          5         13          11514
+p2              5          5         13            468
+p3              4          4          8            102
+p4              4          4          8            101
+
+== held-out sets: WORST CASE, then p99 / median ==
+arch   set                               WORST          p99     median      n
+v0     ho_published                 3670993359    181061606     847474 3191
+11418025
+m1     ho_published                  553930745     27297417     126955 3191
+1725760
+s0     ho_published                   96102817      8101122      39596 3191
+435331
+s1     ho_published                    7038541       905406       3472 3191
+40552
+s2     ho_published                      36841         8676        414 3191
+869
+s2u    ho_published                      34347         7616        375 3191
+767
+m2     ho_published                     672313       186659       2394 3191
+9861
+s2m    ho_published                      19584         4294        385 3191
+627
+s2um   ho_published                      17116         3874        351 3191
+561
+p1     ho_published                    3546657       416073       1263 3191
+18903
+p2     ho_published                     334944        93357        928 3191
+4488
+p3     ho_published                      10377         2414        101 3191
+219
+p4     ho_published                       7168         1309        103 3191
+179
+v0     gen_classic_min                55220173     24088038     267041 400
+1721738
+m1     gen_classic_min                 8355730      3692363      40230 400
+258852
+s0     gen_classic_min                  918486       629115      11320 400
+45860
+s1     gen_classic_min                   59131        19109        536 400
+1940
+s2     gen_classic_min                    1439          568         61 400
+111
+s2u    gen_classic_min                    1205          475         61 400
+104
+m2     gen_classic_min                   10050         6458        349 400
+788
+s2m    gen_classic_min                     819          370         61 400
+93
+s2um   gen_classic_min                     663          370         61 400
+89
+p1     gen_classic_min                   20135         7992        207 400
+750
+p2     gen_classic_min                    4321         2661        137 400
+321
+p3     gen_classic_min                     244          108         20 400
+27
+p4     gen_classic_min                     174           90         20 400
+25
+v0     gen_classic_easy                  37666         9464       1161 150
+1957
+m1     gen_classic_easy                   5512         1364        168 150
+282
+s0     gen_classic_easy                    562          384         82 150
+110
+s1     gen_classic_easy                     94           60         44 150
+44
+s2     gen_classic_easy                     44           44         44 150
+44
+s2u    gen_classic_easy                     44           44         44 150
+44
+m2     gen_classic_easy                     96           62         44 150
+44
+s2m    gen_classic_easy                     44           44         44 150
+44
+s2um   gen_classic_easy                     44           44         44 150
+44
+p1     gen_classic_easy                     32           21          9  150
+9
+p2     gen_classic_easy                     30           21          9  150
+9
+p3     gen_classic_easy                     11            9          7  150
+6
+p4     gen_classic_easy                     11            9          7  150
+6
+v0     gen_diagonal_min            21174957605   7902324669   50053313 300
+477045323
+m1     gen_diagonal_min             3253371343   1213847819    7521674 300
+72529890
+s0     gen_diagonal_min              190718964     89789031     928999 300
+5260824
+s1     gen_diagonal_min                6354770      1101422      25556 300
+120895
+s2     gen_diagonal_min                  34910        18514       1073 300
+2251
+s2u    gen_diagonal_min                  25418        12344        835 300
+1725
+m2     gen_diagonal_min                 229816        91679       5555 300
+12225
+s2m    gen_diagonal_min                   7831         4594        488 300
+858
+s2um   gen_diagonal_min                   5967         3436        416 300
+706
+p1     gen_diagonal_min                2892005       453415       9791 300
+51666
+p2     gen_diagonal_min                  98568        46065       2293 300
+5247
+p3     gen_diagonal_min                   6746         3872        231 300
+477
+p4     gen_diagonal_min                   2030         1297        130 300
+222
+v0     gen_diagonal_easy                  9234         6200       1043 150
+1637
+m1     gen_diagonal_easy                  1354          908        152 150
+235
+s0     gen_diagonal_easy                   346          276         68 150
+90
+s1     gen_diagonal_easy                    70           44         44 150
+44
+s2     gen_diagonal_easy                    66           44         44 150
+44
+s2u    gen_diagonal_easy                    66           44         44 150
+44
+m2     gen_diagonal_easy                    70           44         44 150
+44
+s2m    gen_diagonal_easy                    66           44         44 150
+44
+s2um   gen_diagonal_easy                    66           44         44 150
+44
+p1     gen_diagonal_easy                    19           11          8  150
+8
+p2     gen_diagonal_easy                    19           11          8  150
+8
+p3     gen_diagonal_easy                    14            8          6  150
+6
+p4     gen_diagonal_easy                    14            8          6  150
+6
+v0     gen_windoku_min              2693355559    288225099    5833483 150
+41750395
+m1     gen_windoku_min               412412241     43660551     877926 150
+6362242
+s0     gen_windoku_min               130749261     22676143     376589 150
+2322476
+s1     gen_windoku_min                 7361345      3936001      69868 150
+307523
+s2     gen_windoku_min                   98276        26643       1361 150
+4198
+s2u    gen_windoku_min                   50166        15917        907 150
+2719
+m2     gen_windoku_min                  500583       386010      14647 150
+44901
+s2m    gen_windoku_min                   10160         8289        574 150
+1083
+s2um   gen_windoku_min                    7282         5646        459 150
+779
+p1     gen_windoku_min                 3341264      1740266      35688 150
+145519
+p2     gen_windoku_min                  223008       185122       6783 150
+21275
+p3     gen_windoku_min                   21149         5352        329 150
+978
+p4     gen_windoku_min                    2976         2484        153 150
+315
+TABLES_DONE

@@ -1,0 +1,10 @@
+===== 1. stage s2fast =====
+alwaysud_def_pkg.sv
+alwaysud.f
+alwaysud_solver.sv
+alwaysud.sv
+sud_geom_classic.svh
+sud_geom_diagonal.svh
+sud_geom_pkg.sv
+
+===== 2. synthesis (qsyn_xlr -all, ~4.5 min) =====
