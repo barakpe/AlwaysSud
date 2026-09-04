@@ -14,6 +14,24 @@ The one-line answer:
 > measured 3.9x in F_max** (87.02 → 22.34 MHz). Frequency is now the only thing left
 > worth optimising, and it is the thing I have least evidence about.
 
+### At a glance
+
+| # | direction | `hard1` cycles | worst of 4,341 | F_max | LE | rate on `hard1` | vs v0 | state |
+|---|---|---|---|---|---|---|---|---|
+| — | **v0** baseline | 128,760,553 | 21,174,957,605 | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
+| **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
+| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | `PENDING` | `PENDING` | | RTL, synthesising |
+| **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL, queued |
+| **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
+| **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
+| **D6** | time-multiplex the detectors | 954 | 239,403 | — | — | | | modelled only |
+| ✗ | masks alone, no inference | 19,454,731 | 3,253,371,343 | 47.61 MHz | 17,132 | 408.6 ms | 3.6x | **dead end** |
+| ✗ | masks + MRV, no singles | 901 | 672,313 | `PENDING` | `PENDING` | | | **dead end** |
+
+Cycles are solver-FSM cycles; rate = (cycles + 186) / F_max. "Worst of 4,341" is the
+maximum over every held-out set and all three geometries — the number I would bet on,
+not the `hard1` column.
+
 ---
 
 ## 0. What I did, and why you can believe the numbers
@@ -53,7 +71,20 @@ So the model is not "trustworthy if you validate it" — it is exact, on 3,491 p
 across two different geometries, for every architecture I quote.
 
 **These are solver-FSM cycles.** The `report_task_performance("Sudoku solve")` window
-is larger by a fixed amount — see D5 in §1.
+is larger by a fixed amount. The chain for a `hard1` prediction is therefore:
+
+```
+   solver cycles          exact, my model == my RTL on 3,491 puzzles      (measured)
+ + window overhead        186 on v0, model vs hardware, puzzle-independent (measured)
+ = measured window
+```
+
+The second term is the weaker link, and I say so: it was measured with **v0's binary**,
+and `docs/MEASUREMENT.md` warns that small-board counts are not a pure hardware property
+because recompiling moves the RISC-V poll loop. It is puzzle-independent (186 on `hard1`
+against 180/189/200 on the small boards) and it is wrapper-plus-software, not solver, so
+it should carry — but "should" is doing work there. The K5 end-to-end run in §6 measures
+it directly for the new design; that is what turns the prediction into a number.
 
 ### The held-out set
 
@@ -147,10 +178,21 @@ the same vector. The 7-bit index is still produced — but only to be written in
 stack register, which is beside the critical path, not inside it.
 
 While restructuring, the rule also unifies: a cell is *forced* if it is a naked single
-**or** the unique home for a digit in any of its units; lowest forced cell wins. That
-makes the contradiction test global and prunes slightly harder for free.
+**or** the unique home for a digit in any of its units; lowest forced cell wins. The
+contradiction test becomes global (any empty cell with no candidate, or any unit-digit
+with no home) instead of being asked only when no naked single exists.
 
-**Measured (cycles).** `hard1` 335 → **295**. Worst held-out 98,276 → **50,166**.
+**Measured (cycles).** `hard1` 335 → **295**. Worst held-out 98,276 → **50,166**;
+median on `ho_published` 414 → 375.
+
+Be careful how you read that: it is **not** a per-puzzle improvement. Measured across
+the 3,191 published held-out puzzles, `s2u` is faster on 2,319, **slower on 500**, and
+equal on 372. Only the contradiction test is strictly stronger; the selection order also
+changes (lowest forced *cell* rather than naked-then-unit-major), and a different
+tie-break is a different search tree, which can go either way. The aggregate wins and
+the worst case improves — but "prunes strictly harder" would be false, and if you see an
+individual board get slower after this change, that is expected, not a bug.
+
 Zero mismatches against the model on 3,491 puzzles, two geometries.
 
 **Measured (frequency/area).** `PENDING-S2FAST`
