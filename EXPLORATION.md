@@ -25,7 +25,7 @@ The one-line answer:
 |---|---|---|---|---|---|---|---|---|
 | — | **v0** baseline | 128,760,553 | 21,174,957,605 | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
 | **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
-| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | `PENDING` | `PENDING` | | RTL, **K5 gate PASSED**, synthesising |
+| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | **25,098** | `PENDING` | | RTL, **K5 gate PASSED**, fitting |
 | **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL, queued |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
 | **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
@@ -202,7 +202,19 @@ individual board get slower after this change, that is expected, not a bug.
 
 Zero mismatches against the model on 3,491 puzzles, two geometries.
 
-**Measured (frequency/area).** `PENDING-S2FAST`
+**Measured (area).** **25,098 LE / 2,907 registers / 0 memory bits** from Analysis &
+Synthesis — versus 25,774 for D1. So the one-hot restructuring is **not** an area win;
+it is roughly the same logic arranged differently, which is what I expected: it removes
+an 81:1 mux and a 7-to-81 decoder, and adds an 81-wide AND-OR tree and gating.
+
+**Measured (frequency).** `PENDING-S2FAST` — the fit has been in the router for over
+3.5 hours (v0's whole build is 4.5 minutes), and I put a deadline on it so the runs
+that add a *new* axis could have the machine. If it is missing below, that is why, and
+it is the single number I would re-run first.
+
+Note **0 memory bits**, which is not a given at this size: the 81-entry decision stack
+and the one-hot board stay in flip-flops rather than inferring block RAM. That matters
+because `docs/MEASUREMENT.md` records system memory already at 79%.
 
 **Depends on.** D1. It is a restructuring of the same algorithm, so do it *with* D1,
 not after — it changes the datapath everywhere.
