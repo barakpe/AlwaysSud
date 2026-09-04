@@ -1,0 +1,45 @@
+===== 1. stage m1 =====
+rm: cannot remove '/data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/qsyn_output_files': Directory not empty
+alwaysud_def_pkg.sv
+alwaysud.f
+alwaysud_solver.sPlease Check Report for following non-justified Warnning IDs
+[10036, 12158, 10230, 12161, 13024, 13410]
+
+NOTICE! Your design include some possible
+Info: Quartus Prime Fitter was successful. 0  errors, 1 non-justified warnings
+Please Check Report for following non-justified Warnning IDs
+[332012]
+
+For more details see qsyn_output_files/alwaysud.fit.rpt
+
+
+Checking Timing (STA) ...
+
+
+Info: Quartus Prime Timing Analyzer was successful. 0  errors, 4 non-justified warnings
+Please Check Report for following non-justified Warnning IDs
+[332012, 332148]
+
+Max FPGA Frequency 47.61 MHz
+
+
+For more details see qsyn_output_files/alwaysud.sta.rpt
+
+
+Worst case paths listed at: qsyn_output_files/sta_alwaysud_worst_paths.rpt
+Generating qsyn submission archive: qsyn_alwaysud_perezba_040926_1646.tgz
+
+
+RESULT m1: LEs(map)=17132 LEs(fit)=16605 regs=2826 membits=0 F_max=47.61 MHz
+
+===== 3. warning review =====
+=== synthesis review: /project/tsmc65/users/perezba/ws/AlwaysSudAgent/AlwaysSud/logs/explore-m1/sim/qsyn.txt ===
+
+warnings: 0 distinct, 0 unreviewed
+
+REPORT.md synthesis line:
+  synthesis  0 errors · 0 latches · 0 combinational loops · 0 unreviewed warnings
+
+RESULT: clean.
+
+Logs: /project/tsmc65/users/perezba/ws/AlwaysSudAgent/AlwaysSud/logs/explore-m1/sim
