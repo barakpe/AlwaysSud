@@ -1,0 +1,724 @@
+Analysis & Synthesis report for alwaysud
+Fri Sep  4 15:01:25 2026
+Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|state
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Inverted Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Parameter Settings for User Entity Instance: mem_intf_read:mem_intf_read
+ 14. Parameter Settings for User Entity Instance: mem_intf_write:mem_intf_write
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
+ 18. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Fri Sep  4 15:01:24 2026           ;
+; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Revision Name                      ; alwaysud                                        ;
+; Top-level Entity Name              ; qsyn_dummy_xlr_wrap                             ;
+; Family                             ; MAX 10                                          ;
+; Total logic elements               ; 9,286                                           ;
+;     Total combinational functions  ; 8,330                                           ;
+;     Dedicated logic registers      ; 1,867                                           ;
+; Total registers                    ; 1867                                            ;
+; Total pins                         ; 120                                             ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
+; UFM blocks                         ; 0                                               ;
+; ADC blocks                         ; 0                                               ;
++------------------------------------+-------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                               ;
++------------------------------------------------------------------+---------------------+--------------------+
+; Option                                                           ; Setting             ; Default Value      ;
++------------------------------------------------------------------+---------------------+--------------------+
+; Device                                                           ; 10M50DAF484C7G      ;                    ;
+; Top-level entity name                                            ; qsyn_dummy_xlr_wrap ; alwaysud           ;
+; Family name                                                      ; MAX 10              ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation              ; 1                   ;                    ;
+; Use smart compilation                                            ; Off                 ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                  ; On                 ;
+; Enable compact report table                                      ; Off                 ; Off                ;
+; Restructure Multiplexers                                         ; Auto                ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                 ; Off                ;
+; Preserve fewer node names                                        ; On                  ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable              ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001        ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993           ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto                ; Auto               ;
+; Safe State Machine                                               ; Off                 ; Off                ;
+; Extract Verilog State Machines                                   ; On                  ; On                 ;
+; Extract VHDL State Machines                                      ; On                  ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                 ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000                ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                 ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                  ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                  ; On                 ;
+; Parallel Synthesis                                               ; On                  ; On                 ;
+; DSP Block Balancing                                              ; Auto                ; Auto               ;
+; NOT Gate Push-Back                                               ; On                  ; On                 ;
+; Power-Up Don't Care                                              ; On                  ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                 ; Off                ;
+; Remove Duplicate Registers                                       ; On                  ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                 ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                 ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                 ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                 ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                 ; Off                ;
+; Ignore SOFT Buffers                                              ; On                  ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                 ; Off                ;
+; Optimization Technique                                           ; Balanced            ; Balanced           ;
+; Carry Chain Length                                               ; 70                  ; 70                 ;
+; Auto Carry Chains                                                ; On                  ; On                 ;
+; Auto Open-Drain Pins                                             ; On                  ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                 ; Off                ;
+; Auto ROM Replacement                                             ; On                  ; On                 ;
+; Auto RAM Replacement                                             ; On                  ; On                 ;
+; Auto DSP Block Replacement                                       ; On                  ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto                ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto                ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                  ; On                 ;
+; Strict RAM Replacement                                           ; Off                 ; Off                ;
+; Allow Synchronous Control Signals                                ; On                  ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                 ; Off                ;
+; Auto RAM Block Balancing                                         ; On                  ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                 ; Off                ;
+; Auto Resource Sharing                                            ; Off                 ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                 ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                 ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                 ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                  ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                 ; Off                ;
+; Timing-Driven Synthesis                                          ; On                  ; On                 ;
+; Report Parameter Settings                                        ; On                  ; On                 ;
+; Report Source Assignments                                        ; On                  ; On                 ;
+; Report Connectivity Checks                                       ; On                  ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                 ; Off                ;
+; Synchronization Register Chain Length                            ; 2                   ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation  ; Normal compilation ;
+; HDL message level                                                ; Level2              ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                 ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000                ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000                ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                 ; 100                ;
+; Clock MUX Protection                                             ; On                  ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                 ; Off                ;
+; Block Design Naming                                              ; Auto                ; Auto               ;
+; SDC constraint protection                                        ; Off                 ; Off                ;
+; Synthesis Effort                                                 ; Auto                ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                  ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                 ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium              ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto                ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                  ; On                 ;
++------------------------------------------------------------------+---------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                   ;
++---------------------------------------------------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                                                      ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                          ; Library ;
++---------------------------------------------------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------+---------+
+; ../../../../../../../shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv                  ; yes             ; User SystemVerilog HDL File  ; /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv                       ;         ;
+; ../../../../../../../shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv   ; yes             ; User SystemVerilog HDL File  ; /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv        ;         ;
+; ../../../../../../../shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv  ; yes             ; User SystemVerilog HDL File  ; /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv       ;         ;
+; ../../../../../../../shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv               ; yes             ; User SystemVerilog HDL File  ; /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv                    ;         ;
+; /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv       ; yes             ; User SystemVerilog HDL File  ; /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv       ;         ;
+; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv ; yes             ; User SystemVerilog HDL File  ; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv ;         ;
+; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv         ; yes             ; User SystemVerilog HDL File  ; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv         ;         ;
+; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv  ; yes             ; User SystemVerilog HDL File  ; /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv  ;         ;
+; alwaysud_enums.svh                                                                    ; yes             ; Auto-Found Unspecified File  ; /data/project/tsmc65/users/perezba/ws/my_k5_proj/sw/apps/alwaysud/alwaysud_enums.svh  ;         ;
++---------------------------------------------------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 9,286     ;
+;                                             ;           ;
+; Total combinational functions               ; 8330      ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 6728      ;
+;     -- 3 input functions                    ; 1282      ;
+;     -- <=2 input functions                  ; 320       ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 8156      ;
+;     -- arithmetic mode                      ; 174       ;
+;                                             ;           ;
+; Total registers                             ; 1867      ;
+;     -- Dedicated logic registers            ; 1867      ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 120       ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 1867      ;
+; Total fan-out                               ; 38026     ;
+; Average fan-out                             ; 3.64      ;
++---------------------------------------------+-----------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                      ;
++--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                           ; Entity Name         ; Library Name ;
++--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------+---------------------+--------------+
+; |qsyn_dummy_xlr_wrap           ; 8330 (261)          ; 1867 (190)                ; 0           ; 0          ; 0            ; 0       ; 0         ; 120  ; 0            ; 0          ; |qsyn_dummy_xlr_wrap                                          ; qsyn_dummy_xlr_wrap ; work         ;
+;    |alwaysud:alwaysud|         ; 8069 (5806)         ; 1677 (353)                ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud                        ; alwaysud            ; work         ;
+;       |alwaysud_solver:solver| ; 2263 (2263)         ; 1324 (1324)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver ; alwaysud_solver     ; work         ;
++--------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|state                                                      ;
++--------------------+-----------------+--------------------+-----------------+---------------+------------------+------------+------------+
+; Name               ; state.DONE_FAIL ; state.DONE_SUCCESS ; state.BACKTRACK ; state.TRY_VAL ; state.FIND_EMPTY ; state.INIT ; state.IDLE ;
++--------------------+-----------------+--------------------+-----------------+---------------+------------------+------------+------------+
+; state.IDLE         ; 0               ; 0                  ; 0               ; 0             ; 0                ; 0          ; 0          ;
+; state.INIT         ; 0               ; 0                  ; 0               ; 0             ; 0                ; 1          ; 1          ;
+; state.FIND_EMPTY   ; 0               ; 0                  ; 0               ; 0             ; 1                ; 0          ; 1          ;
+; state.TRY_VAL      ; 0               ; 0                  ; 0               ; 1             ; 0                ; 0          ; 1          ;
+; state.BACKTRACK    ; 0               ; 0                  ; 1               ; 0             ; 0                ; 0          ; 1          ;
+; state.DONE_SUCCESS ; 0               ; 1                  ; 0               ; 0             ; 0                ; 0          ; 1          ;
+; state.DONE_FAIL    ; 1               ; 0                  ; 0               ; 0             ; 0                ; 0          ; 1          ;
++--------------------+-----------------+--------------------+-----------------+---------------+------------------+------------+------------+
+
+
++---------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                          ;
++---------------------------------------------------+-----------------------------------------+
+; Register name                                     ; Reason for Removal                      ;
++---------------------------------------------------+-----------------------------------------+
+; alwaysud:alwaysud|state[3..9,11..31]              ; Merged with alwaysud:alwaysud|state[10] ;
+; alwaysud:alwaysud|state[10]                       ; Stuck at GND due to stuck port data_in  ;
+; alwaysud:alwaysud|alwaysud_solver:solver|state~11 ; Lost fanout                             ;
+; alwaysud:alwaysud|alwaysud_solver:solver|state~12 ; Lost fanout                             ;
+; alwaysud:alwaysud|alwaysud_solver:solver|state~13 ; Lost fanout                             ;
+; dummy_dout[4]~reg0                                ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[5]~reg0                                ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[6]~reg0                                ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[7]~reg0                                ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[12]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[13]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[14]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[15]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[20]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[21]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[22]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[23]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[28]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[29]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[30]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; dummy_dout[31]~reg0                               ; Stuck at GND due to stuck port data_in  ;
+; Total Number of Removed Registers = 48            ;                                         ;
++---------------------------------------------------+-----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 1867  ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 140   ;
+; Number of registers using Asynchronous Clear ; 895   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 1681  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-----------------------------------------------------------+
+; Inverted Register Statistics                              ;
++-------------------------------------------------+---------+
+; Inverted Register                               ; Fan out ;
++-------------------------------------------------+---------+
+; alwaysud:alwaysud|alwaysud_solver:solver|val[0] ; 194     ;
+; Total number of inverted registers = 1          ;         ;
++-------------------------------------------------+---------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 0 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][4][0]                       ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 0 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][0][0]                       ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][2][1]                       ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 0 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][6][1]                       ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][7][0]                       ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][5][3]                       ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][7][0]                       ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][0][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][1][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][2][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][3][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][5][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][6][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][7][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[0][8][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][0][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][1][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][2][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][3][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][5][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][6][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][7][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[1][8][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][0][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][1][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][2][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][3][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][4][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][5][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][6][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][7][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[2][8][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][0][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][1][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][2][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][3][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][4][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][5][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][6][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][7][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[3][8][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][0][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][1][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][2][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][3][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][5][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][6][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][7][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[4][8][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][0][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][1][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][2][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][3][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][5][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][6][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][7][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[5][8][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][0][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][1][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][2][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][3][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][5][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][6][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][7][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[6][8][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][0][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][1][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][2][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][3][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][5][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][6][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][7][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[7][8][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][0][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][1][1] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][2][3] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][3][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][4][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][5][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][6][2] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][7][0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|grid[8][8][3] ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][3][2]                       ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][1][0]                       ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][2][1]                       ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][0][2]                       ;
+; 6:1                ; 7 bits    ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|sp[0]         ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][1][3]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][3][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][8][0]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][1][0]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][8][2]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][0][1]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][7][2]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][5][0]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][3][3]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][4][3]                       ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][2][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][0][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 4 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][7][1]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 4 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][8][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][6][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 4 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][4][1]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][2][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][3][3]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][1][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 4 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][2][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][0][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][1][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][8][2]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[0][6][0]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[2][4][3]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[1][5][1]                       ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][3][1]                       ;
+; 24:1               ; 32 bits   ; 512 LEs       ; 512 LEs              ; 0 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|dummy_dout[11]~reg0                                    ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][5][3]                       ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][7][1]                       ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][6][2]                       ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][8][3]                       ;
+; 10:1               ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][4][1]                       ;
+; 10:1               ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][3][0]                       ;
+; 9:1                ; 3 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|val[2]        ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][7][1]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][0][2]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][8][3]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][1][1]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][3][0]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][5][3]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][4][1]                       ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 12 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][6][2]                       ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 12 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][2][0]                       ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 12 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][1][1]                       ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 12 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][6][1]                       ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 12 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][5][1]                       ;
+; 10:1               ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|state[2]                             ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][8][3]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][1][3]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][0][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][2][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][4][3]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][6][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][5][1]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][7][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][6][1]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][8][3]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][7][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][0][3]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[6][2][0]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[4][4][2]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[5][3][0]                       ;
+; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[3][5][1]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][1][2]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][8][0]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][0][3]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][5][3]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][4][0]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][3][0]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][2][1]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[7][7][3]                       ;
+; 14:1               ; 4 bits    ; 36 LEs        ; 16 LEs               ; 20 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|board[8][6][3]                       ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 6 LEs                ; 10 LEs                 ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|state[1]                             ;
+; 133:1              ; 4 bits    ; 352 LEs       ; 220 LEs              ; 132 LEs                ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|row[0]        ;
+; 135:1              ; 4 bits    ; 360 LEs       ; 220 LEs              ; 140 LEs                ; Yes        ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|col[0]        ;
+; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux145        ;
+; 4:1                ; 36 bits   ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux84         ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_read.mem_size_bytes[4]      ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_size_bytes[1]     ;
+; 16:1               ; 36 bits   ; 360 LEs       ; 216 LEs              ; 144 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux74         ;
+; 16:1               ; 40 bits   ; 400 LEs       ; 240 LEs              ; 160 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux3          ;
+; 9:1                ; 12 bits   ; 72 LEs        ; 48 LEs               ; 24 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux208        ;
+; 9:1                ; 36 bits   ; 216 LEs       ; 144 LEs              ; 72 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux156        ;
+; 128:1              ; 4 bits    ; 340 LEs       ; 216 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux229        ;
+; 19:1               ; 4 bits    ; 48 LEs        ; 32 LEs               ; 16 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[8][0]        ;
+; 19:1               ; 4 bits    ; 48 LEs        ; 32 LEs               ; 16 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[24][1]       ;
+; 13:1               ; 12 bits   ; 96 LEs        ; 72 LEs               ; 24 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux197        ;
+; 13:1               ; 36 bits   ; 288 LEs       ; 216 LEs              ; 72 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Mux118        ;
+; 10:1               ; 4 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[0][2]        ;
+; 10:1               ; 4 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[16][2]       ;
+; 35:1               ; 4 bits    ; 92 LEs        ; 64 LEs               ; 28 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[4][3]        ;
+; 35:1               ; 4 bits    ; 92 LEs        ; 64 LEs               ; 28 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[12][3]       ;
+; 35:1               ; 4 bits    ; 92 LEs        ; 64 LEs               ; 28 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[20][1]       ;
+; 35:1               ; 4 bits    ; 92 LEs        ; 64 LEs               ; 28 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[28][0]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[2][0]        ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[6][3]        ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[10][3]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[14][0]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[18][1]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[22][1]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[26][3]       ;
+; 67:1               ; 4 bits    ; 176 LEs       ; 112 LEs              ; 64 LEs                 ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[30][0]       ;
+; 10:1               ; 4 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Selector4     ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[1][2]        ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[5][0]        ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[9][1]        ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[13][2]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[17][0]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[21][1]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[25][2]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[29][2]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[3][1]        ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[7][3]        ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[11][3]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[15][2]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[19][0]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[23][0]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[27][0]       ;
+; 131:1              ; 4 bits    ; 348 LEs       ; 224 LEs              ; 124 LEs                ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|mem_intf_write.mem_data[31][2]       ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 6 LEs                ; 8 LEs                  ; No         ; |qsyn_dummy_xlr_wrap|alwaysud:alwaysud|alwaysud_solver:solver|Selector3     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mem_intf_read:mem_intf_read ;
++-------------------+-------+----------------------------------------------+
+; Parameter Name    ; Value ; Type                                         ;
++-------------------+-------+----------------------------------------------+
+; BYTE_WIDTH        ; 8     ; Signed Integer                               ;
+; NUM_BYTES_IN_LINE ; 32    ; Signed Integer                               ;
++-------------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mem_intf_write:mem_intf_write ;
++-------------------+-------+------------------------------------------------+
+; Parameter Name    ; Value ; Type                                           ;
++-------------------+-------+------------------------------------------------+
+; BYTE_WIDTH        ; 8     ; Signed Integer                                 ;
+; NUM_BYTES_IN_LINE ; 32    ; Signed Integer                                 ;
++-------------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 120                         ;
+; cycloneiii_ff         ; 1867                        ;
+;     CLR               ; 170                         ;
+;     CLR SLD           ; 16                          ;
+;     ENA               ; 972                         ;
+;     ENA CLR           ; 585                         ;
+;     ENA CLR SLD       ; 124                         ;
+; cycloneiii_lcell_comb ; 8330                        ;
+;     arith             ; 174                         ;
+;         2 data inputs ; 148                         ;
+;         3 data inputs ; 26                          ;
+;     normal            ; 8156                        ;
+;         0 data inputs ; 17                          ;
+;         1 data inputs ; 89                          ;
+;         2 data inputs ; 66                          ;
+;         3 data inputs ; 1256                        ;
+;         4 data inputs ; 6728                        ;
+;                       ;                             ;
+; Max LUT depth         ; 13.00                       ;
+; Average LUT depth     ; 8.91                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:35     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Fri Sep  4 14:59:55 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off alwaysud -c alwaysud
+Info (12021): Found 1 design units, including 0 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv
+    Info (12022): Found design unit 1: xbox_def_pkg (SystemVerilog) File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv
+    Info (12023): Found entity 1: mem_intf_read File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv
+    Info (12023): Found entity 1: mem_intf_write File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv
+    Info (12023): Found entity 1: host_regs_intrf File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv
+    Info (12023): Found entity 1: qsyn_dummy_xlr_wrap File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 4
+Info (12021): Found 1 design units, including 0 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv
+    Info (12022): Found design unit 1: alwaysud_def_pkg (SystemVerilog) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv
+    Info (12023): Found entity 1: alwaysud File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv
+    Info (12023): Found entity 1: alwaysud_solver File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 1
+Info (12127): Elaborating entity "qsyn_dummy_xlr_wrap" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at qsyn_dummy_xlr_wrap_hri.sv(42): object "host_regs_read_pulse_s" assigned a value but never read File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 42
+Info (12128): Elaborating entity "mem_intf_read" for hierarchy "mem_intf_read:mem_intf_read" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 34
+Warning (12158): Entity "mem_intf_read" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 34
+Info (12128): Elaborating entity "mem_intf_write" for hierarchy "mem_intf_write:mem_intf_write" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 35
+Warning (12158): Entity "mem_intf_write" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 35
+Info (12128): Elaborating entity "host_regs_intrf" for hierarchy "host_regs_intrf:host_regs_intrf" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 36
+Warning (12158): Entity "host_regs_intrf" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 36
+Info (12128): Elaborating entity "alwaysud" for hierarchy "alwaysud:alwaysud" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 74
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(83): truncated value with size 32 to match size of target (16) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 83
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(139): truncated value with size 32 to match size of target (6) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 139
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(162): truncated value with size 32 to match size of target (6) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 162
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "board" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "board_ps" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solver_puzzle_out" into its bus
+Info (12128): Elaborating entity "alwaysud_solver" for hierarchy "alwaysud:alwaysud|alwaysud_solver:solver" File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 249
+Warning (10027): Verilog HDL or VHDL warning at the alwaysud_solver.sv(65): index expression is not wide enough to address all of the elements in the array File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 65
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "puzzle_in" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solved_puzzle" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "grid" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "puzzle_in" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solved_puzzle" into its bus
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[9]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[8]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[7]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[6]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[5]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[4]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[3]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[2]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[1]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[15]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[14]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[13]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[12]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[11]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[10]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[0]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Info (13000): Registers with preset signals will power-up high File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 90
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "dummy_dout[4]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[5]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[6]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[7]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[12]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[13]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[14]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[15]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[20]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[21]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[22]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[23]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[28]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[29]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[30]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[31]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file /project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/qsyn_output_files/alwaysud.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 24 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[0]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[1]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[2]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[3]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[4]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[5]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[6]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[7]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[8]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[9]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[10]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[11]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[12]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[13]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[14]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[15]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "dummy_din[20]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[21]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[22]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[23]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[28]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[29]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[30]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[31]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+Info (21057): Implemented 9602 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 63 input pins
+    Info (21059): Implemented 57 output pins
+    Info (21061): Implemented 9482 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 66 warnings
+    Info: Peak virtual memory: 675 megabytes
+    Info: Processing ended: Fri Sep  4 15:01:25 2026
+    Info: Elapsed time: 00:01:30
+    Info: Total CPU time (on all processors): 00:00:00
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in /project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/qsyn_output_files/alwaysud.map.smsg.
+
+
