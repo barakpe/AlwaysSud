@@ -41,3 +41,8 @@ logs/**/*.sof
 logs/**/*.svf
 logs/**/*.tgz
 logs/**/*.qar
+
+# exploration scratch
+explore/sim/xr.*/
+explore/model/arch
+explore/sim/*.log
