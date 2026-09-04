@@ -1,0 +1,18 @@
+--- easy1 --- 22:58:52
+  app exited rc=0 at 22:59:25
+Sudoku solve                                                   187 cycles
+--- 20blanks --- 22:59:27
+  app exited rc=0 at 23:00:02
+Sudoku solve                                                   211 cycles
+--- 51blanks --- 23:00:05
+  app exited rc=0 at 23:00:56
+Sudoku solve                                                   235 cycles
+===== correctness gate =====
+PASS easy1      md5=c07abbf235a9  app-checker=PASSED
+PASS 20blanks   md5=afee4b1403b0  app-checker=PASSED
+PASS 51blanks   md5=afee4b1403b0  app-checker=PASSED
+===== cycles =====
+easy1      setup+load 235      solve 187        total 422
+20blanks   setup+load 235      solve 211        total 446
+51blanks   setup+load 235      solve 235        total 470
+GO_SIM_DONE
