@@ -1,0 +1,1761 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Fri Sep  4 23:50:55 2026
+Info: Command: quartus_sta -t /data/project/tsmc65/shared/qsyn/util/report_worst.tcl alwaysud
+Info: Quartus(args): alwaysud
+Info (21076): High junction temperature operating condition is not set. Assuming a default value of '85'.
+Info (21076): Low junction temperature operating condition is not set. Assuming a default value of '0'.
+Critical Warning (332012): Synopsys Design Constraints File file not found: '/data/project/tsmc65/shared/qsyn/basic.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name clk clk
+Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332115): Report Timing: Found 20 setup paths (20 violated).  Worst case slack is -40.031
+    Info (332115): -setup
+    Info (332115): -npaths 20
+    Info (332115): -detail full_path
+    Info (332115): -stdout
+Info (332115): Path #1: Setup slack is -40.031 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][5]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][5]|q
+    Info (332115):      4.271      0.385 FF    IC  alwaysud|solver|Equal80~1|datab
+    Info (332115):      4.688      0.417 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.475      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.779      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.185      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.556      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.760      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.926      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.527      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.937      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.723      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     20.145      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.356      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.522      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.957      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.339      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.378      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.737      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     24.056      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.359      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     26.300      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.630      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.881      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     27.012      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     28.048      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     28.179      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.393      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.786      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     35.027      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.325      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.439      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.737      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     37.016      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.420      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.654      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.785      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     38.066      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.470      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.751      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.155      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.897      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.272      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.202      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.599      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.599      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.688      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.688
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -40.031 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #2: Setup slack is -40.024 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][6]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][6]|q
+    Info (332115):      4.279      0.393 FF    IC  alwaysud|solver|Equal80~1|dataa
+    Info (332115):      4.681      0.402 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.468      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.772      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.178      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.549      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.753      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.919      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.520      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.930      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.716      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     20.138      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.349      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.515      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.950      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.332      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.371      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.730      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     24.049      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.352      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     26.293      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.623      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.874      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     27.005      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     28.041      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     28.172      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.386      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.779      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     35.020      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.318      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.432      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.730      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     37.009      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.413      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.647      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.778      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     38.059      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.463      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.744      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.148      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.890      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.265      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.195      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.592      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.592      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.681      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.681
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -40.024 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #3: Setup slack is -39.974 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][5]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][5]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][5]|q
+    Info (332115):      4.271      0.385 FF    IC  alwaysud|solver|Equal80~1|datab
+    Info (332115):      4.688      0.417 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.475      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.779      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.185      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.556      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.760      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.926      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.527      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.937      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.723      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     20.145      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.356      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.522      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.957      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.339      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.378      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.737      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     24.056      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.359      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.114      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     25.245      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.909      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     26.070      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.731      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     28.096      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.411      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.821      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     35.022      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.326      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.435      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.739      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.976      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.399      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.601      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.767      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     38.005      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.428      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.666      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.089      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.826      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.208      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.109      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.537      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.537      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.631      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.631
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.974 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #4: Setup slack is -39.967 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][6]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][6]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][6]|q
+    Info (332115):      4.279      0.393 FF    IC  alwaysud|solver|Equal80~1|dataa
+    Info (332115):      4.681      0.402 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.468      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.772      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.178      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.549      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.753      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.919      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.520      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.930      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.716      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     20.138      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.349      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.515      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.950      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.332      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.371      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.730      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     24.049      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.352      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.107      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     25.238      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.902      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     26.063      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.724      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     28.089      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.404      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.814      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     35.015      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.319      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.428      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.732      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.969      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.392      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.594      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.760      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.998      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.421      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.659      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.082      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.819      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.201      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.102      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.530      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.530      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.624      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.624
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.967 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #5: Setup slack is -39.940 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.214      1.065 FF    IC  alwaysud|solver|Equal480~0|datab
+    Info (332115):     14.574      0.360 FR  CELL  alwaysud|solver|Equal480~0|combout
+    Info (332115):     14.803      0.229 RR    IC  alwaysud|solver|one~255|datad
+    Info (332115):     14.969      0.166 RR  CELL  alwaysud|solver|one~255|combout
+    Info (332115):     15.172      0.203 RR    IC  alwaysud|solver|one~258|datad
+    Info (332115):     15.338      0.166 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.459      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.764      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     20.222      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.388      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.608      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.774      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.978      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     21.282      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.688      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     23.042      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.541      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.672      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.991      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.294      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     26.235      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.565      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.816      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.947      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.983      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     28.114      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.328      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.721      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.962      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.260      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.374      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.672      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.951      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.355      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.589      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.720      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     38.001      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.405      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.686      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.090      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.832      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.207      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.137      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.534      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.534      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.623      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.623
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.940 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #6: Setup slack is -39.883 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.214      1.065 FF    IC  alwaysud|solver|Equal480~0|datab
+    Info (332115):     14.574      0.360 FR  CELL  alwaysud|solver|Equal480~0|combout
+    Info (332115):     14.803      0.229 RR    IC  alwaysud|solver|one~255|datad
+    Info (332115):     14.969      0.166 RR  CELL  alwaysud|solver|one~255|combout
+    Info (332115):     15.172      0.203 RR    IC  alwaysud|solver|one~258|datad
+    Info (332115):     15.338      0.166 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.459      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.764      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     20.222      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.388      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.608      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.774      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.978      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     21.282      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.688      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     23.042      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.541      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.672      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.991      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.294      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.049      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     25.180      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.844      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     26.005      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.666      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     28.031      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.346      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.756      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.957      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.261      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.370      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.674      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.911      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.334      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.536      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.702      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.940      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.363      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.601      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     39.024      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.761      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.143      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.044      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.472      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.472      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.566      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.566
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.883 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #7: Setup slack is -39.853 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][4]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][4]|q
+    Info (332115):      4.231      0.345 FF    IC  alwaysud|solver|Equal80~1|datac
+    Info (332115):      4.510      0.279 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.297      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.601      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.007      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.378      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.582      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.748      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.349      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.759      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.545      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.967      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.178      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.344      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.779      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.161      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.200      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.559      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.878      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.181      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     26.122      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.452      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.703      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.834      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.870      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     28.001      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.215      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.608      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.849      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.147      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.261      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.559      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.838      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.242      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.476      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.607      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.888      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.292      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.573      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.977      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.719      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.094      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.024      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.421      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.421      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.510      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.510
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.853 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #8: Setup slack is -39.816 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.215      1.066 FF    IC  alwaysud|solver|one~256|datab
+    Info (332115):     14.608      0.393 FR  CELL  alwaysud|solver|one~256|combout
+    Info (332115):     14.849      0.241 RR    IC  alwaysud|solver|one~258|dataa
+    Info (332115):     15.214      0.365 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.335      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.640      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     20.098      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.264      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.484      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.650      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.854      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     21.158      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.564      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     22.918      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.417      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.548      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.867      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.170      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     26.111      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.441      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.692      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.823      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.859      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.990      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.204      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.597      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.838      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.136      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.250      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.548      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.827      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.231      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.465      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.596      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.877      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.281      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.562      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.966      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.708      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.083      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     44.013      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.410      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.410      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.499      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.499
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.816 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #9: Setup slack is -39.796 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][4]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][4]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][4]|q
+    Info (332115):      4.231      0.345 FF    IC  alwaysud|solver|Equal80~1|datac
+    Info (332115):      4.510      0.279 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.297      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.601      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     12.007      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.378      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.582      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.748      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.349      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.759      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.545      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.967      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.178      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.344      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.779      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.161      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.200      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.559      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.878      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.181      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     24.936      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     25.067      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.731      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     25.892      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.553      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     27.918      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.233      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.643      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.844      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.148      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.257      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.561      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.798      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.221      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.423      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.589      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.827      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.250      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.488      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.911      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.648      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.030      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.931      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.359      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.359      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.453      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.453
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.796 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #10: Setup slack is -39.759 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.215      1.066 FF    IC  alwaysud|solver|one~256|datab
+    Info (332115):     14.608      0.393 FR  CELL  alwaysud|solver|one~256|combout
+    Info (332115):     14.849      0.241 RR    IC  alwaysud|solver|one~258|dataa
+    Info (332115):     15.214      0.365 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.335      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.640      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     20.098      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.264      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.484      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.650      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.854      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     21.158      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.564      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     22.918      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.417      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.548      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.867      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.170      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     24.925      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     25.056      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.720      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     25.881      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.542      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     27.907      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.222      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.632      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.833      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.137      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.246      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.550      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.787      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.210      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.412      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.578      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.816      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.239      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.477      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.900      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.637      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     40.019      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.920      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.348      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.348      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.442      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.442
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.759 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #11: Setup slack is -39.727 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][3]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][3]|q
+    Info (332115):      4.223      0.337 FF    IC  alwaysud|solver|Equal80~1|datad
+    Info (332115):      4.384      0.161 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.171      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.475      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     11.881      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.252      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.456      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.622      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.223      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.633      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.419      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.841      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.052      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.218      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.653      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.035      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.074      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.433      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.752      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.055      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.996      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.326      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.577      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.708      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.744      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.875      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.089      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.482      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.723      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.021      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.135      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.433      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.712      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.116      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.350      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.481      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.762      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.166      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.447      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.851      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.593      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.968      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.898      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.295      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.295      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.384      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.384
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.727 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #12: Setup slack is -39.670 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][3]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][3]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][3]|q
+    Info (332115):      4.223      0.337 FF    IC  alwaysud|solver|Equal80~1|datad
+    Info (332115):      4.384      0.161 FR  CELL  alwaysud|solver|Equal80~1|combout
+    Info (332115):      7.171      2.787 RR    IC  alwaysud|solver|availc[80][0]~53|datac
+    Info (332115):      7.475      0.304 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     11.881      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.252      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.456      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.622      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.223      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.633      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.419      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.841      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     20.052      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.218      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.653      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     22.035      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     23.074      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.433      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.752      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     24.055      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     24.810      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     24.941      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.605      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     25.766      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.427      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     27.792      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.107      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.517      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.718      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     35.022      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.131      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.435      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.672      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.095      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.297      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.463      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.701      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.124      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.362      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.785      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.522      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.904      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.805      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.233      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.233      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.327      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.327
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.670 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #13: Setup slack is -39.601 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     15.022      1.873 FF    IC  alwaysud|solver|Equal300~1|datac
+    Info (332115):     15.303      0.281 FR  CELL  alwaysud|solver|Equal300~1|combout
+    Info (332115):     15.548      0.245 RR    IC  alwaysud|solver|one~316|datad
+    Info (332115):     15.693      0.145 RF  CELL  alwaysud|solver|one~316|combout
+    Info (332115):     15.928      0.235 FF    IC  alwaysud|solver|one~319|datad
+    Info (332115):     16.059      0.131 FF  CELL  alwaysud|solver|one~319|combout
+    Info (332115):     18.667      2.608 FF    IC  alwaysud|solver|forced[3][1]~1533|datac
+    Info (332115):     18.970      0.303 FF  CELL  alwaysud|solver|forced[3][1]~1533|combout
+    Info (332115):     19.232      0.262 FF    IC  alwaysud|solver|WideOr3~1|datac
+    Info (332115):     19.530      0.298 FF  CELL  alwaysud|solver|WideOr3~1|combout
+    Info (332115):     19.763      0.233 FF    IC  alwaysud|solver|WideOr3~2|datad
+    Info (332115):     19.894      0.131 FF  CELL  alwaysud|solver|WideOr3~2|combout
+    Info (332115):     20.594      0.700 FF    IC  alwaysud|solver|cand_v[64]~43|dataa
+    Info (332115):     20.996      0.402 FR  CELL  alwaysud|solver|cand_v[64]~43|combout
+    Info (332115):     22.384      1.388 RR    IC  alwaysud|solver|cand_v[55]~55|dataa
+    Info (332115):     22.728      0.344 RR  CELL  alwaysud|solver|cand_v[55]~55|combout
+    Info (332115):     23.640      0.912 RR    IC  alwaysud|solver|cand_v[2]~77|datad
+    Info (332115):     23.806      0.166 RR  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.780      1.974 RR    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.145      0.365 RR  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.359      0.214 RR    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.525      0.166 RR  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.583      1.058 RR    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.749      0.166 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     34.064      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.474      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.675      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.979      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.088      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.392      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.629      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     37.052      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.254      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.420      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.658      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.081      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.319      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.742      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.479      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.861      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.762      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.190      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.190      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.284      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.284
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.601 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #14: Setup slack is -39.567 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.176      1.027 FF    IC  alwaysud|solver|one~257|datac
+    Info (332115):     14.457      0.281 FR  CELL  alwaysud|solver|one~257|combout
+    Info (332115):     14.660      0.203 RR    IC  alwaysud|solver|one~258|datac
+    Info (332115):     14.965      0.305 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.086      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.391      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     19.849      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.015      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.235      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.401      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.605      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     20.909      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.315      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     22.669      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.168      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.299      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.618      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     23.921      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.862      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.192      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.443      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.574      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.610      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.741      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.955      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.348      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.589      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.887      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.001      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.299      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.578      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.982      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.216      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.347      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.628      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.032      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.313      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.717      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.459      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.834      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.764      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.161      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.161      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.250      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.250
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.567 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #15: Setup slack is -39.562 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][7]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][7]|q
+    Info (332115):      4.268      0.382 FF    IC  alwaysud|solver|Equal80~2|datab
+    Info (332115):      4.685      0.417 FR  CELL  alwaysud|solver|Equal80~2|combout
+    Info (332115):      6.917      2.232 RR    IC  alwaysud|solver|availc[80][0]~53|datab
+    Info (332115):      7.310      0.393 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     11.716      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.087      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.291      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.457      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.058      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.468      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.254      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.676      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     19.887      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.053      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.488      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     21.870      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     22.909      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.268      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.587      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     23.890      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.831      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.161      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.412      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.543      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.579      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.710      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.924      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.317      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.558      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.856      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     35.970      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.268      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.547      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.951      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.185      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.316      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.597      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.001      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.282      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.686      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.428      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.803      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.733      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.130      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.130      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.219      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.219
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.562 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #16: Setup slack is -39.559 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][2]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][2]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][2]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][2]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][2]|q
+    Info (332115):      4.280      0.394 FF    IC  alwaysud|solver|Equal80~2|dataa
+    Info (332115):      4.682      0.402 FR  CELL  alwaysud|solver|Equal80~2|combout
+    Info (332115):      6.914      2.232 RR    IC  alwaysud|solver|availc[80][0]~53|datab
+    Info (332115):      7.307      0.393 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     11.713      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.084      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.288      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.454      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.055      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.465      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.251      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.673      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     19.884      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.050      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.485      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     21.867      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     22.906      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.265      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.584      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     23.887      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.828      1.941 FF    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.158      0.330 FF  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.409      0.251 FF    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.540      0.131 FF  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.576      1.036 FF    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.707      0.131 FF  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.921      6.214 FF    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.314      0.393 FF  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.555      0.241 FF    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.853      0.298 FF  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     35.967      1.114 FF    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.265      0.298 FF  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.544      0.279 FF    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.948      0.404 FF  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.182      0.234 FF    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.313      0.131 FF  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.594      0.281 FF    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     37.998      0.404 FF  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.279      0.281 FF    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.683      0.404 FF  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.425      0.742 FF    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.800      0.375 FR  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.730      3.930 RR    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.127      0.397 RR  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.127      0.000 RR    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.216      0.089 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.216
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.559 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #17: Setup slack is -39.533 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[5][6]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.285      1.604 RR    IC  alwaysud|solver|sol[5][6]|clk
+    Info (332115):      3.795      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[5][6]
+    Info (332115):      4.002      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[5][6]
+    Info (332115):      4.002      0.000 FF  CELL  alwaysud|solver|sol[5][6]|q
+    Info (332115):      4.386      0.384 FF    IC  alwaysud|solver|Equal5~2|datab
+    Info (332115):      4.803      0.417 FR  CELL  alwaysud|solver|Equal5~2|combout
+    Info (332115):      7.540      2.737 RR    IC  alwaysud|solver|availc[5][5]~463|datab
+    Info (332115):      7.883      0.343 RR  CELL  alwaysud|solver|availc[5][5]~463|combout
+    Info (332115):     14.572      6.689 RR    IC  alwaysud|solver|one~294|dataa
+    Info (332115):     15.011      0.439 RF  CELL  alwaysud|solver|one~294|combout
+    Info (332115):     15.441      0.430 FF    IC  alwaysud|solver|one~295|datab
+    Info (332115):     15.770      0.329 FF  CELL  alwaysud|solver|one~295|combout
+    Info (332115):     17.963      2.193 FF    IC  alwaysud|solver|always1~205|datad
+    Info (332115):     18.094      0.131 FF  CELL  alwaysud|solver|always1~205|combout
+    Info (332115):     18.328      0.234 FF    IC  alwaysud|solver|forced[23][5]~800|datad
+    Info (332115):     18.459      0.131 FF  CELL  alwaysud|solver|forced[23][5]~800|combout
+    Info (332115):     19.921      1.462 FF    IC  alwaysud|solver|WideOr23~2|datac
+    Info (332115):     20.219      0.298 FF  CELL  alwaysud|solver|WideOr23~2|combout
+    Info (332115):     20.453      0.234 FF    IC  alwaysud|solver|WideOr23~3|datad
+    Info (332115):     20.584      0.131 FF  CELL  alwaysud|solver|WideOr23~3|combout
+    Info (332115):     20.836      0.252 FF    IC  alwaysud|solver|cand_v[19]~28|datad
+    Info (332115):     20.997      0.161 FR  CELL  alwaysud|solver|cand_v[19]~28|combout
+    Info (332115):     22.610      1.613 RR    IC  alwaysud|solver|cand_v[20]~29|dataa
+    Info (332115):     22.954      0.344 RR  CELL  alwaysud|solver|cand_v[20]~29|combout
+    Info (332115):     23.394      0.440 RR    IC  alwaysud|solver|cand_v[2]~77|dataa
+    Info (332115):     23.738      0.344 RR  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.712      1.974 RR    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.077      0.365 RR  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.291      0.214 RR    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.457      0.166 RR  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.515      1.058 RR    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.681      0.166 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.996      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.406      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.607      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.911      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.020      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.324      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.561      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.984      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.186      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.352      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.590      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.013      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.251      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.674      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.411      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.793      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.694      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.122      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.122      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.216      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.216
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.533 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #18: Setup slack is -39.527 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[5][4]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.285      1.604 RR    IC  alwaysud|solver|sol[5][4]|clk
+    Info (332115):      3.795      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[5][4]
+    Info (332115):      4.002      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[5][4]
+    Info (332115):      4.002      0.000 FF  CELL  alwaysud|solver|sol[5][4]|q
+    Info (332115):      4.395      0.393 FF    IC  alwaysud|solver|Equal5~2|dataa
+    Info (332115):      4.797      0.402 FR  CELL  alwaysud|solver|Equal5~2|combout
+    Info (332115):      7.534      2.737 RR    IC  alwaysud|solver|availc[5][5]~463|datab
+    Info (332115):      7.877      0.343 RR  CELL  alwaysud|solver|availc[5][5]~463|combout
+    Info (332115):     14.566      6.689 RR    IC  alwaysud|solver|one~294|dataa
+    Info (332115):     15.005      0.439 RF  CELL  alwaysud|solver|one~294|combout
+    Info (332115):     15.435      0.430 FF    IC  alwaysud|solver|one~295|datab
+    Info (332115):     15.764      0.329 FF  CELL  alwaysud|solver|one~295|combout
+    Info (332115):     17.957      2.193 FF    IC  alwaysud|solver|always1~205|datad
+    Info (332115):     18.088      0.131 FF  CELL  alwaysud|solver|always1~205|combout
+    Info (332115):     18.322      0.234 FF    IC  alwaysud|solver|forced[23][5]~800|datad
+    Info (332115):     18.453      0.131 FF  CELL  alwaysud|solver|forced[23][5]~800|combout
+    Info (332115):     19.915      1.462 FF    IC  alwaysud|solver|WideOr23~2|datac
+    Info (332115):     20.213      0.298 FF  CELL  alwaysud|solver|WideOr23~2|combout
+    Info (332115):     20.447      0.234 FF    IC  alwaysud|solver|WideOr23~3|datad
+    Info (332115):     20.578      0.131 FF  CELL  alwaysud|solver|WideOr23~3|combout
+    Info (332115):     20.830      0.252 FF    IC  alwaysud|solver|cand_v[19]~28|datad
+    Info (332115):     20.991      0.161 FR  CELL  alwaysud|solver|cand_v[19]~28|combout
+    Info (332115):     22.604      1.613 RR    IC  alwaysud|solver|cand_v[20]~29|dataa
+    Info (332115):     22.948      0.344 RR  CELL  alwaysud|solver|cand_v[20]~29|combout
+    Info (332115):     23.388      0.440 RR    IC  alwaysud|solver|cand_v[2]~77|dataa
+    Info (332115):     23.732      0.344 RR  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     25.706      1.974 RR    IC  alwaysud|solver|cand_v[5]~117|datab
+    Info (332115):     26.071      0.365 RR  CELL  alwaysud|solver|cand_v[5]~117|combout
+    Info (332115):     26.285      0.214 RR    IC  alwaysud|solver|cand_v[5]~133|datad
+    Info (332115):     26.451      0.166 RR  CELL  alwaysud|solver|cand_v[5]~133|combout
+    Info (332115):     27.509      1.058 RR    IC  alwaysud|solver|r~1061|datad
+    Info (332115):     27.675      0.166 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.990      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.400      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.601      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.905      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     36.014      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.318      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.555      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.978      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.180      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.346      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.584      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     38.007      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.245      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.668      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.405      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.787      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.688      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.116      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.116      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.210      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.210
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.527 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #19: Setup slack is -39.510 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.238      1.557 RR    IC  alwaysud|solver|used[22][1]|clk
+    Info (332115):      3.748      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|used[22][1]
+    Info (332115):      3.955      0.000 RR  CELL  alwaysud|solver|used[22][1]|q
+    Info (332115):     11.295      7.340 RR    IC  alwaysud|solver|cellused[39][1]|datad
+    Info (332115):     11.440      0.145 RF  CELL  alwaysud|solver|cellused[39][1]|combout
+    Info (332115):     13.018      1.578 FF    IC  alwaysud|solver|availc[39][1]~430|datad
+    Info (332115):     13.149      0.131 FF  CELL  alwaysud|solver|availc[39][1]~430|combout
+    Info (332115):     14.176      1.027 FF    IC  alwaysud|solver|one~257|datac
+    Info (332115):     14.457      0.281 FR  CELL  alwaysud|solver|one~257|combout
+    Info (332115):     14.660      0.203 RR    IC  alwaysud|solver|one~258|datac
+    Info (332115):     14.965      0.305 RR  CELL  alwaysud|solver|one~258|combout
+    Info (332115):     18.086      3.121 RR    IC  alwaysud|solver|forced[39][1]~268|datac
+    Info (332115):     18.391      0.305 RR  CELL  alwaysud|solver|forced[39][1]~268|combout
+    Info (332115):     19.849      1.458 RR    IC  alwaysud|solver|forced[39][1]~269|datad
+    Info (332115):     20.015      0.166 RR  CELL  alwaysud|solver|forced[39][1]~269|combout
+    Info (332115):     20.235      0.220 RR    IC  alwaysud|solver|WideOr39~0|datad
+    Info (332115):     20.401      0.166 RR  CELL  alwaysud|solver|WideOr39~0|combout
+    Info (332115):     20.605      0.204 RR    IC  alwaysud|solver|WideOr39~2|datac
+    Info (332115):     20.909      0.304 RR  CELL  alwaysud|solver|WideOr39~2|combout
+    Info (332115):     22.315      1.406 RR    IC  alwaysud|solver|cand_v[46]~19|dataa
+    Info (332115):     22.669      0.354 RF  CELL  alwaysud|solver|cand_v[46]~19|combout
+    Info (332115):     23.168      0.499 FF    IC  alwaysud|solver|cand_v[55]~63|datad
+    Info (332115):     23.299      0.131 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.618      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     23.921      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     24.676      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     24.807      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.471      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     25.632      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.293      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     27.658      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.973      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.383      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.584      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.888      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     35.997      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.301      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.538      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.961      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.163      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.329      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.567      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     37.990      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.228      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.651      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.388      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.770      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.671      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.099      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.099      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.193      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.690      0.063           clock pessimism removed
+    Info (332115):      4.670     -0.020           clock uncertainty
+    Info (332115):      4.683      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.193
+    Info (332115): Data Required Time :     4.683
+    Info (332115): Slack              :   -39.510 (VIOLATED)
+    Info (332115): ===================================================================
+Info (332115): Path #20: Setup slack is -39.505 (VIOLATED)
+    Info (332115): ===================================================================
+    Info (332115): From Node    : alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115): To Node      : alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Launch Clock : clk
+    Info (332115): Latch Clock  : clk
+    Info (332115): Data Arrival Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      0.000      0.000           launch edge time
+    Info (332115):      0.000      0.000           source latency
+    Info (332115):      0.000      0.000           clk
+    Info (332115):      0.000      0.000 RR    IC  clk~input|i
+    Info (332115):      0.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      1.681      0.894 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      1.681      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      3.169      1.488 RR    IC  alwaysud|solver|sol[80][7]|clk
+    Info (332115):      3.679      0.510 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115):      3.886      0.207     uTco  alwaysud:alwaysud|alwaysud_solver:solver|sol[80][7]
+    Info (332115):      3.886      0.000 FF  CELL  alwaysud|solver|sol[80][7]|q
+    Info (332115):      4.268      0.382 FF    IC  alwaysud|solver|Equal80~2|datab
+    Info (332115):      4.685      0.417 FR  CELL  alwaysud|solver|Equal80~2|combout
+    Info (332115):      6.917      2.232 RR    IC  alwaysud|solver|availc[80][0]~53|datab
+    Info (332115):      7.310      0.393 RR  CELL  alwaysud|solver|availc[80][0]~53|combout
+    Info (332115):     11.716      4.406 RR    IC  alwaysud|solver|one~353|datab
+    Info (332115):     12.087      0.371 RR  CELL  alwaysud|solver|one~353|combout
+    Info (332115):     12.291      0.204 RR    IC  alwaysud|solver|one~356|datad
+    Info (332115):     12.457      0.166 RR  CELL  alwaysud|solver|one~356|combout
+    Info (332115):     18.058      5.601 RR    IC  alwaysud|solver|forced[17][0]~403|datab
+    Info (332115):     18.468      0.410 RR  CELL  alwaysud|solver|forced[17][0]~403|combout
+    Info (332115):     19.254      0.786 RR    IC  alwaysud|solver|WideOr17~0|dataa
+    Info (332115):     19.676      0.422 RR  CELL  alwaysud|solver|WideOr17~0|combout
+    Info (332115):     19.887      0.211 RR    IC  alwaysud|solver|WideOr17~2|datad
+    Info (332115):     20.053      0.166 RR  CELL  alwaysud|solver|WideOr17~2|combout
+    Info (332115):     21.488      1.435 RR    IC  alwaysud|solver|cand_v[37]~21|dataa
+    Info (332115):     21.870      0.382 RF  CELL  alwaysud|solver|cand_v[37]~21|combout
+    Info (332115):     22.909      1.039 FF    IC  alwaysud|solver|cand_v[55]~63|dataa
+    Info (332115):     23.268      0.359 FF  CELL  alwaysud|solver|cand_v[55]~63|combout
+    Info (332115):     23.587      0.319 FF    IC  alwaysud|solver|cand_v[2]~77|datac
+    Info (332115):     23.890      0.303 FF  CELL  alwaysud|solver|cand_v[2]~77|combout
+    Info (332115):     24.645      0.755 FF    IC  alwaysud|solver|cand_v[2]~126|datad
+    Info (332115):     24.776      0.131 FF  CELL  alwaysud|solver|cand_v[2]~126|combout
+    Info (332115):     25.440      0.664 FF    IC  alwaysud|solver|selv[4]~16|datad
+    Info (332115):     25.601      0.161 FR  CELL  alwaysud|solver|selv[4]~16|combout
+    Info (332115):     27.262      1.661 RR    IC  alwaysud|solver|r~1061|datab
+    Info (332115):     27.627      0.365 RR  CELL  alwaysud|solver|r~1061|combout
+    Info (332115):     33.942      6.315 RR    IC  alwaysud|solver| renamed_net_345~92|datab
+    Info (332115):     34.352      0.410 RR  CELL  alwaysud|solver| renamed_net_345~92|combout
+    Info (332115):     34.553      0.201 RR    IC  alwaysud|solver| renamed_net_345~94|datac
+    Info (332115):     34.857      0.304 RR  CELL  alwaysud|solver| renamed_net_345~94|combout
+    Info (332115):     35.966      1.109 RR    IC  alwaysud|solver| renamed_net_345~104|datac
+    Info (332115):     36.270      0.304 RR  CELL  alwaysud|solver| renamed_net_345~104|combout
+    Info (332115):     36.507      0.237 RR    IC  alwaysud|solver| renamed_net_345~107|datab
+    Info (332115):     36.930      0.423 RR  CELL  alwaysud|solver| renamed_net_345~107|combout
+    Info (332115):     37.132      0.202 RR    IC  alwaysud|solver| renamed_net_345~108|datad
+    Info (332115):     37.298      0.166 RR  CELL  alwaysud|solver| renamed_net_345~108|combout
+    Info (332115):     37.536      0.238 RR    IC  alwaysud|solver| renamed_net_345~109|datab
+    Info (332115):     37.959      0.423 RR  CELL  alwaysud|solver| renamed_net_345~109|combout
+    Info (332115):     38.197      0.238 RR    IC  alwaysud|solver| renamed_net_345~110|datab
+    Info (332115):     38.620      0.423 RR  CELL  alwaysud|solver| renamed_net_345~110|combout
+    Info (332115):     39.357      0.737 RR    IC  alwaysud|solver|pick_bit[7]~9|dataa
+    Info (332115):     39.739      0.382 RF  CELL  alwaysud|solver|pick_bit[7]~9|combout
+    Info (332115):     43.640      3.901 FF    IC  alwaysud|solver|sol[3][7]~35|dataa
+    Info (332115):     44.068      0.428 FF  CELL  alwaysud|solver|sol[3][7]~35|combout
+    Info (332115):     44.068      0.000 FF    IC  alwaysud|solver|sol[3][7]|d
+    Info (332115):     44.162      0.094 FF  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Required Path:
+    Info (332115): Total (ns)  Incr (ns)     Type  Element
+    Info (332115): ==========  ========= ==  ====  ===================================
+    Info (332115):      1.000      1.000           latch edge time
+    Info (332115):      1.000      0.000           source latency
+    Info (332115):      1.000      0.000           clk
+    Info (332115):      1.000      0.000 RR    IC  clk~input|i
+    Info (332115):      1.787      0.787 RR  CELL  clk~input|o
+    Info (332115):      2.645      0.858 RR    IC  clk~inputclkctrl|inclk[0]
+    Info (332115):      2.645      0.000 RR  CELL  clk~inputclkctrl|outclk
+    Info (332115):      4.152      1.507 RR    IC  alwaysud|solver|sol[3][7]|clk
+    Info (332115):      4.627      0.475 RR  CELL  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115):      4.664      0.037           clock pessimism removed
+    Info (332115):      4.644     -0.020           clock uncertainty
+    Info (332115):      4.657      0.013     uTsu  alwaysud:alwaysud|alwaysud_solver:solver|sol[3][7]
+    Info (332115): Data Arrival Time  :    44.162
+    Info (332115): Data Required Time :     4.657
+    Info (332115): Slack              :   -39.505 (VIOLATED)
+    Info (332115): ===================================================================
+Info (23030): Evaluation of Tcl script /data/project/tsmc65/shared/qsyn/util/report_worst.tcl was successful
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 832 megabytes
+    Info: Processing ended: Fri Sep  4 23:51:00 2026
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:03

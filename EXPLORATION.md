@@ -10,8 +10,8 @@ The one-line answer:
 > all.** Adding constraint propagation — naked and hidden singles placed as forced,
 > non-branching moves — takes `hard1` from 128,760,553 solver cycles to **335**, and
 > the worst case over 4,341 held-out puzzles from 21.2 billion to **98,276**. That is
-> worth ~63,000x on `hard1` and ~55,000x on the worst case **even after paying a
-> measured 3.9x in F_max** (87.02 → 22.34 MHz). Frequency is now the only thing left
+> worth **75,443x on `hard1`** and **117,777x on the worst case** — after paying a
+> measured **3.6x in F_max** (87.02 → 24.37 MHz). Frequency is now the only thing left
 > worth optimising, and it is the thing I have least evidence about.
 >
 > The number with no modelling anywhere in it: on `51blanks` — the board
@@ -25,7 +25,7 @@ The one-line answer:
 |---|---|---|---|---|---|---|---|---|
 | — | **v0** baseline | 128,760,553 | 21,174,957,605 | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
 | **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
-| **D2** | + one-hot selection | **295** | **50,166** | `PENDING` | **25,098** | `PENDING` | | RTL, **K5 gate PASSED**, fitting |
+| **D2** | + one-hot selection | **295** | **50,166** | **24.37 MHz** | **25,098** | **19.61 µs** | **75,443x** | RTL, **K5 gate PASSED**, measured |
 | **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL, queued |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
 | **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
@@ -193,6 +193,11 @@ with no home) instead of being asked only when no naked single exists.
 **Measured (cycles).** `hard1` 335 → **295**. Worst held-out 98,276 → **50,166**;
 median on `ho_published` 414 → 375.
 
+**Net rate: 19.61 µs on `hard1` (75,443x v0) and 2.07 ms on the worst of 4,341
+held-out puzzles (117,777x v0's worst).** Both terms moved the right way — 12% fewer
+cycles and 9% more frequency — so D2 is worth 1.19x over D1 and is the design I would
+build. But see the frequency note below before believing the mechanism.
+
 Be careful how you read that: it is **not** a per-puzzle improvement. Measured across
 the 3,191 published held-out puzzles, `s2u` is faster on 2,319, **slower on 500**, and
 equal on 372. Only the contradiction test is strictly stronger; the selection order also
@@ -208,10 +213,39 @@ Synthesis — versus 25,774 for D1. So the one-hot restructuring is **not** an a
 it is roughly the same logic arranged differently, which is what I expected: it removes
 an 81:1 mux and a 7-to-81 decoder, and adds an 81-wide AND-OR tree and gating.
 
-**Measured (frequency).** `PENDING-S2FAST` — the fit has been in the router for over
-3.5 hours (v0's whole build is 4.5 minutes), and I put a deadline on it so the runs
-that add a *new* axis could have the machine. If it is missing below, that is why, and
-it is the single number I would re-run first.
+**Measured (frequency). 24.37 MHz, against D1's 22.34 — a 9.1% recovery.** The
+hypothesis was half right, and the half that was wrong is the more useful half.
+
+*Right:* the encode-then-decode round trip is genuinely gone. m1's worst path contained
+seven `Mux8~*` cells — the 81:1 decode. s2fast's worst path contains **zero** muxes.
+The structural change did what it was supposed to do.
+
+*Wrong:* it was not the dominant term. Removing it bought 9%, not the 2x I expected.
+s2fast's worst path is now
+
+```
+sol[80][5] → Equal80 (empty?) → availc[80][0] → one~353 → one~356 (single-detect)
+           → forced[17][0] → WideOr17~0/2 (any cell forced?)
+           → cand_v[...] ×5 (the selection tree) → pick_bit → sol[3][7]     30 cells
+```
+
+which is **the inference cone itself**: compute every cell's candidate set, decide which
+cells are forced, then pick one. That cone is the design. You cannot delete it; you can
+only pipeline it (D5's cousin) or shrink it (D6).
+
+**And one bug of mine is on that path.** `iso9()` computes its prefix-OR as a ripple:
+
+```systemverilog
+seen = 1'b0;
+for (int i = 0; i < 9; i++) begin r[i] = v[i] & ~seen; seen = seen | v[i]; end
+```
+
+That is a 9-deep chain, and `iso81()` calls it twice in series — so roughly 18 ripple
+stages sit on the critical path. A logarithmic prefix-OR is 4 deep. I criticised the
+course's MRV solver for exactly this pattern (§2) and then wrote it myself. **Fixing
+`iso9` to a tree is the cheapest remaining F_max experiment in this whole document** —
+it is ten lines, it changes no cycle count, and it cannot make anything worse. I did not
+get to measure it.
 
 Note **0 memory bits**, which is not a given at this size: the 81-entry decision stack
 and the one-hot board stay in flip-flops rather than inferring block RAM. That matters
@@ -444,7 +478,15 @@ Not graded. I did not spend a run on it. Flagging one consequence in §4 anyway.
 Masks, singles, one-hot selection. They are not three independent rungs: masks without
 singles is a measured 3.6x dead end, and retrofitting one-hot selection afterwards
 rewrites the same datapath twice. The RTL exists on this branch and is validated
-cycle-exact. Everything else on this list is a refinement of it or is dead.
+cycle-exact. Measured end to end: **19.61 µs on `hard1`, 75,443x**. Everything else on
+this list is a refinement of it or is dead.
+
+**1b. Then spend ten minutes on `iso9()` before anything else.**
+It computes its prefix-OR as a 9-deep ripple and `iso81()` calls it twice in series, so
+~18 ripple stages sit on the measured critical path where a logarithmic tree would be 4.
+It changes no cycle count and cannot make anything worse. It is the highest
+return-per-line item in this document and I did not get to measure it — which is
+precisely why it is step 1b and not step 4.
 
 Gate it the way `docs/MEASUREMENT.md` says: 51blanks in the K5 sim, then hardware.
 `hard1` is predicted at **295 solver cycles** (`s2u`), so **~481 in the measured
@@ -490,6 +532,12 @@ it at any price — it answers one question about one cell per cycle by construc
 4. **D4's frequency.** Modelled only. It could plausibly be *faster* than D1 as well as
    fewer cycles, since it deletes the priority encoders; or the conflict-detection
    network could dominate. One synthesis run settles it, and I would spend it.
+
+4b. **What a tree-shaped `iso9()` is worth.** I found the ripple by reading s2fast's
+   worst path, and then ran out of synthesis budget. Everything about it says "free
+   frequency" — no cycle change, no area change worth mentioning, ~18 logic levels
+   removed from a 30-cell path — but "says" is not "measured", and the inference cone
+   around it may simply reassert itself as the limit.
 
 5. **Whether multi-hour fits are acceptable to you.** They changed how I worked — I ran
    fewer synthesis points than I wanted and had to choose between them. If your
