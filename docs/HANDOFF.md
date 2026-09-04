@@ -27,10 +27,10 @@ is no single contract file — see the verification section below.
 ## Cloud: publish at the end of every stage
 
 Run from the repo root, after the correctness gate has passed and `comp_fpga` has
-succeeded. `TAG` is the stage name — `v0`, `v1-mrv`, `v2-prop`.
+succeeded. `TAG` is the stage name — `v0`, `v1`, `v2`.
 
 ```bash
-TAG=v1-mrv
+TAG=v1
 SOF=$MY_K5_PROJ/hw/gen_fpga/prog_files/k5_xbox_alwaysud.sof
 SVH=$K5_SW_APPS/alwaysud/alwaysud_enums.svh
 

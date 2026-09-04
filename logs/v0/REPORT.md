@@ -47,27 +47,3 @@ Nothing to the design. v0 *is* `sudx_scan` from ex3.1, renamed, with the instruc
 Built it, synthesised it, simulated three boards, produced a bitstream, published it as
 a GitHub release, and ran all four puzzles on the board.
 
-## EFFECT
-
-The reference every later rung divides into. Three facts that shape the ladder:
-
-- **0 memory bits** — the 81-cell grid and the 81×12-bit stack are entirely flip-flops.
-  Nothing is competing for block RAM yet.
-- **setup is puzzle-independent** at 235 cycles, so all improvement must come out of the
-  solve window — until the solve window shrinks enough that 235 dominates it. At v3's
-  predicted ~26 solve cycles, load would be 90% of the runtime.
-- **hard1 is 128.7M cycles, not the ~50M the assignment estimates**, so every improvement
-  ratio written before this measurement was understated by 2.6x.
-
-Also validated the hard1 FSM model to +186 cycles in 128.7M, which is what makes the
-rest of the ladder plannable without 30-hour simulations.
-
-## NEXT
-
-RTL units table, so the hackathon variant is a data change; then propagation.
-
----
-
-*Evidence: `hw/` board console output · `sim/` (empty — see its README) · `HANDOFF.txt`
-release notes · `models/` the hard1 and propagation models · `notes/` the long agent
-write-ups from before this format existed.*

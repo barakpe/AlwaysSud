@@ -9,8 +9,6 @@ The whole backtracking search runs in hardware. Software hands over the puzzle o
 and asks a single question: solve it. The goal is to make that as fast as possible,
 one measured change at a time.
 
-**Where we are right now: [`STATE.md`](STATE.md).**
-Results: [`RESULTS.md`](RESULTS.md) · Reasoning per step: [`DIARY.md`](DIARY.md) ·
 How it works: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 
 ## Getting started
@@ -75,7 +73,7 @@ reference/           vendored course code - read reference/PROVENANCE.md first
 logs/<tag>/          one directory per phase:
                        REPORT.md   one screen: rate, raw, what, effect, next
                        sim/ hw/    console output from each machine
-                       models/     the hard1 and propagation models
+                       models/     cycle models behind the numbers
                        notes/      long write-ups from before the format existed
 ```
 
@@ -90,17 +88,13 @@ milestones.
   The full-system clock is not graded.
 - **Cycles, never wall-clock.** Wall time here measures UART, not the design.
 - **Correctness gate before any timing number**, in simulation *and* on hardware.
-- **One hypothesis per branch.** Other ideas go to [`BACKLOG.md`](BACKLOG.md).
 - **Agents do not commit.** Barak reviews and commits.
 
 ## The documents
 
 | | |
 |---|---|
-| [`STATE.md`](STATE.md) | where we stand, the ladder, the risks — **read first** |
 | [`RESULTS.md`](RESULTS.md) | one row per tag |
-| [`DIARY.md`](DIARY.md) | why we tried it and what surprised us |
-| [`BACKLOG.md`](BACKLOG.md) | ideas not on the current branch |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | the platform: wrapper, registers, memory — fixed |
 | [`docs/SOLVER.md`](docs/SOLVER.md) | the current algorithm — **rewritten each phase** |
 | [`docs/MEASUREMENT.md`](docs/MEASUREMENT.md) | the metric and the protocol |

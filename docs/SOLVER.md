@@ -93,13 +93,3 @@ to +186 cycles, so a change's hard1 cost can be estimated without a 30-hour simu
 - **`sudx_cmd == STORE` in the wrapper is dead.** Software never sends that command —
   `STORE` is entered from `SOLVE` on `solver_done`.
 
-## What the next rung attacks
-
-The solver asks about **one digit at a time** and finds empty cells **one per cycle**.
-That is a direct translation of sequential C onto hardware that has no such constraint:
-all nine digits could be tested in the same instant, and "the first empty cell" is a
-priority encoder, not an 81-cycle walk.
-
-Measured floor: three of four boards need **zero** guesses under naked+hidden singles,
-and hard1 needs zero under naked pairs + box-line. The gap between 128.7 million cycles
-and ~26 is the whole optimisation budget. The plan is in `STATE.md`.
