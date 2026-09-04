@@ -1,0 +1,22 @@
+== the four repo boards (classic) ==
+arch        easy1   20blanks   51blanks          hard1
+v0            103        214      56603      128760553
+m1              8         23       8368       19454731
+s0              8         23        984        3430905
+s1              6         23         54          26725
+s2              6         23         54            335
+s2u             6         23         54            295
+m2              6         23         54            901
+s2m             6         23         54            193
+s2um            6         23         54            193
+p1              5          5         13          11514
+p2              5          5         13            468
+p3              4          4          8            102
+p4              4          4          8            101
+
+== held-out sets: WORST CASE, then p99 / median ==
+arch   set                               WORST          p99     median      n
+v0     ho_published                 3670993359    181061606     847474 3191
+11418025
+m1     ho_published                  553930745     27297417     126955 3191
+1725760
