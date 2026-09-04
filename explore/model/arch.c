@@ -247,6 +247,89 @@ static void run_unified(const int *start, ev_t *e, int sel) {
     }
 }
 
+
+/* ---- s2r: hidden singles time-multiplexed, one unit per cycle ------------
+ * s2 tests all NU*9 (unit, digit) pairs every cycle. That is 243 exactly-one-of-9
+ * detectors and it is most of the area. This asks the same questions with ONE
+ * unit's worth of logic, round-robin, one unit per cycle - the classic
+ * area-for-cycles trade. Naked singles and the empty-domain check stay parallel:
+ * they are 81 one-hot detects and cheap.
+ *
+ * Cost model: 1 cycle per unit examined. A guess is only taken after NU
+ * consecutive unit examinations find nothing, so a guess costs up to NU+1.
+ */
+static void run_roundrobin(const int *start, ev_t *e, int sel) {
+    int sc[NC], sd[NC], sf[NC], sp = 0;
+    int u = 0, miss = 0;                 /* round-robin pointer, consecutive misses */
+    for (int c=0;c<NC;c++) val[c]=start[c];
+    rebuild_used(); e->init = 1;
+    int backtracking = 0;
+    for (;;) {
+        if (CAPPED) { e->solved = -1; return; }
+        if (!backtracking) {
+            e->advance++;
+            int a[NC], dead = 0, nempty = 0, nak = -1, nakb = 0, first = -1;
+            int best = -1, bestn = 10;
+            for (int c=0;c<NC;c++) {
+                if (val[c]) { a[c]=0; continue; }
+                nempty++; a[c] = allowed(c);
+                if (first < 0) first = c;
+                if (a[c] == 0) { dead = 1; break; }
+                if (nak < 0 && !(a[c] & (a[c]-1))) { nak = c; nakb = a[c]; }
+                if (sel == 1) { int n = popc(a[c]); if (n < bestn) { bestn = n; best = c; } }
+            }
+            if (dead) { e->contradict++; backtracking = 1; miss = 0; continue; }
+            if (!nempty) { e->solved = 1; return; }
+            if (nak >= 0) {                      /* parallel: costs the same 1 cycle */
+                place(nak, nakb);
+                sc[sp]=nak; sd[sp]=bit2dig(nakb); sf[sp]=1; sp++;
+                if (sp>e->maxdepth) e->maxdepth=sp;
+                e->nodes++; e->forced++; miss = 0;
+                continue;
+            }
+            /* one unit's worth of hidden-single logic, this cycle */
+            int hit = 0;
+            for (int d = 1; d <= 9 && !hit && !dead; d++) {
+                int b = 1 << (d-1);
+                if (used[u] & b) continue;
+                int spot = -1, n = 0;
+                for (int k = 0; k < 9; k++) {
+                    int c = unit[u][k];
+                    if (!val[c] && (a[c] & b)) { spot = c; n++; if (n > 1) break; }
+                }
+                if (n == 0) { dead = 1; break; }
+                if (n == 1) {
+                    place(spot, b);
+                    sc[sp]=spot; sd[sp]=b?bit2dig(b):0; sf[sp]=1; sp++;
+                    if (sp>e->maxdepth) e->maxdepth=sp;
+                    e->nodes++; e->forced++; hit = 1;
+                }
+            }
+            if (dead) { e->contradict++; backtracking = 1; miss = 0; continue; }
+            if (hit) { miss = 0; u = (u + 1) % NU; continue; }
+            u = (u + 1) % NU;
+            if (++miss < NU) continue;           /* keep scanning, 1 cycle per unit */
+            miss = 0;
+            { int pc = (sel == 1) ? best : first;
+              int pb = lowbit(a[pc]);
+              place(pc, pb);
+              sc[sp]=pc; sd[sp]=bit2dig(pb); sf[sp]=0; sp++;
+              if (sp>e->maxdepth) e->maxdepth=sp;
+              e->nodes++; e->guesses++; }
+        } else {
+            e->backtrack++;
+            if (sp==0){ e->solved=0; return; }
+            int c=sc[sp-1], d=sd[sp-1], f=sf[sp-1];
+            unplace(c);
+            if (f) { sp--; continue; }
+            int m = allowed(c) & ~((1<<d)-1);
+            if (m) { int nb=lowbit(m); place(c,nb); sd[sp-1]=bit2dig(nb);
+                     e->nodes++; e->guesses++; backtracking=0; miss=0; }
+            else sp--;
+        }
+    }
+}
+
 /* ======== parallel-commit propagation: every forced cell in ONE cycle ===== */
 static void run_prop(const int *start, ev_t *e, int hid, int sel) {
     int dc[NC], dd[NC]; int L = 0;
@@ -357,6 +440,8 @@ static void dispatch(const int *start, ev_t *e) {
     else if (!strcmp(g_arch,"m2"))  run_serial(start,e,1,1,0,0);
     else if (!strcmp(g_arch,"s2u")) run_unified(start,e,0);
     else if (!strcmp(g_arch,"s2um"))run_unified(start,e,1);
+    else if (!strcmp(g_arch,"s2r")) run_roundrobin(start,e,0);
+    else if (!strcmp(g_arch,"s2rm"))run_roundrobin(start,e,1);
     else if (!strcmp(g_arch,"p1"))  run_prop(start,e,0,0);
     else if (!strcmp(g_arch,"p2"))  run_prop(start,e,0,1);
     else if (!strcmp(g_arch,"p3"))  run_prop(start,e,1,0);

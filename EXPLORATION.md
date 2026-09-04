@@ -53,7 +53,7 @@ So the model is not "trustworthy if you validate it" — it is exact, on 3,491 p
 across two different geometries, for every architecture I quote.
 
 **These are solver-FSM cycles.** The `report_task_performance("Sudoku solve")` window
-is larger by a fixed amount — see §6.
+is larger by a fixed amount — see D5 in §1.
 
 ### The held-out set
 
@@ -118,12 +118,12 @@ just "which cells are assigned" — nothing is eliminated that is not also assig
 | **rate on `hard1`** | **1.4797 s** | **23.32 µs** → **63,447x** |
 | **rate, worst of 4,341 held-out** | 243.33 s | **4.41 ms** → **55,210x** |
 
-*(cycles and F_max measured; rate = (cycles + 186) / F_max, see §6)*
+*(cycles and F_max measured; rate = (cycles + 186) / F_max, see D5)*
 
 **Depends on.** Nothing. Same module ports as v0, drops into `alwaysud.sv` unchanged.
 
 **Effort.** The RTL exists and is validated: `explore/rtl/alwaysud_solver.sv`
-(MODE=1), 349 lines. The remaining work is the K5 end-to-end run and hardware.
+(MODE=1, 356 lines) and `alwaysud_solver_fast.sv` (329 lines). The remaining work is the K5 end-to-end run and hardware.
 
 **Risk.** Area and frequency, not correctness. 25,774 LE is over the 20,000 in
 `docs/MEASUREMENT.md` (though well under the ~50k device), and `quartus_fit` takes
@@ -177,9 +177,11 @@ the lowest non-empty one" rather than as a min-tree of indices.
 
 **Measured (frequency/area).** `PENDING-S2FASTMRV`
 
-**Verdict rule, decided in advance:** MRV is worth it iff it costs less than **6.9x**
-F_max (its worst-case gain). If it costs less than 2x it is worth it on the classic
-worst case alone.
+**Verdict rule, decided in advance.** Compare like with like: the worst case *across
+all six sets* is 50,166 without MRV and 17,116 with it, so **MRV is worth it iff it
+costs less than 2.9x F_max**. (The 6.9x in the Windoku row is one set's gain, not the
+figure to bet on — MRV moves which puzzle is the worst one, so per-set ratios overstate
+it.) If MRV costs less than 2.0x it also pays for itself on classic alone.
 
 ### D4 — Parallel commit: place every forced cell in one cycle
 
@@ -198,6 +200,30 @@ gain is 3.5x on a term already under 5 ms, and the multi-commit conflict detecti
 the one piece of this design that can be subtly wrong. Its real attraction is different:
 it deletes the priority encoders from the forced path entirely, so it may be a *shorter*
 critical path than D1, not just fewer cycles. That is worth one synthesis run.
+
+### D6 — Time-multiplex the hidden-single detectors (the area answer)
+
+**What.** D1 tests all `NU x 9` (unit, digit) pairs every cycle: 243 "exactly one of
+nine" detectors, and that is most of the 25k LE. The same questions can be asked with
+**one unit's worth of logic, round-robin, one unit per cycle**. Naked singles and the
+empty-domain check stay parallel — they are 81 one-hot detects and cheap.
+
+**Modelled only (`s2r` / `s2rm` in `arch.c`).** Cycles, one unit examination per cycle:
+
+| | `s2` (parallel) | `s2r` (round-robin) | ratio |
+|---|---|---|---|
+| `hard1` | 335 | 954 | 2.85x |
+| worst `ho_published` | 36,841 | 81,322 | 2.21x |
+| worst X-Sudoku | 34,910 | 68,363 | 1.96x |
+| worst Windoku | 98,276 | 239,403 | 2.44x |
+| **worst of all six sets** | **98,276** | **239,403** | **2.44x** |
+
+**The whole direction is one division.** D6 is worth building iff it clocks above
+**2.44 x 22.34 = 54.5 MHz**. That is between the measured 47.61 MHz of the mask design
+and v0's 87.02, so it is genuinely uncertain — and it is the one direction here that
+makes the design *smaller*, which is what fixes both the 20,000-LE limit in
+`docs/MEASUREMENT.md` and the 2.5-hour fit. I did not have synthesis budget to settle
+it; it is the first run I would spend after D1 lands.
 
 ### D5 — Attack the fixed ~186-cycle window overhead
 
@@ -234,8 +260,9 @@ The obvious first step: keep raster DFS and v0's exact search tree, just stop sp
 47.61 MHz** and LE 9,286 → 17,132. Net rate 1.4797 s → **408.6 ms, 3.6x**.
 
 A 3.6x rung that costs 85% more area and 45% of your frequency is not worth a phase on
-its own. It is only worth building as the substrate for D1, where the same 47%
-frequency loss buys 384,000x instead of 6.6x. **Do not ship this as a milestone.**
+its own. It is only worth building as the substrate for D1, where a frequency loss of
+the same kind — 74%, measured — buys 384,000x instead of 6.6x. **Do not ship this as a
+milestone.**
 
 ### ✗ Forward checking alone — real, but two orders short
 
@@ -253,7 +280,7 @@ the natural first move.
 | step on top of masks | `hard1` | worst `ho_published` | worst, any geometry |
 |---|---|---|---|
 | nothing | 19,454,731 | 553,930,745 | 3,253,371,343 |
-| **MRV** | 901 | 672,313 | *(not run — dominated)* |
+| **MRV** | 901 | 672,313 | 672,313 |
 | **naked + hidden singles** | **335** | **36,841** | **98,276** |
 | both | 193 | 19,584 | 19,584 |
 
@@ -301,9 +328,10 @@ worst held-out puzzle for `s2`, MRV alone already recovers 12.3x (36,841 → 2,9
 
 ### ✗ Tuning anything to `hard1`
 
-`hard1` is Norvig top95 #1. For v0 it sits around the 99th percentile of my held-out
-set, not at the top: the true v0 worst is **3,670,993,359** cycles — **28x worse than
-`hard1`** — and under X-Sudoku geometry **21,174,957,605**, i.e. 164x worse.
+`hard1` is Norvig top95 #1. Measured: for v0 it sits at the **98.6th percentile** of my
+3,191-puzzle published held-out set, not at the top. The true v0 worst there is
+**3,670,993,359** cycles — **28.5x worse than `hard1`** — and under X-Sudoku geometry
+**21,174,957,605**, i.e. 164x worse.
 
 A design ranked on `hard1` alone will pick the wrong thing. Concretely: on `hard1`
 alone, MRV-only (901) looks within 3x of singles (335). On the held-out worst case the
@@ -331,8 +359,8 @@ standalone-RTL number the moment the board runs.
 **2. Then measure, and only then choose between D3 and D4.**
 Both are worst-case insurance, both cost frequency, and after step 1 frequency is the
 entire remaining budget. The decision rule is a division you can do in an afternoon
-once you have step 1's F_max: D3 must cost < 2x F_max to pay for itself on classic,
-< 6.9x on Windoku; D4 must cost < 3.5x. Do not build both before measuring either.
+once you have step 1's F_max: on the worst case across all six sets, D3 must cost
+< 2.9x F_max and D4 < 2.4x. Do not build both before measuring either.
 
 **3. D5 last, and only if the hackathon variant turns out easy.**
 Attacking the 186-cycle overhead is worth up to 1.5x. It is the largest remaining term
@@ -371,7 +399,8 @@ it at any price — it answers one question about one cell per cycle by construc
 5. **Whether 2.5-hour fits are acceptable to you.** They changed how I worked — I ran
    fewer synthesis points than I wanted and had to choose between them. If your
    iteration budget cannot absorb that, D1 needs an area pass before it needs anything
-   else, and the first place to look is the 243 hidden-single detectors.
+   else, and D6 is that pass, costed: 2.44x cycles, break-even at 54.5 MHz. **D6's
+   frequency is the single measurement I most wish I had.**
 
 6. **The actual hackathon variant.** I tested three geometries (classic, X-Sudoku,
    Windoku) and all three are one line of `bench/units.py`. `bench/units.py` itself
@@ -413,9 +442,12 @@ Three things to read off it:
   MRV.
 - **`m2` sits between `s1` and `s0`.** MRV without singles is worth roughly one
   inference rung, at the price of the most expensive selection network in the design.
-- **The worst case is not on the same board for every architecture.** `s2`'s worst is a
-  Windoku puzzle; `v0`'s is X-Sudoku; `s2m`'s is a published classic. Ranking on one
-  puzzle — any one puzzle — ranks the wrong thing.
+- **The worst case is not the same puzzle for every architecture.** Measured: within
+  `ho_published`, `s2u`'s worst is line 513 and `s2um`'s is line 701; within
+  `gen_diagonal_min` they are lines 171 and 94; adding parallel commit moves it again.
+  Across sets, `s2`'s overall worst is a Windoku puzzle, `v0`'s is X-Sudoku, `s2m`'s is
+  a published classic. Ranking on one puzzle — any one puzzle — ranks the wrong thing,
+  and it is also why a per-set improvement ratio overstates the real gain.
 
 The same table on the four repo boards, for comparison, so you can see how little they
 separate the top of the ladder:
@@ -447,7 +479,7 @@ from `bench/units.py`**, so the gate and the hardware cannot disagree about whic
 constrain which.
 
 The result: X-Sudoku is `+define+SUD_VARIANT_DIAGONAL` and **no RTL change at all**.
-Same file, 29 units instead of 27, `SUD_UPC` 3 instead of 5. Measured on 300 generated
+Same file, 29 units instead of 27, `SUD_UPC` 5 instead of 3. Measured on 300 generated
 X-Sudoku puzzles through `xrun`: **0 cycle mismatches against the model, 0 wrong
 grids**. Windoku (31 units) is modelled the same way and also clean.
 
@@ -483,9 +515,10 @@ selection network a second time. **Ship singles as `v1` and treat MRV as an opti
 On `hard1` alone, MRV-only (901) is within 2.7x of singles (335) — close enough to look
 like a matter of taste. On my held-out worst case the same two designs are 18x apart.
 `hard1` is Norvig top95 #1: hard for raster DFS specifically, and once you have any
-inference at all it stops being hard. It is the 99th percentile of my set for v0, not
-the maximum, and the maximum is 28x worse. If you keep ranking on `hard1` you will pick
-MRV, and on hackathon day you will get a puzzle that is not `hard1`.
+inference at all it stops being hard. Measured, it is the **98.6th percentile** of my
+published set for v0, not the maximum, and the maximum is **28.5x worse**. If you keep
+ranking on `hard1` you will pick MRV, and on hackathon day you will get a puzzle that
+is not `hard1`.
 
 **3. You are probably budgeting frequency as a slow drain. It is a cliff.**
 `docs/MEASUREMENT.md` frames F_max as "a budget you are spending… record it every step
@@ -514,8 +547,9 @@ Where I would bet *against* myself: if `comp_fpga` cannot route a 36k-LE system,
 the one-hot restructuring does not recover meaningful frequency, then D1's 25k LE is a
 problem and the right answer shifts toward a smaller design that keeps naked singles
 and forward checking but drops the 243 hidden-single detectors — measured at 26,725
-cycles on `hard1` and 7,038,541 on the held-out worst, i.e. still ~4,800x better than
-v0's worst, for a fraction of the logic. That is the fallback, and it is a good one.
+cycles on `hard1` and 7,361,345 on the worst case across all six sets, i.e. still
+**2,877x fewer cycles than v0's worst**, for a fraction of the logic. That is the
+fallback, and it is a good one.
 
 ---
 
