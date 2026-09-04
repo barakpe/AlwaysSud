@@ -239,6 +239,10 @@ the lowest non-empty one" rather than as a min-tree of indices.
 
 **Measured (frequency/area).** `PENDING-S2FASTMRV`
 
+**Depends on / effort.** D2. The RTL is written (`MODE=2` of
+`alwaysud_solver_fast.sv`) and validated cycle-exact — it is a `+define+`, not a build.
+The only work left is one synthesis run and the division below.
+
 **Verdict rule, decided in advance.** Compare like with like: the worst case *across
 all six sets* is 50,166 without MRV and 17,116 with it, so **MRV is worth it iff it
 costs less than 2.9x F_max**. (The 6.9x in the Windoku row is one set's gain, not the
@@ -276,6 +280,11 @@ from the forced path entirely, so it may be a *shorter* critical path than D1, n
 fewer cycles. That is worth one synthesis run — and if it clocks well it jumps the
 ranking.
 
+**Depends on / effort.** D1 for the representation, but it is a different FSM: parallel
+commit, a level tag per cell instead of a placement stack, and the conflict network.
+Call it a day of RTL plus the validation sweep, on top of a working D2. The model is
+already written (`p3` / `p4` in `arch.c`) so the cycle side needs nothing.
+
 ### D6 — Time-multiplex the hidden-single detectors (the area answer)
 
 **What.** D1 tests all `NU x 9` (unit, digit) pairs every cycle: 243 "exactly one of
@@ -299,6 +308,11 @@ and v0's 87.02, so it is genuinely uncertain — and it is the one direction her
 makes the design *smaller*, which is what fixes both the 20,000-LE limit in
 `docs/MEASUREMENT.md` and the multi-hour fit. I did not have synthesis budget to settle
 it; it is the first run I would spend after D1 lands.
+
+**Depends on / effort.** D2. It is a narrowing of existing logic rather than new
+mechanism — instantiate one unit's detector, add a round-robin counter, hold the
+naked-single path as it is. Half a day, and the model (`s2r` / `s2rm`) already predicts
+what it will cost in cycles.
 
 ### D5 — Attack the fixed ~186-cycle window overhead
 
