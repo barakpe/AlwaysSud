@@ -237,11 +237,24 @@ one parallel compare.
 **Modelled only — no RTL, no F_max.** `hard1` 335 → **102**; worst `ho_published`
 36,841 → 10,377; worst X-Sudoku 34,910 → 6,746.
 
-**Why it is ranked below D3 despite bigger numbers.** At the ~10^2–10^4 cycle scale the
-gain is 3.5x on a term already under 5 ms, and the multi-commit conflict detection is
-the one piece of this design that can be subtly wrong. Its real attraction is different:
-it deletes the priority encoders from the forced path entirely, so it may be a *shorter*
-critical path than D1, not just fewer cycles. That is worth one synthesis run.
+**Why it is ranked below D3 despite bigger numbers.** Three reasons, in order.
+
+1. Against D2 rather than D1, the gain shrinks to **2.4x** on the worst case across all
+   sets (50,166 → 21,149), on a term already around 2 ms.
+2. **Its cycles are mostly propagation rounds, so it is the direction that a pipelined
+   round would hurt most.** Measured on the worst held-out puzzle: p3 spends 4,888 of
+   its 7,330 cycles — 67% — in propagation. If the round has to be split over two
+   clocks to make timing, p3 goes to ~12,200 and most of the advantage is gone. D2's
+   cycles are placements, which split much better.
+3. The multi-commit conflict detection (two cells in a unit forced to the same digit,
+   one cell forced to two digits) is the one piece of this whole design that can be
+   subtly wrong, and it is wrong in the direction that produces an answer rather than a
+   hang.
+
+Its real attraction is different from the cycle count: it deletes the priority encoders
+from the forced path entirely, so it may be a *shorter* critical path than D1, not just
+fewer cycles. That is worth one synthesis run — and if it clocks well it jumps the
+ranking.
 
 ### D6 — Time-multiplex the hidden-single detectors (the area answer)
 
@@ -628,6 +641,24 @@ explore/puzzles/            the held-out sets
 explore/sim/                RTL-vs-model comparison outputs
 logs/explore-<name>/        qsyn logs, RESULT.txt, warning review
 ```
+
+### Which commit each number came from
+
+| number | source | commit |
+|---|---|---|
+| v0 87.02 MHz / 9,286 LE | `logs/explore-v0base/` | `94df39f` — `hw/xlrs/alwaysud/` untouched by me |
+| m1 47.61 MHz / 17,132 LE | `logs/explore-m1/` | `8e738d6` — `explore/exp/m1/` |
+| s2 22.34 MHz / 25,774 LE | `logs/explore-s2/` | `8e738d6` — `explore/exp/s2/` |
+| s2fast | `logs/explore-s2fast/` | `8e738d6` — `explore/exp/s2fast/` |
+| mrvonly, s2fastdiag | `logs/explore-mrvonly/`, `logs/explore-s2fastdiag/` | `569a61c` — those `explore/exp/` dirs |
+| every cycle number | `explore/model/arch.c` + `explore/sim/` | `e034f7d` (the model has only gained architectures, never changed an existing one) |
+
+`explore/exp/<name>/` is the **record of what was actually staged and built**, so those
+directories are deliberately not re-synced when the shared RTL later changes. One
+consequence to know about: `explore/exp/s2fast/alwaysud_solver.sv` predates the MODE-3
+branches added for the `mrvonly` build. I diffed them — every added line is guarded by
+`MODE == 3` or by `KMIN`, which is 2 for MODE 1 either way, so the MODE-1 logic that was
+synthesised is identical to the MODE-1 logic in `explore/rtl/`.
 
 **On branches.** You asked for one branch per experiment. I kept one, because the
 experiments differ only by a `+define+` on a shared file — `explore/exp/*/alwaysud.f`
