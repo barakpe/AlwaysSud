@@ -164,9 +164,10 @@ done and passes the gate on all three simulatable boards (§6a). The remaining w
 hardware.
 
 **Risk.** Area and frequency, not correctness. 25,774 LE is over the 20,000 in
-`docs/MEASUREMENT.md` (though well under the ~50k device), and `quartus_fit` takes
-**~2.5 hours** instead of ~4.5 minutes — which is a real cost to your iteration loop,
-not just a number.
+`docs/MEASUREMENT.md` (though well under the ~50k device), and the fitter takes
+**hours** instead of ~4.5 minutes: measured **2 h 37 m** for D1 and **over 3.5 h** for
+D2, on a two-core machine where the router is the whole cost. That is a real charge
+against your iteration loop, not just a number in a table.
 
 ### D2 — Keep the selection one-hot (the F_max fix)
 
@@ -296,7 +297,7 @@ empty-domain check stay parallel — they are 81 one-hot detects and cheap.
 **2.44 x 22.34 = 54.5 MHz**. That is between the measured 47.61 MHz of the mask design
 and v0's 87.02, so it is genuinely uncertain — and it is the one direction here that
 makes the design *smaller*, which is what fixes both the 20,000-LE limit in
-`docs/MEASUREMENT.md` and the 2.5-hour fit. I did not have synthesis budget to settle
+`docs/MEASUREMENT.md` and the multi-hour fit. I did not have synthesis budget to settle
 it; it is the first run I would spend after D1 lands.
 
 ### D5 — Attack the fixed ~186-cycle window overhead
@@ -472,7 +473,7 @@ it at any price — it answers one question about one cell per cycle by construc
    fewer cycles, since it deletes the priority encoders; or the conflict-detection
    network could dominate. One synthesis run settles it, and I would spend it.
 
-5. **Whether 2.5-hour fits are acceptable to you.** They changed how I worked — I ran
+5. **Whether multi-hour fits are acceptable to you.** They changed how I worked — I ran
    fewer synthesis points than I wanted and had to choose between them. If your
    iteration budget cannot absorb that, D1 needs an area pass before it needs anything
    else, and D6 is that pass, costed: 2.44x cycles, break-even at 54.5 MHz. **D6's
@@ -657,9 +658,12 @@ is a memory burst and a RISC-V poll loop, neither of which is in
 factor is.** It is in the window, and in F_max.
 
 **5. You may be about to underestimate the build-time cost.**
-A 25k-LE fit took me **2 h 22 m** against v0's 4.5 minutes. That is not a number that
-appears in any report but it changes what "one hypothesis per branch" costs you per
-day. Plan the area pass before you plan the fourth rung.
+Measured: v0's whole build is 4.5 minutes; the 25.7k-LE design took **2 h 37 m**, and
+the 25.1k-LE one was still routing at **3.5 h** when I had to put a deadline on it. All
+of it is the router, on a two-core machine. That number appears in no report and it
+changes what "one hypothesis per branch" costs you per day. **Plan the area pass (D6)
+before you plan the fourth rung**, or you will spend the hackathon waiting on
+`quartus_fit`.
 
 Where I would bet *against* myself: if `comp_fpga` cannot route a 36k-LE system, or if
 the one-hot restructuring does not recover meaningful frequency, then D1's 25k LE is a
