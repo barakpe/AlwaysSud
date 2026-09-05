@@ -135,6 +135,18 @@ static void run_serial(const int *start, ev_t *e, int sel, int fc, int naked, in
             }
             if (dead) { e->contradict++; backtracking = 1; continue; }
             if (!nempty) { e->solved = 1; return; }
+            if (sel == 2) {          /* MRV, tie broken by degree (most unassigned peers) */
+                int bn = 10, bd = -1; best = -1;
+                for (int c = 0; c < NC; c++) {
+                    if (val[c]) continue;
+                    int n = popc(allowed(c));
+                    if (n > bn) continue;
+                    int deg = 0;
+                    for (int k = 0; k < nuof[c]; k++)
+                        for (int j = 0; j < 9; j++) if (!val[unit[uof[c][k]][j]]) deg++;
+                    if (n < bn || deg > bd) { bn = n; bd = deg; best = c; }
+                }
+            }
             if (pickc < 0 && hid) {
                 for (int u=0; u<NU && pickc<0 && !dead; u++)
                     for (int d=1; d<=9; d++) {
@@ -149,7 +161,7 @@ static void run_serial(const int *start, ev_t *e, int sel, int fc, int naked, in
                 if (dead) { e->contradict++; backtracking = 1; continue; }
             }
             if (pickc < 0) {                       /* nothing forced: guess */
-                pickc = (sel == 1) ? best : first;
+                pickc = (sel >= 1) ? best : first;
                 pickb = lowbit(allowed(pickc));
                 if (!pickb) { e->contradict++; backtracking = 1; continue; }
                 isforced = 0; e->guesses++;
@@ -438,6 +450,9 @@ static void dispatch(const int *start, ev_t *e) {
     else if (!strcmp(g_arch,"s2"))  run_serial(start,e,0,1,1,1);
     else if (!strcmp(g_arch,"s2m")) run_serial(start,e,1,1,1,1);
     else if (!strcmp(g_arch,"m2"))  run_serial(start,e,1,1,0,0);
+    else if (!strcmp(g_arch,"m2f")) run_serial(start,e,1,1,1,0);
+    else if (!strcmp(g_arch,"m2d")) run_serial(start,e,2,1,0,0);
+    else if (!strcmp(g_arch,"m2df"))run_serial(start,e,2,1,1,0);
     else if (!strcmp(g_arch,"s2u")) run_unified(start,e,0);
     else if (!strcmp(g_arch,"s2um"))run_unified(start,e,1);
     else if (!strcmp(g_arch,"s2r")) run_roundrobin(start,e,0);
