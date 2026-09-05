@@ -138,3 +138,42 @@ State these up front and watch for them:
 
 If any of those happens, the correct output is a clear description of what broke,
 not a repaired number.
+
+---
+
+## ADDENDUM — read this before programming anything
+
+**1. Make the tree match the bitstream, or the guard lies to you.**
+`hw/xlrs/alwaysud/` can only hold one design at a time. `validate_board.sh` checks
+the tree against the release's **commit**, not against the `.sof` — so it can
+report `PASS sources match the bitstream's commit` while you program a different
+design entirely. This actually happened during the cloud work.
+
+Every release names the experiment it was built from. Before validating:
+
+```bash
+./explore/use_design.sh s2fast      # or s2rr, or s2fasttree
+git diff --stat                     # expect changes only under hw/xlrs/alwaysud
+```
+
+For `explore-s2fast` the tree is already correct at the release's commit; for the
+others you must run that first.
+
+**2. The design may not meet the platform clock, and that is expected.**
+`s2fast` closes at **28.42 MHz** system F_max against a 50 MHz platform clock
+(v0 closed at 55.29). The score is unaffected — the assignment takes `max_freq`
+from standalone `qsyn_xlr`, "rather than from the full-design comp_fpga result" —
+but on the board this means **setup violations at the system clock**.
+
+So: if the board returns wrong grids, hangs, or gives cycle counts that vary
+between identical runs, **suspect the clock before suspecting the algorithm.**
+Simulation is clean, and the cycle counts are deterministic in simulation. Report
+it as a timing symptom and say so plainly; do not "fix" the solver.
+
+There is a PLL in the system (`hw/gen_fpga/db/k5x_pll_altpll.v`), so lowering the
+accelerator clock is likely possible — but that is a question for Udi, not a
+change to make unilaterally mid-validation.
+
+**3. If everything passes, the single number that matters** is `hard1`: predicted
+~478 cycles for `s2fast`, against v0's measured 128,760,739. Nothing anywhere has
+ever run it.
