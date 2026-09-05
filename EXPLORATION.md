@@ -8,9 +8,9 @@ The one-line answer:
 
 > **The baseline's problem is not that it searches slowly. It is that it searches at
 > all.** Adding constraint propagation — naked and hidden singles placed as forced,
-> non-branching moves — takes `hard1` from 128,760,553 solver cycles to **335**, and
-> the worst case over 4,341 held-out puzzles from 21.2 billion to **98,276**. That is
-> worth **75,443x on `hard1`** and **117,777x on the worst case** — after paying a
+> non-branching moves — takes `hard1` from 128,760,553 solver cycles to **295**, and
+> the worst case over 4,841 held-out puzzles from **39.3 billion** to **50,166**. That
+> is worth **75,443x on `hard1`** and **218,000x on the worst case** — after paying a
 > measured **3.6x in F_max** (87.02 → 24.37 MHz). Frequency is now the only thing left
 > worth optimising, and it is the thing I have least evidence about.
 >
@@ -21,21 +21,22 @@ The one-line answer:
 
 ### At a glance
 
-| # | direction | `hard1` cycles | worst of 4,341 | F_max | LE | rate on `hard1` | vs v0 | state |
+| # | direction | `hard1` cycles | worst held-out | F_max | LE | rate on `hard1` | vs v0 | state |
 |---|---|---|---|---|---|---|---|---|
-| — | **v0** baseline | 128,760,553 | 21,174,957,605 | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
+| — | **v0** baseline | 128,760,553 | **39,256,402,283** | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
 | **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
 | **D2** | + one-hot selection | **295** | **50,166** | **24.37 MHz** | **25,098** | **19.61 µs** | **75,443x** | RTL, **K5 gate PASSED**, measured |
-| **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL, queued |
+| **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL ready; network alone measures 32.23 MHz |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
-| **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
+| **D5** | cut the window overhead | −183 flat | −183 flat | — | — | | ≤1.6x | cost measured, fix not built |
 | **D6** | time-multiplex the detectors | 954 | 239,403 | — | — | | | modelled only |
-| ✗ | masks alone, no inference | 19,454,731 | 3,253,371,343 | 47.61 MHz | 17,132 | 408.6 ms | 3.6x | **dead end** |
+| ✗ | masks alone, no inference | 19,454,731 | 3,253,371,343+ | 47.61 MHz | 17,132 | 408.6 ms | 3.6x | **dead end** |
 | ✗ | masks + MRV, no singles | 901 | 672,313 | 32.23 MHz | 22,224 | 33.63 µs | 44,000x | **dead end** — 10.1x worse than D2 |
 
-Cycles are solver-FSM cycles; rate = (cycles + 186) / F_max. "Worst of 4,341" is the
-maximum over every held-out set and all three geometries — the number I would bet on,
-not the `hard1` column.
+Cycles are solver-FSM cycles; rate = (cycles + 183) / F_max. The worst-case column is
+the maximum over every held-out set and all three geometries — the number I would bet
+on, not the `hard1` column. See §5a: that number is stable for the inference designs
+and still climbing for v0, so v0's is a lower bound.
 
 ---
 
@@ -94,7 +95,7 @@ it directly for the new design; that is what turns the prediction into a number.
 ### The held-out set
 
 The repo has four puzzles and I did not tune against anything outside them, but four
-is not a sample. My held-out set is **4,341 puzzles I did not design against**:
+is not a sample. My held-out set is **4,841 puzzles I did not design against**:
 
 | set | n | what | source |
 |---|---|---|---|
@@ -102,6 +103,7 @@ is not a sample. My held-out set is **4,341 puzzles I did not design against**:
 | `gen_classic_min` | 400 | minimal puzzles (no given removable), 21–26 clues | generated, seed 101 |
 | `gen_classic_easy` | 150 | 40-clue puzzles, the easy end | generated, seed 102 |
 | `gen_diagonal_min` | 300 | **X-Sudoku** minimal | generated, seed 201 |
+| `gen_diagonal_min2` | 500 | **X-Sudoku** minimal, a second draw to test whether the worst case had converged (§5a) | generated, seed 211 |
 | `gen_diagonal_easy` | 150 | X-Sudoku, 40 clues | generated, seed 202 |
 | `gen_windoku_min` | 150 | Windoku minimal (a third geometry, as a control) | generated, seed 301 |
 
@@ -152,7 +154,7 @@ just "which cells are assigned" — nothing is eliminated that is not also assig
 | registers | 1,867 | 2,907 |
 | memory bits | 0 | **0** |
 | **rate on `hard1`** | **1.4797 s** | **23.32 µs** → **63,447x** |
-| **rate, worst of 4,341 held-out** | 243.33 s | **4.41 ms** → **55,210x** |
+| **rate, worst of 4,841 held-out** | 451.1 s | **4.41 ms** → **102,000x** |
 
 *(cycles and F_max measured; rate = (cycles + 186) / F_max, see D5)*
 
@@ -193,8 +195,8 @@ with no home) instead of being asked only when no naked single exists.
 **Measured (cycles).** `hard1` 335 → **295**. Worst held-out 98,276 → **50,166**;
 median on `ho_published` 414 → 375.
 
-**Net rate: 19.61 µs on `hard1` (75,443x v0) and 2.07 ms on the worst of 4,341
-held-out puzzles (117,777x v0's worst).** Both terms moved the right way — 12% fewer
+**Net rate: 19.61 µs on `hard1` (75,443x v0) and 2.07 ms on the worst of 4,841
+held-out puzzles (218,000x v0's worst).** Both terms moved the right way — 12% fewer
 cycles and 9% more frequency — so D2 is worth 1.19x over D1 and is the design I would
 build. But see the frequency note below before believing the mechanism.
 
@@ -418,7 +420,7 @@ three axes.
 | | masks + **MRV** only | masks + **singles** only |
 |---|---|---|
 | `hard1` cycles | 901 | **295** |
-| worst of 4,341 held-out | 672,313 | **50,166** |
+| worst of 4,841 held-out | 672,313 | **50,166** |
 | logic elements (map / fit) | **22,224 / 21,574** | 25,098 / 24,384 |
 | registers / memory bits | 2,826 / 0 | 2,907 / 0 |
 | standalone F_max | **32.23 MHz** | 24.37 MHz |
@@ -461,7 +463,7 @@ parallel solvers"). Two measured reasons it is wrong here:
 1. There is no room. D1 already occupies 25,774 of ~49,760 LE. A second engine does
    not fit, let alone the four or eight that would matter.
 2. There is nothing to divide. Speculation divides *node count*. After D1 the median
-   `hard1`-class puzzle is ~300 cycles and the worst in 4,341 is ~10^5. Dividing
+   `hard1`-class puzzle is ~300 cycles and the worst in 4,841 is ~5x10^4. Dividing
    10^5 by 4 while spending the area that could have bought frequency is a loss on
    the quotient, and the quotient is the grade.
 
@@ -601,8 +603,8 @@ was checkable (3,491 puzzles, two geometries, zero mismatches).
 | `p3` | parallel commit (modelled) | 10,377 | 244 | 11 | 6,746 | 14 | 21,149 | **21,149** |
 | `p4` | parallel commit + MRV | 7,168 | 174 | 11 | 2,030 | 14 | 2,976 | **7,168** |
 
-n = 3,191 / 400 / 150 / 300 / 150 / 150 = **4,341 puzzles**, none of which I tuned
-against. `hard1` excluded from `ho_published`.
+n = 3,191 / 400 / 150 / 300 / 500 / 150 / 150 = **4,841 puzzles**, none of which I
+tuned against. `hard1` excluded from `ho_published`.
 
 Three things to read off it:
 
@@ -639,6 +641,39 @@ held-out set had to exist.
 
 ---
 
+## 5a. IS THE WORST CASE CONVERGED? FOR THE NEW DESIGN, YES. FOR v0, NO.
+
+A worst case from 300 puzzles is a claim about 300 puzzles. So I generated 500 more
+X-Sudoku puzzles and re-scored, changing nothing else.
+
+| arch | worst, n=300 | worst, n=800 | change |
+|---|---|---|---|
+| `v0` | 21,174,957,605 | **39,256,402,283** | **+85.4%** |
+| `s2` | 34,910 | 35,478 | +1.6% |
+| `s2u` | 25,418 | 27,382 | +7.7% |
+| `s2m` | 7,831 | 11,081 | +41.5% |
+| `s2um` | 5,967 | 7,307 | +22.5% |
+| `p3` | 6,746 | 7,685 | +13.9% |
+
+Zero wrong answers in all 800, every architecture.
+
+**The asymmetry is the finding.** Nearly tripling the sample moved the inference designs
+by 2–8% (and the MRV variants, which have thinner tails, by 20–40%). It moved **v0 by
+85%**. That is what an unbounded tail looks like: for raster DFS there is always a worse
+puzzle, and how bad your worst case is depends mostly on how long you looked.
+
+The practical reading for a hackathon: v0's X-Sudoku worst is now **39.3 billion cycles
+= 451 s at 87.02 MHz**. Not 1.48 s, not 42 s — **seven and a half minutes**, on a puzzle
+I found by generating 800 of them rather than by searching for something pathological. I
+do not know what v0's real worst case is and neither does anyone else; I only know it is
+larger than the last number I measured.
+
+Against that, D2's worst over every set I have is **50,166 cycles = 2.07 ms**, and it
+barely moved when the sample grew. **218,000x**, and the ratio grows the longer either
+of us looks.
+
+---
+
 ## 6. THE VARIANT TEST
 
 `bench/units.py` says the geometry should live in one table. v0's does not — it is
@@ -654,9 +689,9 @@ grids**. Windoku (31 units) is modelled the same way and also clean.
 
 For v0 the same test is a double failure. Its `is_valid` would have to be rewritten —
 and then, with the diagonals correctly enforced, it is measured at a worst case of
-**21,174,957,605 cycles = 243 s at 87.02 MHz** on my X-Sudoku set, against
-**98,276 cycles = 4.4 ms** for D1. A variant does not just cost v0 a rewrite; it costs
-it another 164x.
+**39,256,402,283 cycles = 451 s at 87.02 MHz** over 800 X-Sudoku puzzles, against
+**27,382 cycles** for D2 on the same 800. A variant does not just cost v0 a rewrite; it
+costs it another 305x on top.
 
 `PENDING-DIAG-SYNTH`
 
@@ -851,26 +886,29 @@ logs/explore-<name>/        qsyn logs, RESULT.txt, warning review
 ### Which commit each number came from
 
 Branch `explore/opus5-phases`, from `94df39f` ("strip prior conclusions"). One commit
-per phase of the investigation; each message carries the finding, not just the files.
+per phase; each message carries the finding, not just the file list. Cited by phase
+rather than by hash, because the phases were renumbered as the investigation grew and a
+hash in a file that is itself in the commit cannot be kept correct.
 
-| number | source | commit |
+| number | phase | evidence in the tree |
 |---|---|---|
-| v0 87.02 MHz / 9,286 LE | `logs/explore-v0base/` | `60df836` phase 4 — `hw/xlrs/alwaysud/` untouched by me |
-| every cycle number, and model-vs-RTL agreement | `explore/model/arch.c`, `explore/sim/` | `24b98a3` phase 2, tested in `0c1782e` phase 7 |
-| held-out set | `explore/puzzles/` | `4306ef3` phase 3 |
-| m1 47.61 MHz / 17,132 LE | `logs/explore-m1/` | `3795264` phase 8 — `explore/exp/m1/` |
-| s2 22.34 MHz / 25,774 LE | `logs/explore-s2/` | `3795264` phase 8 — `explore/exp/s2/` |
-| K5 gate PASS, 187 / 211 / 235 | `logs/explore-s2fast/sim/sim_*.txt` | `5f3079d` phase 10 |
-| worst-case tables | `explore/TABLES*.txt` | `2437d02` phase 11 |
-| s2fast 24.37 MHz / 25,098 LE | `logs/explore-s2fast/` | `6a411a2` phase 13 — `explore/exp/s2fast/` |
-| mrvonly 32.23 MHz / 22,224 LE | `logs/explore-mrvonly/` | `c2aafa6` phase 14 — `explore/exp/mrvonly/` |
+| v0 87.02 MHz / 9,286 LE / 0 mem bits | 4 | `logs/explore-v0base/` — `hw/xlrs/alwaysud/` untouched by me |
+| every cycle number | 2, tested in 7 | `explore/model/arch.c`, `explore/sim/` |
+| held-out set, 4,841 puzzles | 3, extended in 15 | `explore/puzzles/` |
+| m1 47.61 MHz / 17,132 LE | 8 | `logs/explore-m1/`, `explore/exp/m1/` |
+| s2 22.34 MHz / 25,774 LE | 8 | `logs/explore-s2/`, `explore/exp/s2/` |
+| K5 gate PASS, 187 / 211 / 235 | 10 | `logs/explore-s2fast/sim/sim_*.txt` |
+| worst-case tables | 11 | `explore/TABLES.txt`, `explore/TABLES2.txt` |
+| s2fast 24.37 MHz / 25,098 LE | 13 | `logs/explore-s2fast/`, `explore/exp/s2fast/` |
+| mrvonly 32.23 MHz / 22,224 LE | 14 | `logs/explore-mrvonly/`, `explore/exp/mrvonly/` |
+| tail convergence, n=800 X-Sudoku | 15 | `explore/puzzles/ho_diagonal_800.txt` |
 
 `explore/exp/<name>/` is the **record of what was actually staged and built**, so those
 directories are deliberately not re-synced when the shared RTL later changes. One
-consequence to know about: `explore/exp/s2fast/alwaysud_solver.sv` predates the MODE-3
-branches added for the `mrvonly` build. I diffed them — every added line is guarded by
-`MODE == 3` or by `KMIN`, which is 2 for MODE 1 either way, so the MODE-1 logic that was
-synthesised is identical to the MODE-1 logic in `explore/rtl/`.
+consequence: `explore/exp/s2fast/alwaysud_solver.sv` predates the MODE-3 branches added
+for the `mrvonly` build. I diffed them — every added line is guarded by `MODE == 3` or
+by `KMIN`, which is 2 for MODE 1 either way, so the MODE-1 logic that was synthesised is
+identical to the MODE-1 logic in `explore/rtl/`.
 
 Two runs are **not** in the table on purpose. `s2fastmrv` (MRV on top of singles) and a
 second `s2fastdiag` attempt collided over the shared staging directory (§8); both were

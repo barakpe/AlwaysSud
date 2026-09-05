@@ -1,0 +1,4 @@
+s2fast finished inside the window:
+RESULT s2fast: LEs(map)=25098 LEs(fit)=24384 regs=2907 membits=0 F_max=24.37 MHz
+RESULT: clean.
+=== mrvonly (prices 'add MRV to the reference solver' on its own) ===

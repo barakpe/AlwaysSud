@@ -1,0 +1,23 @@
+  diagonal 25/500 (clues 17)
+  diagonal 50/500 (clues 19)
+  diagonal 75/500 (clues 19)
+  diagonal 100/500 (clues 18)
+  diagonal 125/500 (clues 17)
+  diagonal 150/500 (clues 18)
+  diagonal 175/500 (clues 17)
+  diagonal 200/500 (clues 17)
+  diagonal 225/500 (clues 18)
+  diagonal 250/500 (clues 17)
+  diagonal 275/500 (clues 18)
+  diagonal 300/500 (clues 18)
+  diagonal 325/500 (clues 18)
+  diagonal 350/500 (clues 18)
+  diagonal 375/500 (clues 18)
+  diagonal 400/500 (clues 18)
+  diagonal 425/500 (clues 18)
+  diagonal 450/500 (clues 18)
+  diagonal 475/500 (clues 19)
+  diagonal 500/500 (clues 19)
+wrote explore/puzzles/gen_diagonal_min2.txt
+./explore/go_gen2.sh: line 9: 107607 Terminated              nice -n 19 python3 explore/model/gen.py --variant windoku -n 350 --seed 311 --out explore/puzzles/gen_windoku_min2.txt
+GEN2_DONE
