@@ -1,6 +1,6 @@
 # EXPLORATION — where the rate actually is
 
-Branch `explore/opus5`, from `94df39f` ("strip prior conclusions").
+Branch `explore/opus5-phases`, from `94df39f` ("strip prior conclusions").
 Everything below is either **measured** on this cloud or **modelled** by a cycle model
 that was validated against RTL simulation on 3,491 puzzles — every number says which.
 
@@ -24,7 +24,7 @@ The one-line answer:
 | # | direction | `hard1` cycles | worst held-out | F_max | LE | rate on `hard1` | vs v0 | state |
 |---|---|---|---|---|---|---|---|---|
 | — | **v0** baseline | 128,760,553 | **39,256,402,283** | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
-| **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.32 µs** | **63,447x** | RTL, synthesised |
+| **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.19 µs** | **63,814x** | RTL, synthesised |
 | **D2** | + one-hot selection | **295** | **50,166** | **24.37 MHz** | **25,098** | **19.61 µs** | **75,443x** | RTL, **K5 gate PASSED**, measured |
 | **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL ready; network alone measures 32.23 MHz |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
@@ -81,8 +81,8 @@ is larger by a fixed amount. The chain for a `hard1` prediction is therefore:
 
 ```
    solver cycles          exact, my model == my RTL on 3,491 puzzles      (measured)
- + window overhead        186 on v0, model vs hardware, puzzle-independent (measured)
- = measured window
+ + window overhead        ~183, puzzle-independent; 186 on v0, 181/188/181 re-measured
+ = measured window        for the new solver behind the same wrapper (§6a)  (measured)
 ```
 
 The second term is the weaker link, and I say so: it was measured with **v0's binary**,
@@ -153,10 +153,10 @@ just "which cells are assigned" — nothing is eliminated that is not also assig
 | logic elements (map / fit) | 9,286 / 8,864 | **25,774 / 25,030** |
 | registers | 1,867 | 2,907 |
 | memory bits | 0 | **0** |
-| **rate on `hard1`** | **1.4797 s** | **23.32 µs** → **63,447x** |
+| **rate on `hard1`** | **1.4797 s** | **23.19 µs** → **63,814x** |
 | **rate, worst of 4,841 held-out** | 451.1 s | **4.41 ms** → **102,000x** |
 
-*(cycles and F_max measured; rate = (cycles + 186) / F_max, see D5)*
+*(cycles and F_max measured; rate = (cycles + 183) / F_max, see D5)*
 
 **Depends on.** Nothing. Same module ports as v0, drops into `alwaysud.sv` unchanged.
 
