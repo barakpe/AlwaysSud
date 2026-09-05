@@ -1,3 +1,5 @@
 ### overnight queue starting Sat Sep  5 21:20:25 UTC 2026
 ### already done: 5 step(s)
 21:20 waiting - a Quartus run already owns the staged directory
+21:25 waiting - a Quartus run already owns the staged directory
+== s2fasttree starting 21:30

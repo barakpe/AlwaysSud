@@ -1,0 +1,149 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -15.191
+TNS   : -31803.492
+
+Type  : Slow 1200mV 85C Model Setup 'MAX10_CLK1_50'
+Slack : 15.932
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Setup 'MAX10_CLK2_50'
+Slack : 16.787
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.339
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'MAX10_CLK1_50'
+Slack : 0.355
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'MAX10_CLK2_50'
+Slack : 0.363
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 12.729
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 2.532
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'MAX10_CLK1_50'
+Slack : 9.649
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'MAX10_CLK2_50'
+Slack : 9.659
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.667
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'ADC_CLK_10'
+Slack : 96.000
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : -12.483
+TNS   : -25207.176
+
+Type  : Slow 1200mV 0C Model Setup 'MAX10_CLK1_50'
+Slack : 16.314
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'MAX10_CLK2_50'
+Slack : 17.119
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.305
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'MAX10_CLK1_50'
+Slack : 0.322
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'MAX10_CLK2_50'
+Slack : 0.327
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 13.330
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 2.290
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK1_50'
+Slack : 9.660
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK2_50'
+Slack : 9.670
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.683
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'ADC_CLK_10'
+Slack : 96.000
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 4.444
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'MAX10_CLK1_50'
+Slack : 18.210
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'MAX10_CLK2_50'
+Slack : 18.732
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.147
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'MAX10_CLK1_50'
+Slack : 0.152
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'MAX10_CLK2_50'
+Slack : 0.156
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 16.491
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.961
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK1_50'
+Slack : 9.327
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'MAX10_CLK2_50'
+Slack : 9.331
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'k5x_pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 9.710
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'ADC_CLK_10'
+Slack : 96.000
+TNS   : 0.000
+
+------------------------------------------------------------
