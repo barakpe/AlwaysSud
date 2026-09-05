@@ -31,7 +31,7 @@ The one-line answer:
 | **D5** | cut the window overhead | −186 flat | −186 flat | — | — | | ≤1.5x | measured cost only |
 | **D6** | time-multiplex the detectors | 954 | 239,403 | — | — | | | modelled only |
 | ✗ | masks alone, no inference | 19,454,731 | 3,253,371,343 | 47.61 MHz | 17,132 | 408.6 ms | 3.6x | **dead end** |
-| ✗ | masks + MRV, no singles | 901 | 672,313 | `PENDING` | `PENDING` | | | **dead end** |
+| ✗ | masks + MRV, no singles | 901 | 672,313 | 32.23 MHz | 22,224 | 33.63 µs | 44,000x | **dead end** — 10.1x worse than D2 |
 
 Cycles are solver-FSM cycles; rate = (cycles + 186) / F_max. "Worst of 4,341" is the
 maximum over every held-out set and all three geometries — the number I would bet on,
@@ -277,6 +277,13 @@ the lowest non-empty one" rather than as a min-tree of indices.
 `alwaysud_solver_fast.sv`) and validated cycle-exact — it is a `+define+`, not a build.
 The only work left is one synthesis run and the division below.
 
+**Evidence it will pass that division.** The MRV network measured on its own (MODE 3,
+no inference) is **22,224 LE at 32.23 MHz** — smaller and faster than the singles
+design it would be added to. A network that clocks at 32 MHz standing alone is unlikely
+to cost 2.9x when bolted onto one that clocks at 24.37. I did **not** measure the
+combination: the `s2fastmrv` run collided with another driver over the shared staging
+directory (§8) and I discarded it rather than quote it.
+
 **Verdict rule, decided in advance.** Compare like with like: the worst case *across
 all six sets* is 50,166 without MRV and 17,116 with it, so **MRV is worth it iff it
 costs less than 2.9x F_max**. (The 6.9x in the Windoku row is one set's gain, not the
@@ -400,32 +407,51 @@ genuinely useful. But it is the small half of the inference story: one more step
 naked singles, is worth a *further* 128x on `hard1` and 26x on the worst case, for
 logic that is barely more expensive.
 
-### ✗ MRV as the **first** algorithmic step — 18x worse than singles, for more logic
+### ✗ MRV as the **first** algorithmic step — 10x worse, on cycles alone
 
 This one matters, because the reference solver you were shipped
 (`reference/ex3.1/sudx_standalone_ref/claude_mrv/`) is an MRV solver, which makes MRV
-the natural first move.
+the natural first move. So I built it as its own accelerator — MRV and nothing else, no
+naked singles, no hidden singles — and measured it against singles-and-no-MRV on all
+three axes.
 
-| step on top of masks | `hard1` | worst `ho_published` | worst, any geometry |
-|---|---|---|---|
-| nothing | 19,454,731 | 553,930,745 | 3,253,371,343 |
-| **MRV** | 901 | 672,313 | 672,313 |
-| **naked + hidden singles** | **335** | **36,841** | **98,276** |
-| both | 193 | 19,584 | 19,584 |
+| | masks + **MRV** only | masks + **singles** only |
+|---|---|---|
+| `hard1` cycles | 901 | **295** |
+| worst of 4,341 held-out | 672,313 | **50,166** |
+| logic elements (map / fit) | **22,224 / 21,574** | 25,098 / 24,384 |
+| registers / memory bits | 2,826 / 0 | 2,907 / 0 |
+| standalone F_max | **32.23 MHz** | 24.37 MHz |
+| **rate on `hard1`** | 33.63 µs | **19.61 µs** |
+| **rate, worst case** | 20.87 ms | **2.07 ms** |
 
-MRV alone is a big step — 824x on the worst case. Singles alone is **18x better than
-that**, and needs cheaper logic: a one-hot detect (`x != 0 && (x & (x-1)) == 0`) per
-cell versus 81 nine-bit popcounts feeding a min-tree. And once you have singles, MRV
-adds only 1.9x on the classic worst case.
+**I was wrong about why, and the measurement is more interesting than my argument.**
+Before running it I claimed MRV loses on both axes — worse cycles *and* a more expensive
+circuit, "81 nine-bit popcounts feeding a min-tree against a one-hot detect per cell".
+That is false. Measured, MRV-only is **11% smaller and 32% faster** than singles-only.
+The popcount-and-min network is genuinely cheaper than 243 hidden-single detectors.
 
-`PENDING-MRVONLY` — I am synthesising MRV-only as its own build so this is a measured
-comparison of both axes and not just a cycle argument.
+MRV loses anyway, by **10.1x on the worst-case rate**, on cycles alone: 13.4x fewer
+cycles for singles, against which they give back 1.32x of frequency. The mechanism is
+not "MRV is expensive" — it is that **inference removes search, while MRV only
+guides it**. A forced move is a move you never have to unmake.
 
-One more thing about that reference solver, since you asked me to read it critically:
-its MRV scan is written as a sequential `if (... < best_cnt) best = ...` inside a
-`for` loop over all 81 cells. That elaborates to an **81-deep chain** of compare-and-
-mux, not a balanced tree. Whatever MRV costs in principle, that implementation will
-cost considerably more.
+Two second-order things fall out of the same table:
+
+- On `hard1` alone the gap is only **1.71x**, not 10x, because at 901 versus 295 solver
+  cycles the fixed ~183-cycle window overhead compresses everything (1,084 versus 478
+  cycles in the measured window). Yet another way `hard1` under-ranks the better design.
+- MRV's network being *cheap* is what makes D3 — MRV **on top of** singles — worth a
+  run. My earlier threshold said it has to cost under 2.9x F_max to pay for itself; a
+  network that clocks at 32 MHz standing alone is very unlikely to cost that much.
+
+One more thing about the reference solver, since you asked me to read it critically: its
+MRV scan is a sequential `if (... < best_cnt) best = ...` inside a `for` over all 81
+cells, which elaborates to an **81-deep chain** of compare-and-mux rather than a
+balanced tree. My MODE 3 builds the same heuristic as one-hot masks per candidate count.
+Whatever MRV costs in principle, that implementation will cost considerably more — and
+note I made the *same* class of mistake myself in `iso9` (D2), so this is a pattern to
+watch for rather than a criticism of that file.
 
 ### ✗ Multiple parallel search engines — no room, and nothing to divide
 
@@ -687,14 +713,22 @@ predicts hard1 at ~26 solve cycles against a fixed 235-cycle load". So I know yo
 are MRV then propagation, and that your ladder ends somewhere near 26 cycles. I did not
 go looking in git history for anything else. Given that much:
 
-**1. MRV first is the wrong order, and it is wrong on both axes.**
-Measured above: masks+MRV is 901 cycles on `hard1` and 672,313 on the held-out worst;
-masks+singles is 335 and 36,841. Singles win by 18x on the number that matters, and
-they are the cheaper circuit — a one-hot detect per cell against 81 popcounts and a
-min-tree. If `v1` is MRV you will spend a phase, and a large slice of your frequency
-budget, on the weaker half of the idea, and then `v2` will have to pay for the
-selection network a second time. **Ship singles as `v1` and treat MRV as an optional
-`v3` that has to earn its F_max.**
+**1. MRV first is the wrong order — but not for the reason I expected, and I got the
+reason wrong in this document before I measured it.**
+I built both as accelerators. Masks+MRV: 901 cycles on `hard1`, 672,313 worst,
+**22,224 LE at 32.23 MHz**. Masks+singles: 295, 50,166, **25,098 LE at 24.37 MHz**.
+
+So MRV is the *smaller and faster* circuit — 11% fewer LEs, 32% more frequency — and it
+still loses by **10.1x on the worst-case rate**, purely on cycles. Singles buy 13.4x
+fewer cycles and give back 1.32x of frequency. The reason is not cost, it is mechanism:
+**inference removes search, MRV only guides it.** A forced move is a move you never have
+to unmake.
+
+If `v1` is MRV you spend a phase on the weaker half of the idea and reach 20.87 ms worst
+case instead of 2.07 ms. **Ship singles as `v1`.** Then — and this is the part my
+original argument would have got wrong — MRV is a *good* `v2`, precisely because its
+network turns out to be cheap. D3 was the direction I was most prepared to talk you out
+of; the measurement says keep it.
 
 **2. `hard1` will tell you the wrong thing, and it will do it quietly.**
 On `hard1` alone, MRV-only (901) is within 2.7x of singles (335) — close enough to look
@@ -741,7 +775,46 @@ fallback, and it is a good one.
 
 ---
 
-## 8. HOW TO REPRODUCE
+## 8. A PLATFORM TRAP THE SKILL DOES NOT COVER
+
+`cloud-measure/SKILL.md` item 9 is emphatic that two simulators must never be alive at
+once, because the port is `$USER`-hashed and the app silently talks to the wrong one.
+**The same hazard exists for synthesis, and nothing guards it.**
+
+Every `measure.sh` (and `measure_cloud.sh`) run begins by doing
+
+```sh
+rm -rf "$MY_K5_PROJ/hw/xlrs/alwaysud"
+cp -r "$EXP"/* "$MY_K5_PROJ/hw/xlrs/alwaysud/"
+```
+
+into a path derived from `$MY_K5_PROJ`, not from the tag. So two runs do not get two
+directories — they get one, and the second one deletes the first one's sources while
+Quartus is reading them.
+
+I hit exactly this. A queue I had started earlier survived a kill I thought had taken,
+moved on to `s2fastmrv`, and began mapping; forty seconds later a second driver staged
+`mrvonly` over the top of it. Both were mapping the same directory, and neither result
+means anything. Symptom: two `quartus_map` processes and two `measure.sh` trees in `ps`,
+with no error from either — the same silent-wrong-answer shape as the two-simulator bug,
+which is why it is worth writing down.
+
+What it cost: both runs discarded, their logs deleted rather than committed, and
+`mrvonly` re-run alone. What would prevent it: a refusal at the top of `measure.sh`,
+in the shape `sim_board.sh` already uses for `xmsim` —
+
+```sh
+pgrep -u "$USER" -x quartus_map >/dev/null || pgrep -u "$USER" -x quartus_fit >/dev/null \
+  && die "a Quartus run is already using $MY_K5_XLRS - refusing to stage over it"
+```
+
+I have not added it, because `measure.sh` was being executed by the `mrvonly` run at the
+time and bash reads a script incrementally — editing a running script is its own way to
+get a silently wrong answer.
+
+---
+
+## 9. HOW TO REPRODUCE
 
 ```bash
 # cycle models, all architectures, all sets
@@ -777,14 +850,20 @@ logs/explore-<name>/        qsyn logs, RESULT.txt, warning review
 
 ### Which commit each number came from
 
+Branch `explore/opus5-phases`, from `94df39f` ("strip prior conclusions"). One commit
+per phase of the investigation; each message carries the finding, not just the files.
+
 | number | source | commit |
 |---|---|---|
-| v0 87.02 MHz / 9,286 LE | `logs/explore-v0base/` | `94df39f` — `hw/xlrs/alwaysud/` untouched by me |
-| m1 47.61 MHz / 17,132 LE | `logs/explore-m1/` | `8e738d6` — `explore/exp/m1/` |
-| s2 22.34 MHz / 25,774 LE | `logs/explore-s2/` | `8e738d6` — `explore/exp/s2/` |
-| s2fast | `logs/explore-s2fast/` | `8e738d6` — `explore/exp/s2fast/` |
-| mrvonly, s2fastdiag | `logs/explore-mrvonly/`, `logs/explore-s2fastdiag/` | `569a61c` — those `explore/exp/` dirs |
-| every cycle number | `explore/model/arch.c` + `explore/sim/` | `e034f7d` (the model has only gained architectures, never changed an existing one) |
+| v0 87.02 MHz / 9,286 LE | `logs/explore-v0base/` | `60df836` phase 4 — `hw/xlrs/alwaysud/` untouched by me |
+| every cycle number, and model-vs-RTL agreement | `explore/model/arch.c`, `explore/sim/` | `24b98a3` phase 2, tested in `0c1782e` phase 7 |
+| held-out set | `explore/puzzles/` | `4306ef3` phase 3 |
+| m1 47.61 MHz / 17,132 LE | `logs/explore-m1/` | `3795264` phase 8 — `explore/exp/m1/` |
+| s2 22.34 MHz / 25,774 LE | `logs/explore-s2/` | `3795264` phase 8 — `explore/exp/s2/` |
+| K5 gate PASS, 187 / 211 / 235 | `logs/explore-s2fast/sim/sim_*.txt` | `5f3079d` phase 10 |
+| worst-case tables | `explore/TABLES*.txt` | `2437d02` phase 11 |
+| s2fast 24.37 MHz / 25,098 LE | `logs/explore-s2fast/` | `6a411a2` phase 13 — `explore/exp/s2fast/` |
+| mrvonly 32.23 MHz / 22,224 LE | `logs/explore-mrvonly/` | `c2aafa6` phase 14 — `explore/exp/mrvonly/` |
 
 `explore/exp/<name>/` is the **record of what was actually staged and built**, so those
 directories are deliberately not re-synced when the shared RTL later changes. One
@@ -792,6 +871,12 @@ consequence to know about: `explore/exp/s2fast/alwaysud_solver.sv` predates the 
 branches added for the `mrvonly` build. I diffed them — every added line is guarded by
 `MODE == 3` or by `KMIN`, which is 2 for MODE 1 either way, so the MODE-1 logic that was
 synthesised is identical to the MODE-1 logic in `explore/rtl/`.
+
+Two runs are **not** in the table on purpose. `s2fastmrv` (MRV on top of singles) and a
+second `s2fastdiag` attempt collided over the shared staging directory (§8); both were
+discarded and their logs deleted rather than quoted. `explore/exp/s2m/` and
+`explore/exp/s2diag/` were staged but never run — the queue was redirected to the
+one-hot design, which answers the same questions in the version worth recommending.
 
 **On branches.** You asked for one branch per experiment. I kept one, because the
 experiments differ only by a `+define+` on a shared file — `explore/exp/*/alwaysud.f`

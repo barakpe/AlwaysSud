@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Fri Sep  4 23:57:25 2026
+Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Revision Name : alwaysud
+Top-level Entity Name : qsyn_dummy_xlr_wrap
+Family : MAX 10
+Total logic elements : 22,224
+    Total combinational functions : 20,879
+    Dedicated logic registers : 2,826
+Total registers : 2826
+Total pins : 120
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0

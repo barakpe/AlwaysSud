@@ -1,0 +1,8 @@
+=== synthesis review: /project/tsmc65/users/perezba/ws/AlwaysSudAgent/AlwaysSud/logs/explore-mrvonly/sim/qsyn.txt ===
+
+warnings: 0 distinct, 0 unreviewed
+
+REPORT.md synthesis line:
+  synthesis  0 errors · 0 latches · 0 combinational loops · 0 unreviewed warnings
+
+RESULT: clean.

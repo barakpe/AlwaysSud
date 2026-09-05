@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at alwaysud_solver.sv(246): always construct contains both blocking and non-blocking assignments File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 246
