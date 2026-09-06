@@ -1,1 +1,11 @@
 == s2fastmrv comp_fpga starting 18:38 - expect 4-6 h
+FPGA_RESULT s2fastmrv: BITSTREAM OK
+  system LEs   : 39507 / 49760
+  system F_max : 27.33 MHz  (NOT graded)
+  memory bits  : 1327608  (79%)
+  sof md5      : 45f150b55f6fb66f256653190d67273b
+  sof_md5   45f150b55f6fb66f256653190d67273b
+  enums_md5 991ee6d38809bb0b6997e50ae81709f8
+== s2rr: no bitstream yet
+== s2fasttree: no bitstream yet
+== s2rr comp_fpga starting 20:08 - expect 4-6 h
