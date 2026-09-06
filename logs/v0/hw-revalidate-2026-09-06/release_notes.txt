@@ -1,0 +1,21 @@
+commit: 74e1b1279b9cb2d6429030c2434b31e780abc84c
+enums_md5: 991ee6d38809bb0b6997e50ae81709f8
+sof_md5: ac57a19c42e404ff14d87f45d65928bf
+
+expected solve cycles (hardware must match EXACTLY):
+  easy1 283 / 20blanks 403 / 51blanks 56,803
+setup+load cycles: 235
+
+These are SOLVE-WINDOW numbers, from report_task_performance("Sudoku solve") after the
+timer split. They are NOT the pre-split totals (363 / 483 / 56,883), and NOT
+report_total_performance(), which prints setup+solve (518 / 638 / 57,038).
+
+standalone: LEs 9286 / registers 1867 / F_max 87.02 MHz
+system:     LEs 20560 / F_max 55.29 MHz / memory bits 79%
+
+correctness: all three boards PASS, golden gate and app checker
+
+hard1 is not in this list: it cannot be simulated (~30 h of RTL). Predicted at
+128,760,553 solver cycles by the model in logs/v0_verified/v0hard.c. That is a
+prediction, never a measurement - the board is the first place it will ever run.
+

@@ -1,0 +1,41 @@
+## HW RESULT explore-s2fast 2026-09-06
+
+release     : explore-s2fast   commit 8d901638cf2b2a64970f1a0c8d7b41309a06161f
+sof_md5     : 1d0ca3e65a585fa82a7254c0b08c73ed
+enums_md5   : 991ee6d38809bb0b6997e50ae81709f8
+gate        : git diff --quiet 8d901638cf2b2a64970f1a0c8d7b41309a06161f -- sw/apps hw/xlrs  ->  clean
+
+board             setup          solve   gate    app
+easy1               235            187   PASS   PASS
+20blanks            235            211   PASS   PASS
+51blanks            235            235   PASS   PASS
+hard1               235            475   PASS   PASS
+
+solve time  : 475 / 24.37 MHz = 0.0000 s      <- THE SCORE
+warnings    : 0
+
+insight     : DRAFT - Barak, rewrite this in your own words before the quiz.
+              1. hard1 = 475 cycles, against a prediction of 478. The board is the
+                 first place hard1 has ever run for this design. Delta -3, and it is
+                 entirely in the window-overhead term: the prediction used a rounded
+                 ~183, the true overhead on hard1 is 180. The 295 solver-FSM cycles
+                 stand.
+              2. The window overhead transfers from K5 simulation to silicon
+                 EXACTLY - 181 / 188 / 181 on easy1 / 20blanks / 51blanks, the same
+                 three numbers the cloud measured in simulation. That is what turns
+                 the hard1 prediction into arithmetic instead of a guess.
+              3. 51blanks - the correctness gate, the only simulatable board that
+                 exercises the unwind path (4,157 backtracks in v0) - is 235, exact.
+                 v0 was 56,803. 242x on the board the protocol trusts.
+              4. This design does NOT meet the 50 MHz platform clock (system F_max
+                 28.42). It is nevertheless bit-exact and deterministic: four full
+                 runs, each with its own reprogram, gave identical counts on all
+                 four boards and byte-identical solution grids. The setup violation
+                 did not manifest. That is an observation, not a guarantee.
+              5. Score: 475 / 24.37 MHz = 19.49 us, against v0's 128,760,739 /
+                 87.02 MHz = 1.4797 s. 75,915x on the quotient the assignment
+                 grades - 271,075x on cycles, less the 3.57x of F_max given back.
+              6. Note the flip side: on easy1 and 20blanks s2fast is SLOWER in real
+                 time than v0 (7.67 us vs 3.3 us), because the fixed ~181-cycle
+                 wrapper overhead now dominates the window and F_max is 3.57x lower.
+                 The win is entirely on the boards that actually search.

@@ -1,0 +1,33 @@
+commit: 8d901638cf2b2a64970f1a0c8d7b41309a06161f
+branch: explore/opus5-phases
+enums_md5: 991ee6d38809bb0b6997e50ae81709f8
+sof_md5: 1d0ca3e65a585fa82a7254c0b08c73ed
+
+DESIGN: s2fast - candidate masks + naked/hidden singles placed as forced,
+non-branching moves, with one-hot selection. Drop-in replacement for
+alwaysud_solver.sv: identical ports, wrapper and driver untouched.
+
+expected solve cycles (hardware must match EXACTLY):
+  easy1 187 / 20blanks 211 / 51blanks 235
+setup+load cycles: 235
+
+hard1 PREDICTION: 295 solver cycles + ~183 window overhead = ~478 cycles.
+That is a prediction, never a measurement - the board is the first place it
+will ever run. The model behind it agreed with RTL simulation EXACTLY on
+3,491 held-out puzzles across two geometries, so if hard1 comes back far from
+478 the interesting question is the wrapper, not the solver.
+
+These are SOLVE-WINDOW numbers with ALWAYSUD_SPLIT_TIMERS=1 - the window
+docs/MEASUREMENT.md defines. Never compare them to unsplit totals.
+
+standalone: LEs 25098 / registers 2907 / 0 memory bits / F_max 24.37 MHz
+system:     Total FPGA memory bits (out of about 1.6 Mbit available): 1,327,608
+system:     system LEs   : 36338 / 49760
+system:     system F_max : 28.42 MHz  (NOT graded)
+system:     memory bits  : 1327608  (79%)
+
+correctness: easy1 / 20blanks / 51blanks all PASS in K5 simulation, against
+bench/golden AND the app's own final checker.
+
+baseline for comparison: v0 is 128,760,739 cycles at 87.02 MHz = 1.4797 s.
+

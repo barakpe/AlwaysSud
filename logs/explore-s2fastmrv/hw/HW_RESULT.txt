@@ -1,0 +1,47 @@
+## HW RESULT explore-s2fastmrv 2026-09-06
+
+release     : explore-s2fastmrv   commit 22245cc3aee9089b14c7a8f86b18f836591a23ff
+sof_md5     : 45f150b55f6fb66f256653190d67273b
+enums_md5   : 991ee6d38809bb0b6997e50ae81709f8
+gate        : built_from check (NOT the plain commit gate - it cannot pass on this
+              release; no commit has s2fastmrv in hw/xlrs). Verified instead:
+              sw/apps == 22245cc exactly, AND all 7 files of hw/xlrs/alwaysud
+              byte-identical to explore/exp/s2fastmrv/ at 22245cc, which is what
+              the release's built_from: line names.  ->  clean
+
+board             setup          solve   gate    app
+easy1               235            187   PASS   PASS
+20blanks            235            211   PASS   PASS
+51blanks            235            235   PASS   PASS
+hard1               235            379   PASS   PASS
+
+solve time  : 379 / 26.36 MHz = 0.0000 s      <- THE SCORE
+warnings    : 0
+
+insight     : DRAFT - Barak, rewrite in your own words before the quiz.
+              1. hard1 = 379. Predicted 376 by the release (193 solver + ~183)
+                 and 373 by me (193 + the 180 I measured on s2fast). Measured
+                 sits between the two predictions' overhead assumptions, +0.8%
+                 off the release's number.
+              2. 14.38 us against s2fast's 19.49 us = 1.356x, versus the 1.37x
+                 EXPLORATION claimed. The claim holds. 102,913x v0.
+              3. The three small boards are 187/211/235 - IDENTICAL to s2fast,
+                 as they must be, since MRV changes only which cell is guessed
+                 and those boards barely guess. That identity is the proof the
+                 fabric is running the design the cloud simulated.
+              4. The window overhead is NOT a constant 183. Across both designs
+                 and all four boards it ranges 180..188 with a byte-identical
+                 driver binary, so it is quantised - the RISC-V notices done on
+                 a poll-loop boundary. Write it as ~183 +/- 4.
+              5. Deterministic: 4 reprograms, bit-identical counts and grids,
+                 at 79% device utilisation and 27.33 MHz system F_max against a
+                 50 MHz platform clock. The setup violation did not manifest.
+              6. The overhead is now 49% of the hard1 window. A free solver
+                 would buy only 2.04x more; restoring v0's F_max would buy
+                 3.30x. Neither is in the search.
+              7. Decomposed it (probe/RESULT.md): one report call is 35 cycles,
+                 so ~148 of the ~183 is DRIVER - handshake plus poll loop. The
+                 memory bursts are not in this window at all, they are in the
+                 235-cycle setup+load. Turning the probe on moved the solve
+                 window +48 on every board with the RTL untouched. The next
+                 phase is the driver.

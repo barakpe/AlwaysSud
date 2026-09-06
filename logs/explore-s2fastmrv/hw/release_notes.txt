@@ -1,0 +1,25 @@
+commit: 22245cc3aee9089b14c7a8f86b18f836591a23ff
+branch: explore/opus5-phases
+built_from: explore/exp/s2fastmrv/
+enums_md5: 991ee6d38809bb0b6997e50ae81709f8
+sof_md5: 45f150b55f6fb66f256653190d67273b
+
+BEFORE VALIDATING, make the tree match the bitstream:
+    ./explore/use_design.sh s2fastmrv
+hw/xlrs/alwaysud is only ever ONE design at a time, and board-validate
+checks the tree against this commit, not against the .sof - so without
+that step the check can pass while you program something else.
+
+expected solve cycles (hardware must match EXACTLY):
+  easy1 187 / 20blanks 211 / 51blanks 235
+setup+load cycles: 235
+hard1 PREDICTION: 193 solver + ~183 = ~376 cycles
+
+system:  Total FPGA memory bits (out of about 1.6 Mbit available): 1,327,608
+system:  system LEs   : 39507 / 49760
+system:  system F_max : 27.33 MHz  (NOT graded)
+system:  memory bits  : 1327608  (79%)
+standalone: RESULT s2fastmrv: LEs(map)=28396 LEs(fit)=27714 regs=2907 membits=0 F_max=26.36 MHz
+
+baseline: v0 is 128,760,739 cycles at 87.02 MHz = 1.4797 s.
+

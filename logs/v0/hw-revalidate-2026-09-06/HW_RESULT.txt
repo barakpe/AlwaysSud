@@ -1,0 +1,24 @@
+## HW RESULT v0 2026-09-06
+
+release     : v0   commit 74e1b1279b9cb2d6429030c2434b31e780abc84c
+sof_md5     : ac57a19c42e404ff14d87f45d65928bf
+enums_md5   : 991ee6d38809bb0b6997e50ae81709f8
+gate        : git diff --quiet 74e1b1279b9cb2d6429030c2434b31e780abc84c -- sw/apps hw/xlrs  ->  clean
+
+board             setup          solve   gate    app
+easy1               235            283   PASS   PASS
+20blanks            235            403   PASS   PASS
+51blanks            235         56,803   PASS   PASS
+hard1               235    128,760,739   PASS   PASS
+
+solve time  : 128760739 / 87.02 MHz = 1.4797 s      <- THE SCORE
+warnings    : 0
+
+insight     : DRAFT - Barak, rewrite in your own words.
+              Re-measurement of the v0 baseline on 2026-09-06, to check that the
+              2026-08-31 record still reproduces before anything is compared to it.
+              It does, exactly: 283 / 403 / 56,803 / 128,760,739, setup+load 235 on
+              all four, all four grids byte-identical to the August run. The
+              original hand-written record is preserved at logs/v0/hw/.
+              easy1, 20blanks and hard1 were each measured twice this session with
+              identical counts.

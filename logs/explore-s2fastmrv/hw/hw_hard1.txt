@@ -1,0 +1,79 @@
+Compiling Application alwaysud
+/c/Users/barak/k5x_win/my_k5_proj/run
+K5 Server Running at FPGA Mode
+
+List of active serial ports:
+
+COM3 ; USB Serial Portþ (COM3) ; USB VID:PID=0403:6015 SER=FT9H4DJ4A
+USB Serial Portþ (COM3) OK
+
+Found USB Serial Port at COM3
+
+
+List of active serial ports:
+
+COM3 ; USB Serial Portþ (COM3) ; USB VID:PID=0403:6015 SER=FT9H4DJ4A
+USB Serial Portþ (COM3) OK
+
+Found USB Serial Port at COM3
+
+k5_server.py: Detected system clock speed 50 MHz
+PY: Changing UART baudrate  to 2000000
+PY: Changing UART interface clk_div_cntr to 24 (decimal)
+Server in app_mode, launching alwaysud
+Loading app alwaysud for thread 0
+Loading app to address space over uart from file C:/Users/barak/k5x_win/my_k5_proj/sw/apps/alwaysud/build/instr_loadmem.txt
+Loading app to address space over uart from file C:/Users/barak/k5x_win/my_k5_proj/sw/apps/alwaysud/build/data_loadmem.txt
+Enabled thread 0
+DONE launch_app alwaysud, launch_type = spmt for thread 0
+HELLO SUDOKU SOLVER
+pyshell: Opening file C:/Users/barak/k5x_win/my_k5_proj/sw/apps/sud_shared/sudoku_input_hard1.txt of type r , file Index is 0
+Loading from $MY_K5_PROJ/sw/apps/sud_shared/sudoku_input_hard1.txt to address 0x40000000 , byte length : 81
+Loaded 81 bytes
+pyshell: Closing file C:/Users/barak/k5x_win/my_k5_proj/sw/apps/sud_shared/sudoku_input_hard1.txt, file Index is 0
+=== Input ===
+ 4 0 0 | 0 0 0 | 8 0 5
+ 0 3 0 | 0 0 0 | 0 0 0
+ 0 0 0 | 7 0 0 | 0 0 0
+ ------+-------+------
+ 0 2 0 | 0 0 0 | 0 6 0
+ 0 0 0 | 0 8 0 | 4 0 0
+ 0 0 0 | 0 1 0 | 0 0 0
+ ------+-------+------
+ 0 0 0 | 6 0 3 | 0 7 0
+ 5 0 0 | 2 0 0 | 0 0 0
+ 1 0 4 | 0 0 0 | 0 0 0
+
+
+
+Solving in progress...
+
+Seting up performance measuring
+
+Board setup+load                                               235 cycles
+Sudoku solve                                                   379 cycles
+Total                                                          614 cycles
+
+=== Application reported Solved ===
+ 4 1 7 | 3 6 9 | 8 2 5
+ 6 3 2 | 1 5 8 | 9 4 7
+ 9 5 8 | 7 2 4 | 3 1 6
+ ------+-------+------
+ 8 2 5 | 4 3 7 | 1 6 9
+ 7 9 1 | 5 8 6 | 4 3 2
+ 3 4 6 | 9 1 2 | 7 5 8
+ ------+-------+------
+ 2 8 9 | 6 4 3 | 5 7 1
+ 5 7 3 | 2 9 1 | 6 8 4
+ 1 6 4 | 8 7 5 | 2 9 3
+
+
+Checking comptability to original board
+Checking Sudoku rules compatibility
+
+Solved board PASSED final checker
+
+ pyshell: Quitting Application upon sim_finish()/bm_quit_app() message received over UART
+Thread 0 DONE quit_app detected
+No active thread
+Server is Quitting
