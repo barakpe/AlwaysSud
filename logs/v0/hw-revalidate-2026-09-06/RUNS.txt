@@ -1,0 +1,17 @@
+# Every hardware run of v0 re-validation, 2026-09-06
+# columns: board  setup+load  solve  golden-gate  app-checker
+# run 1 lost 51blanks to a UART write timeout during app load.
+
+## run 1
+easy1 235 283 PASS PASS
+20blanks 235 403 PASS PASS
+hard1 235 128,760,739 PASS PASS
+
+## run 2
+easy1 235 283 PASS PASS
+20blanks 235 403 PASS PASS
+51blanks 235 56,803 PASS PASS
+hard1 235 128,760,739 PASS PASS
+
+## the 2026-08-31 record this reproduces
+easy1 235 283 / 20blanks 235 403 / 51blanks 235 56,803 / hard1 235 128,760,739

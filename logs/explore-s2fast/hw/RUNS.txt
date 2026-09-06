@@ -1,0 +1,28 @@
+# Every hardware run of explore-s2fast, 2026-09-06
+# Each run is a full validate_board pass with its own prog_fpga.
+# columns: board  setup+load  solve  golden-gate  app-checker
+# runs 2 and part of 1 were lost to the laptop's intermittent USB-UART
+# during app load - host transport, never reaching the solver.
+
+## run 1
+20blanks 235 211 PASS PASS
+51blanks 235 235 PASS PASS
+hard1 235 475 PASS PASS
+
+## run 3
+easy1 235 187 PASS PASS
+20blanks 235 211 PASS PASS
+51blanks 235 235 PASS PASS
+hard1 235 475 PASS PASS
+
+## run 4
+easy1 235 187 PASS PASS
+20blanks 235 211 PASS PASS
+51blanks 235 235 PASS PASS
+hard1 235 475 PASS PASS
+
+## run 5
+easy1 235 187 PASS PASS
+20blanks 235 211 PASS PASS
+51blanks 235 235 PASS PASS
+hard1 235 475 PASS PASS
