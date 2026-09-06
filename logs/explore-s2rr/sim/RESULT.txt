@@ -1,0 +1,1 @@
+RESULT s2rr: LEs(map)=24558 LEs(fit)=23806 regs=2921 membits=0 F_max=21.89 MHz

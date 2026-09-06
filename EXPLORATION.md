@@ -11,8 +11,12 @@ The one-line answer:
 > non-branching moves — takes `hard1` from 128,760,553 solver cycles to **295**, and
 > the worst case over 4,841 held-out puzzles from **39.3 billion** to **50,166**. That
 > is worth **75,443x on `hard1`** and **218,000x on the worst case** — after paying a
-> measured **3.6x in F_max** (87.02 → 24.37 MHz). Frequency is now the only thing left
-> worth optimising, and it is the thing I have least evidence about.
+> measured **3.6x in F_max** (87.02 → 24.37 MHz).
+>
+> **UPDATE, all synthesis now complete.** Adding MRV on top (D3) measures **26.36 MHz
+> — higher than the design without it** — so the winner is `s2fastmrv`: **193 cycles,
+> 14.26 µs, 103,734x v0**, and 16.4x the course's own `claude_mrv` reference, which
+> measures 4.98 MHz exactly as the assignment states.
 >
 > The number with no modelling anywhere in it: on `51blanks` — the board
 > `docs/MEASUREMENT.md` designates as *the* correctness gate — the full K5 run goes
@@ -26,10 +30,10 @@ The one-line answer:
 | — | **v0** baseline | 128,760,553 | **39,256,402,283** | 87.02 MHz | 9,286 | 1.4797 s | 1x | measured on HW |
 | **D1** | masks + naked/hidden singles | **335** | **98,276** | **22.34 MHz** | **25,774** | **23.19 µs** | **63,814x** | RTL, synthesised |
 | **D2** | + one-hot selection | **295** | **50,166** | **24.37 MHz** | **25,098** | **19.61 µs** | **75,443x** | RTL, **K5 gate PASSED**, measured |
-| **D3** | + MRV guess cell | 193 | 17,116 | `PENDING` | `PENDING` | | | RTL ready; network alone measures 32.23 MHz |
+| **D3** | + MRV guess cell | **193** | **17,116** | **26.36 MHz** | **28,396** | **14.26 µs** | **103,734x** | **MEASURED — the winner** |
 | **D4** | parallel commit | 102 | 21,149 | — | — | | | modelled only |
 | **D5** | cut the window overhead | −183 flat | −183 flat | — | — | | ≤1.6x | cost measured, fix not built |
-| **D6** | time-multiplex the detectors | 954 | 239,403 | — | — | | | modelled only |
+| ✗ | **D6** time-multiplex the detectors | 940 | 239,403 | 21.89 MHz | 24,558 | 51.30 µs | 28,842x | **dead end** — did not clock higher |
 | ✗ | masks alone, no inference | 19,454,731 | 3,253,371,343+ | 47.61 MHz | 17,132 | 408.6 ms | 3.6x | **dead end** |
 | ✗ | masks + MRV, no singles | 901 | 672,313 | 32.23 MHz | 22,224 | 33.63 µs | 44,000x | **dead end** — 10.1x worse than D2 |
 

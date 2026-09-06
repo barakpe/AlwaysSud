@@ -10,10 +10,11 @@ expected() {  # small-board solve-window cycles, measured in K5 simulation
   case "$1" in
     s2fast|s2fasttree) echo "easy1 187 / 20blanks 211 / 51blanks 235|295 solver + ~183 = ~478";;
     s2rr)              echo "easy1 187 / 20blanks 211 / 51blanks 235|940 solver + ~183 = ~1123";;
+    s2fastmrv)         echo "easy1 187 / 20blanks 211 / 51blanks 235|193 solver + ~183 = ~376";;
     *)                 echo "unknown|unknown";;
   esac
 }
-for e in s2rr s2fasttree; do
+for e in s2fastmrv s2rr s2fasttree; do
   TAG="explore-$e"
   gh release view "$TAG" --repo barakpe/AlwaysSud >/dev/null 2>&1 && { echo "== $TAG exists, skip"; continue; }
   SOF="logs/explore-$e/fpga/k5_xbox_alwaysud.sof"

@@ -3,3 +3,27 @@
 21:20 waiting - a Quartus run already owns the staged directory
 21:25 waiting - a Quartus run already owns the staged directory
 == s2fasttree starting 21:30
+RESULT s2fasttree: LEs(map)=25280 LEs(fit)=24591 regs=2907 membits=0 F_max=16.90 MHz
+RESULT: clean.
+== s2rr starting 00:03
+RESULT s2rr: LEs(map)=24558 LEs(fit)=23806 regs=2921 membits=0 F_max=21.89 MHz
+RESULT: clean.
+== s2fastmrv starting 00:54
+RESULT s2fastmrv: LEs(map)=28396 LEs(fit)=27714 regs=2907 membits=0 F_max=26.36 MHz
+RESULT: clean.
+== courseref starting 03:40
+RESULT courseref: LEs(map)=13026 LEs(fit)=12200 regs=2185 membits=0 F_max=4.98 MHz
+RESULT: clean.
+
+### everything measured, Sun Sep  6 03:47:09 UTC 2026
+DESIGN        RESULT
+v0base        RESULT v0base: LEs(map)=9286 LEs(fit)=8864 regs=1867 membits=0 F_max=87.02 MHz
+m1            RESULT m1: LEs(map)=17132 LEs(fit)=16605 regs=2826 membits=0 F_max=47.61 MHz
+mrvonly       RESULT mrvonly: LEs(map)=22224 LEs(fit)=21574 regs=2826 membits=0 F_max=32.23 MHz
+s2            RESULT s2: LEs(map)=25774 LEs(fit)=25030 regs=2907 membits=0 F_max=22.34 MHz
+s2fast        RESULT s2fast: LEs(map)=25098 LEs(fit)=24384 regs=2907 membits=0 F_max=24.37 MHz
+s2fasttree    RESULT s2fasttree: LEs(map)=25280 LEs(fit)=24591 regs=2907 membits=0 F_max=16.90 MHz
+s2rr          RESULT s2rr: LEs(map)=24558 LEs(fit)=23806 regs=2921 membits=0 F_max=21.89 MHz
+s2fastmrv     RESULT s2fastmrv: LEs(map)=28396 LEs(fit)=27714 regs=2907 membits=0 F_max=26.36 MHz
+courseref     RESULT courseref: LEs(map)=13026 LEs(fit)=12200 regs=2185 membits=0 F_max=4.98 MHz
+OVERNIGHT_DONE

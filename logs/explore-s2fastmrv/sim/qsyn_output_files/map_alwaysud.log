@@ -1,0 +1,133 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Copyright (C) 2025  Altera Corporation. All rights reserved.
+    Info: Your use of Altera Corporation's design tools, logic functions 
+    Info: and other software and tools, and any partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Altera Program License 
+    Info: Subscription Agreement, the Altera Quartus Prime License Agreement,
+    Info: the Altera IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Altera and sold by Altera or its authorized distributors.  Please
+    Info: refer to the Altera Software License Subscription Agreements 
+    Info: on the Quartus Prime software download page.
+    Info: Processing started: Sun Sep  6 00:54:33 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off alwaysud -c alwaysud
+Info (12021): Found 1 design units, including 0 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv
+    Info (12022): Found design unit 1: xbox_def_pkg (SystemVerilog) File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_def_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv
+    Info (12023): Found entity 1: mem_intf_read File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_read.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv
+    Info (12023): Found entity 1: mem_intf_write File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/xbox_xlrs/mem/mem_intf_write.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv
+    Info (12023): Found entity 1: host_regs_intrf File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv
+    Info (12023): Found entity 1: qsyn_dummy_xlr_wrap File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 4
+Info (12021): Found 1 design units, including 0 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv
+    Info (12022): Found design unit 1: alwaysud_def_pkg (SystemVerilog) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_def_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 0 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/sud_geom_pkg.sv
+    Info (12022): Found design unit 1: sud_geom_pkg (SystemVerilog) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/sud_geom_pkg.sv Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv
+    Info (12023): Found entity 1: alwaysud File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv
+    Info (12023): Found entity 1: alwaysud_solver File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 34
+Info (12127): Elaborating entity "qsyn_dummy_xlr_wrap" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at qsyn_dummy_xlr_wrap_hri.sv(42): object "host_regs_read_pulse_s" assigned a value but never read File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 42
+Info (12128): Elaborating entity "mem_intf_read" for hierarchy "mem_intf_read:mem_intf_read" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 34
+Warning (12158): Entity "mem_intf_read" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 34
+Info (12128): Elaborating entity "mem_intf_write" for hierarchy "mem_intf_write:mem_intf_write" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 35
+Warning (12158): Entity "mem_intf_write" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 35
+Info (12128): Elaborating entity "host_regs_intrf" for hierarchy "host_regs_intrf:host_regs_intrf" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 36
+Warning (12158): Entity "host_regs_intrf" contains only dangling pins File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 36
+Info (12128): Elaborating entity "alwaysud" for hierarchy "alwaysud:alwaysud" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 74
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(83): truncated value with size 32 to match size of target (16) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 83
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(139): truncated value with size 32 to match size of target (6) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 139
+Warning (10230): Verilog HDL assignment warning at alwaysud.sv(162): truncated value with size 32 to match size of target (6) File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 162
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "board" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "board_ps" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solver_puzzle_out" into its bus
+Info (12128): Elaborating entity "alwaysud_solver" for hierarchy "alwaysud:alwaysud|alwaysud_solver:solver" File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud.sv Line: 249
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "puzzle_in" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solved_puzzle" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "puzzle_in" into its bus
+Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "solved_puzzle" into its bus
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[9]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[8]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[7]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[6]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[5]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[4]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[3]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[2]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[1]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[15]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[14]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[13]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[12]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[11]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[10]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Warning (12161): Node "host_regs_intrf:host_regs_intrf|host_regs_intrf.host_regs_read_pulse[0]" is stuck at GND because node is in wire loop and does not have a source File: /project/tsmc65/shared/k5_share/k5_xbox/hw/xbox/host_regs_intrf.sv Line: 3
+Info (276014): Found 3 instances of uninferred RAM logic
+    Info (276007): RAM logic "alwaysud:alwaysud|alwaysud_solver:solver|st_forced" is uninferred due to asynchronous read logic File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 54
+    Info (276007): RAM logic "alwaysud:alwaysud|alwaysud_solver:solver|st_cell" is uninferred due to asynchronous read logic File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 52
+    Info (276007): RAM logic "alwaysud:alwaysud|alwaysud_solver:solver|st_dig" is uninferred due to asynchronous read logic File: /data/project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/alwaysud_solver.sv Line: 53
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "dummy_dout[4]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[5]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[6]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[7]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[12]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[13]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[14]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[15]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[20]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[21]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[22]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[23]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[28]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[29]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[30]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+    Warning (13410): Pin "dummy_dout[31]" is stuck at GND File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 100
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file /project/tsmc65/users/perezba/ws/my_k5_proj/hw/xlrs/alwaysud/qsyn_output_files/alwaysud.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 24 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[0]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[1]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[2]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[3]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[4]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[5]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[6]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[7]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[8]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[9]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[10]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[11]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[12]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[13]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[14]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "host_regs_read_pulse[15]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 27
+    Warning (15610): No output dependent on input pin "dummy_din[20]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[21]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[22]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[23]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[28]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[29]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[30]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+    Warning (15610): No output dependent on input pin "dummy_din[31]" File: /data/project/tsmc65/shared/qsyn/qsyn_dummy_xlr_wrap/qsyn_dummy_xlr_wrap_hri.sv Line: 29
+Info (21057): Implemented 28728 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 63 input pins
+    Info (21059): Implemented 57 output pins
+    Info (21061): Implemented 28608 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 65 warnings
+    Info: Peak virtual memory: 798 megabytes
+    Info: Processing ended: Sun Sep  6 00:57:24 2026
+    Info: Elapsed time: 00:02:51
+    Info: Total CPU time (on all processors): 00:02:30
