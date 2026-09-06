@@ -2,3 +2,25 @@
 
 ===== comp_fpga (the full system - expect HOURS at this size) =====
 Sun Sep  6 20:08:24 UTC 2026
+sh: line 1: 24211 Terminated              /data/project/tsmc65/shared/quartus_install/intelFPGA_lite/24.1std/quartus/bin//quartus_fit --read_settings_files=on --write_settings_files=off k5_xbox_rc3 -c k5_xbox_rc3 > output_files/fit_k5_xbox_rc3.log 2>&1
+Synthesis mapping...
+Done Synthesis ...
+
+
+Total FPGA Logic Elements (out of about 50K available):   35,610
+Total FPGA memory registers:     4,494
+Total FPGA memory bits (out of about 1.6 Mbit available): 1,327,608
+Info: Quartus Prime Analysis & Synthesis was successful. 0  errors, 10 non-justified warnings
+Please Check Report for following non-justified Warnning IDs
+[272007, 12158, 10027, 10030, 12020]
+
+For more details see output_files/k5_xbox_rc3.map.rpt
+
+
+Checking Fit ...
+ERROR output_files/k5_xbox_rc3.fit.rpt not generated
+Check log file output_files/map_k5_xbox_rc3.log
+Sun Sep  6 20:26:49 UTC 2026
+
+===== verdict =====
+FPGA_RESULT s2rr: FAILED - comp_fpga reported an error
