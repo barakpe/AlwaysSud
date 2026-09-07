@@ -19,7 +19,11 @@
 // digit with no home - which prunes slightly harder than asking in sequence.
 // Modelled as arch "s2u" / "s2um".
 //
-// MODE 1 = raster guess cell, MODE 2 = minimum-remaining-values guess cell.
+// MODE 1 = raster guess cell, MODE 2 = MRV guess cell.
+// MODE 3 = MRV and NOTHING ELSE: no naked or hidden singles, so the inference
+//          logic optimises away. That is the "add MRV to the reference solver"
+//          step measured on its own, which is the only way to compare it fairly
+//          against the singles step rather than against v0.
 //=============================================================================
 `ifndef SUD_MODE
   `define SUD_MODE 1
@@ -40,6 +44,7 @@ module alwaysud_solver #(
 );
     localparam int NC = SUD_NC;
     localparam int NU = SUD_NU;
+    localparam int KMIN = (MODE == 3) ? 1 : 2;
 
     logic [NC-1:0][8:0] sol;
     logic [NU-1:0][8:0] used;
@@ -168,17 +173,20 @@ module alwaysud_solver #(
     // and take the lowest non-empty one - all in one-hot, no min-tree of indices.
     logic [NC-1:0] mrv_pick;
     always_comb begin
-        logic [80:0] byn [2:9];
+        logic [80:0] byn [1:9];
         logic [80:0] r;
-        for (int k = 2; k <= 9; k++) byn[k] = '0;
+        // MODE 2 only guesses when nothing is forced, so no cell has one
+        // candidate then and k starts at 2. MODE 3 has no inference at all, so
+        // a single-candidate cell is still MRV's job and k must start at 1.
+        for (int k = 1; k <= 9; k++) byn[k] = '0;
         for (int c = 0; c < NC; c++) begin
             logic [3:0] n;
             n = popc9(availc[c]);
-            for (int k = 2; k <= 9; k++)
+            for (int k = KMIN; k <= 9; k++)
                 if (emptyc[c] && (n == 4'(k))) byn[k][c] = 1'b1;
         end
         r = '0;
-        for (int k = 9; k >= 2; k--) if (|byn[k]) r = byn[k];
+        for (int k = 9; k >= KMIN; k--) if (|byn[k]) r = byn[k];
         mrv_pick = r;
     end
 
@@ -188,14 +196,14 @@ module alwaysud_solver #(
     logic          pick_forced, pick_dead, any_empty;
 
     assign any_empty = |emptyc;
-    assign pick_dead = (|deadcell) | nohome;
-    assign pick_forced = |forcedany;
+    assign pick_dead   = (MODE == 3) ? (|deadcell) : ((|deadcell) | nohome);
+    assign pick_forced = (MODE == 3) ? 1'b0 : (|forcedany);
 
     always_comb begin
         logic [80:0] cand_v;
-        if (pick_forced)       cand_v = forcedany;
-        else if (MODE == 2)    cand_v = mrv_pick;
-        else                   cand_v = emptyc;
+        if (pick_forced)                        cand_v = forcedany;
+        else if (MODE == 2 || MODE == 3)        cand_v = mrv_pick;
+        else                                    cand_v = emptyc;
         selv = iso81(cand_v);
     end
 
